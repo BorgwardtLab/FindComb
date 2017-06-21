@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textSize="50sp"
         android:gravity="center"
-        android:text="Some content" />
+        android:text="Come play the greatest game of all times!" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
