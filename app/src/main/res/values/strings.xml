@@ -3,4 +3,6 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="Entry_Text">Come play the greatest game of all times!</string>
+    <string name="button_text">Press to Play</string>
 </resources>
