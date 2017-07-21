@@ -11,3 +11,5 @@
 venv/
 env/
 .venv
+# Server
+findcomb_server/.idea/
