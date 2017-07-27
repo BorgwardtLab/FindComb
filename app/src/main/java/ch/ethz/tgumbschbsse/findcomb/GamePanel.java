@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -15,9 +16,12 @@ import android.view.SurfaceView;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private MainThread thread;
+    private String name;
 
-    public GamePanel(Context context){
+    public GamePanel(Context context, String name){
         super(context);
+
+        this.name = name;
 
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(),this);
@@ -62,11 +66,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+        Paint paint = new Paint();
+        paint.setTextSize(100);
         super.onDraw(canvas);
         Bitmap _scratch = BitmapFactory.decodeResource(getResources(),
                 R.drawable.level1);
         //canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(_scratch, 10, 10, null);
+        canvas.drawText("Hello "+name, 1200, 400, paint);
     }
 
 }
