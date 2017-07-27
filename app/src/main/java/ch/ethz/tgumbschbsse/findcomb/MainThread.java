@@ -26,6 +26,7 @@ public class MainThread extends Thread {
         super();
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
+        this.gamePanel.setBackgroundColor(0Xffffffff);
     }
 
     @Override
