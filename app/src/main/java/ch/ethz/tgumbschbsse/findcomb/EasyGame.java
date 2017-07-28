@@ -1,6 +1,8 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,4 +31,5 @@ public class EasyGame extends Activity {
         //mName = (TextView) findViewById(R.id.tv_name);
 
     }
+
 }
