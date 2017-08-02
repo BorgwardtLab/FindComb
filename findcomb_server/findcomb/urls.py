@@ -15,8 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.routers import DefaultRouter, DynamicListRoute, DynamicDetailRoute, Route
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from leaderboard import views
+
+import leaderboard.rest as rest
+
+router = DefaultRouter()
+router.register(r'scores', rest.ScoreViewSet)
 
 urlpatterns = [
-    url(r'^leaderboard/', include('leaderboard.urls')),
+    url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/', include(router.urls)),
 ]
