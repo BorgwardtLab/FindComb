@@ -69,6 +69,7 @@ class ScoreViewSet(viewsets.ModelViewSet):
         """Returns the ranking of a user """
         current_score = Score.objects.get(pk=pk)
         print(request.user)
+        print(request.auth)
         id = current_score.pk
         points = current_score.score
         index = Score.objects.filter(
