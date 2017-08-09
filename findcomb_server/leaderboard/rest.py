@@ -1,4 +1,4 @@
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import api_view, detail_route, list_route
@@ -47,6 +47,7 @@ class ScoreViewSet(viewsets.ModelViewSet):
     """
     queryset = Score.objects.all()
     serializer_class = ScoreSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     # Overriding get_queryset to allow for case-insensitive custom ordering
     def get_queryset(self):
@@ -67,7 +68,7 @@ class ScoreViewSet(viewsets.ModelViewSet):
     def get_ranking(self, request, pk):
         """Returns the ranking of a user """
         current_score = Score.objects.get(pk=pk)
-
+        print(request.user)
         id = current_score.pk
         points = current_score.score
         index = Score.objects.filter(
