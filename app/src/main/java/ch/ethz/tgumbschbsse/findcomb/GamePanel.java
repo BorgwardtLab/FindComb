@@ -15,12 +15,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.Arrays;
+
 /**
  * Created by tgumbsch on 7/27/17.
  */
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private MainThread thread;
+    private Rect r = new Rect();
 
     private String mName;
     private Rectangle mrectRed;
@@ -28,6 +31,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Rectangle mrectGreen;
     private Point mPlayer;
     private Picture mLevel;
+    private int[] rbgPlayer;
+    private int[] rbgLevel;
+
+    public int result;
 
     public GamePanel(Context context, String name){
         super(context);
@@ -39,6 +46,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         mrectGreen = new Rectangle((new Rect(1400,600,1800,800)),Color.rgb(0,176,80));
         mPlayer = new Point(1500,300);
         mLevel = new Picture(R.drawable.level1,context);
+
+
+        rbgPlayer = new int[] {0,0,0};
+        rbgLevel = new int[] {1,0,0};
 
         getHolder().addCallback(this);
         thread = new MainThread(getHolder(),this);
@@ -78,6 +89,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 mrectGreen.checkClicked(mPlayer);
                 mrectRed.checkClicked(mPlayer);
                 mrectBlue.checkClicked(mPlayer);
+                mLevel.checkClicked(mPlayer);
         }
 
 
@@ -86,8 +98,20 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void update(){
-        if(mLevel.clicked == true) {
-            // Evaluate This level and go to next level
+
+        if(mrectBlue.clicked == true){
+            rbgPlayer[1] = rbgPlayer[1] + 1;
+            mrectBlue.processClicked();
+        }
+
+        if(mrectRed.clicked == true){
+            rbgPlayer[0] = rbgPlayer[0] + 1;
+            mrectRed.processClicked();
+        }
+
+        if(mrectGreen.clicked == true){
+            rbgPlayer[2] = rbgPlayer[2] +  1;
+            mrectGreen.processClicked();
         }
     }
 
@@ -95,14 +119,27 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.WHITE);
-        //Paint paint = new Paint();
-        //paint.setTextSize(100);
-        //canvas.drawText("Hello "+mName, 1200, 400, paint);
         mLevel.draw(canvas);
         mrectRed.draw(canvas);
         mrectBlue.draw(canvas);
         mrectGreen.draw(canvas);
+
+        // This is not working
+        if(mLevel.clicked == true) {
+            // mLevel.clicked = false;
+            Paint paint =  new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.MAGENTA);
+            if (Arrays.equals(rbgLevel,rbgPlayer)){
+                canvas.drawText("WIN", 1200, 400, paint);
+            }
+            else{
+                canvas.drawText("LOSE", 1200, 400, paint);
+            }
+
+        }
         super.onDraw(canvas);
     }
+
 
 }

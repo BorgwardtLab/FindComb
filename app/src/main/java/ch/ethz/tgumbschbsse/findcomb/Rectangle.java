@@ -35,9 +35,13 @@ public class Rectangle implements GameObject {
 
     public void checkClicked(Point point){
         if(mrectangle.contains(point.x,point.y)){
-            clicked ^= true;
-            System.out.println("Changed");
+            clicked = true;
         }
+    }
+
+
+    public void processClicked(){
+        clicked = false;
     }
 
     public void update(Point point){

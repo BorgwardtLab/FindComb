@@ -45,6 +45,7 @@ public class Picture implements GameObject {
     }
 
 
+
     @Override
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
