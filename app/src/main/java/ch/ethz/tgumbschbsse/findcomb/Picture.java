@@ -29,6 +29,9 @@ public class Picture implements GameObject {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         int width = metrics.widthPixels * 2 / 3;
         int height = metrics.heightPixels* 3 / 4;
+
+        System.out.println(String.valueOf(width));
+        System.out.println(String.valueOf(height));
         mscratch = Bitmap.createScaledBitmap(mscratch, width, height, false);
 
         mframeToDraw = new Rect(0, 0, width, height);
@@ -40,7 +43,6 @@ public class Picture implements GameObject {
     public void checkClicked(Point point){
         if(mframeToDraw.contains(point.x,point.y)){
             clicked = true;
-            System.out.println("Changed");
         }
     }
 

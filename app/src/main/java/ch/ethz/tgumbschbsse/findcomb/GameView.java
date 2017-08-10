@@ -1,16 +1,11 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,68 +13,56 @@ import android.view.SurfaceView;
 import java.util.Arrays;
 
 /**
- * Created by tgumbsch on 7/27/17.
+ * Created by tgumbsch on 8/10/17.
  */
+public class GameView extends SurfaceView implements Runnable {
 
-public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
-    private MainThread thread;
-    private Rect r = new Rect();
+    volatile boolean playing;
+    private Thread gameThread = null;
 
-    private String mName;
+    // In case moving is an option
+    private Point mPlayer;
+
+    // Layout stuff
     private Rectangle mrectRed;
     private Rectangle mrectBlue;
     private Rectangle mrectGreen;
-    private Point mPlayer;
     private Picture mLevel;
+    private int mScore;
+
+    // Mechanics
     private int[] rbgPlayer;
     private int[] rbgLevel;
 
-    public int result;
 
-    public GamePanel(Context context, String name){
+    //These objects will be used for drawing
+    private Paint paint;
+    private Canvas canvas;
+    private SurfaceHolder surfaceHolder;
+
+    public GameView(Context context, int Score) {
         super(context);
 
+        //Stuff that we might need later
+        mPlayer = new Point(1500,300);
 
-        mName = name;
+        // The visuals
         mrectRed = new Rectangle((new Rect(1400,100,1800,300)),Color.rgb(255,0,0));
         mrectBlue = new Rectangle((new Rect(1400,350,1800,550)),Color.rgb(0,112,192));
         mrectGreen = new Rectangle((new Rect(1400,600,1800,800)),Color.rgb(0,176,80));
-        mPlayer = new Point(1500,300);
         mLevel = new Picture(R.drawable.level1,context);
+        mScore = Score;
 
-
+        //The mechanics
         rbgPlayer = new int[] {0,0,0};
         rbgLevel = new int[] {1,0,0};
 
-        getHolder().addCallback(this);
-        thread = new MainThread(getHolder(),this);
-        setFocusable(true);
+
+        //initializing drawing objects
+        surfaceHolder = getHolder();
+        paint = new Paint();
     }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        thread = new MainThread(getHolder(),this);
-
-        thread.setRunning(true);
-        thread.start();
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        boolean retry = true;
-        while(true){
-            try {
-                thread.setRunning(false);
-                thread.join();
-            } catch(Exception e) {e.printStackTrace();}
-            retry = false;
-        }
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -97,7 +80,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         //return super.onTouchEvent(event);
     }
 
-    public void update(){
+    @Override
+    public void run() {
+        while (playing) {
+            update();
+            draw();
+            control();
+        }
+    }
+
+    private void update() {
 
         if(mrectBlue.clicked == true){
             rbgPlayer[1] = rbgPlayer[1] + 1;
@@ -113,39 +105,60 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             rbgPlayer[2] = rbgPlayer[2] +  1;
             mrectGreen.processClicked();
         }
-    }
 
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        canvas.drawColor(Color.WHITE);
-
-        // This is not working
-        if(mLevel.clicked == true) {
-
-            System.out.println("draw2");
-            // mLevel.clicked = false;
-            Paint paint =  new Paint();
-            paint.setTextSize(100);
-            paint.setColor(Color.MAGENTA);
+        if(mLevel.clicked == true){
+            playing = false;
             if (Arrays.equals(rbgLevel,rbgPlayer)){
-                canvas.drawText("WIN", 600, 400, paint);
+                mScore++;
             }
             else{
-                canvas.drawText("LOSE", 600, 400, paint);
+                mScore--;
             }
-
         }
-        else{
+    }
+
+    private void draw() {
+        //checking if surface is valid
+        if (surfaceHolder.getSurface().isValid()) {
+            //locking the canvas
+            canvas = surfaceHolder.lockCanvas();
+            //drawing a background color for canvas
+            canvas.drawColor(Color.WHITE);
+            //Drawing the player
+
             mLevel.draw(canvas);
             mrectRed.draw(canvas);
             mrectBlue.draw(canvas);
             mrectGreen.draw(canvas);
+            Paint paint =  new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.BLACK);
+            canvas.drawText(String.valueOf(mScore), 600, 700, paint);
 
-            System.out.println("draw1");
+            //Unlocking the canvas
+            surfaceHolder.unlockCanvasAndPost(canvas);
         }
-        //super.onDraw(canvas);
     }
 
+    private void control() {
+        try {
+            gameThread.sleep(17);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void pause() {
+        playing = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+        }
+    }
+
+    public void resume() {
+        playing = true;
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
 }
