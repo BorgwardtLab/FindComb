@@ -30,6 +30,8 @@ public class EasyGame extends Activity {
 
         //mName = (TextView) findViewById(R.id.tv_name);
 
+        // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
+
     }
 
 }
