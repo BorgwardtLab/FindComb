@@ -22,7 +22,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".HighScore"
-            android:parentActivityName=".GameActivity" />
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

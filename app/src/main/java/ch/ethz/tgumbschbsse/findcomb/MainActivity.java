@@ -16,15 +16,13 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mNameEntry;
-    private EditText mEmail;
+    //private EditText mEmail;
     private Button mEasy;
-    private Button mHard;
+    //private Button mHard;
 
     public final static int REQUEST_CODE = 1;
 
 
-
-    // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mNameEntry = (EditText) findViewById(R.id.et_name);
-        mEmail = (EditText) findViewById(R.id.et_email);
+        //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
-        mHard = (Button) findViewById(R.id.b_hard);
+        //mHard = (Button) findViewById(R.id.b_hard);
 
         //setting the orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //adding a click listener
         mEasy.setOnClickListener(this);
-        mHard.setOnClickListener(this);
+        //mHard.setOnClickListener(this);
     }
 
     @Override
@@ -51,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //starting game activity
             startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
         }
-        if(v == mHard){
-            startActivity(new Intent(MainActivity.this, HighScore.class));
-        }
+        //if(v == mHard){
+        //    startActivity(new Intent(MainActivity.this, HighScore.class));
+        //}
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,8 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUEST_CODE:
                 int score = data.getExtras().getInt("score");
                 String name = mNameEntry.getText().toString();
-                String email = mEmail.getText().toString();
-                startActivity(new Intent(MainActivity.this, HighScore.class));
+                //String email = mEmail.getText().toString();
+                Intent intent = new Intent(this, HighScore.class);
+                intent.putExtra("name", name);
+                intent.putExtra("score", score);
+                this.startActivity(intent);
         }
     }
 }

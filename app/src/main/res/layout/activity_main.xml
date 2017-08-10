@@ -16,14 +16,6 @@
         android:textSize="40dp"
         android:text="Name" />
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:textSize="40dp"
-        android:text="Email" />
-
         <Button
             android:id="@+id/b_easy"
             android:layout_width="wrap_content"
@@ -33,14 +25,7 @@
             android:textColor="#FFF"
             android:text="START" />
 
-        <Button
-            android:id="@+id/b_hard"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:textColor="#FFF"
-            android:text="HIGH SCORE" />
+
 
 
 </LinearLayout>
