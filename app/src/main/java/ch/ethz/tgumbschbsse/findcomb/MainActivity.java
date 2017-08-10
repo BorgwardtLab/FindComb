@@ -1,14 +1,17 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private EditText mNameEntry;
     private Button mEasy;
@@ -18,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
 
         mNameEntry = (EditText) findViewById(R.id.et_name);
         mEasy = (Button) findViewById(R.id.b_easy);
@@ -29,10 +34,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = mNameEntry.getText().toString();
                 Context context = MainActivity.this;
-                Class destinationActivity = EasyGame.class;
-                Intent startGame = new Intent(context, destinationActivity);
-                startGame.putExtra(Intent.EXTRA_TEXT, name);
-                startActivity(startGame);
+
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                setContentView(new GamePanel(context, name));
+
+
+                // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
             }
         });
 

@@ -144,7 +144,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
             System.out.println("draw1");
         }
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
     }
 
 
