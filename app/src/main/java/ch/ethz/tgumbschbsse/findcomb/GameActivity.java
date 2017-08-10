@@ -6,6 +6,8 @@ package ch.ethz.tgumbschbsse.findcomb;
 
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -23,6 +25,9 @@ public class GameActivity extends AppCompatActivity {
 
         //adding it to contentview
         setContentView(gameView);
+
+
+
     }
 
     //pausing the game when activity is paused

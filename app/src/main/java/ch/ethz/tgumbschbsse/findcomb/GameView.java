@@ -1,6 +1,9 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -46,6 +49,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         //Stuff that we might need later
         mPlayer = new Point(1500,300);
+        playing = true;
 
         int[] red = { Color.rgb(200,0,0),Color.rgb(255,0,0)};
         int[] blue = { Color.rgb(0,100,150),Color.rgb(0,112,192)};
@@ -91,18 +95,25 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
 
         if(mLevel.clicked == true){
-            boolean[] rbgpyPlayer = {mrectRed.clicked,mrectBlue.clicked,mrectGreen.clicked,false,false};
+            //Evaluate configuration
+            boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, false, false};
             mrectBlue.processClicked();
             mrectRed.processClicked();
             mrectGreen.processClicked();
-            if (Arrays.equals(rbgpy,rbgpyPlayer)){
+            if (Arrays.equals(rbgpy, rbgpyPlayer)) {
                 mScore++;
-            }
-            else{
+            } else {
                 mScore--;
             }
-            mLevelIndicator = 5;
-            LevelInit();
+
+            //What happens next?
+            if (mLevelIndicator < 5) {
+                mLevelIndicator = 5;
+                LevelInit();
+            }
+            else{
+                playing = false;
+            }
         }
     }
 
@@ -111,18 +122,29 @@ public class GameView extends SurfaceView implements Runnable {
         if (surfaceHolder.getSurface().isValid()) {
             //locking the canvas
             canvas = surfaceHolder.lockCanvas();
-            //drawing a background color for canvas
-            canvas.drawColor(Color.WHITE);
-            //Drawing the player
-
-            mLevel.draw(canvas);
-            mrectRed.draw(canvas);
-            mrectBlue.draw(canvas);
-            mrectGreen.draw(canvas);
-            Paint paint =  new Paint();
+            Paint paint = new Paint();
             paint.setTextSize(100);
             paint.setColor(Color.BLACK);
-            canvas.drawText(String.valueOf(mScore), 600, 700, paint);
+            //drawing a background color for canvas
+            canvas.drawColor(Color.WHITE);
+
+            if(playing == true) {
+                mLevel.draw(canvas);
+                mrectRed.draw(canvas);
+                mrectBlue.draw(canvas);
+                mrectGreen.draw(canvas);
+                canvas.drawText("Score:" + String.valueOf(mScore), 600, 700, paint);
+            }
+            else{
+                canvas.drawText("Score:" + String.valueOf(mScore), 600, 700, paint);
+                Intent resultIntent = new Intent();
+                control();
+                control();
+                control();
+                resultIntent.putExtra("score",mScore);
+                ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                ((Activity) mContext).finish();
+            }
 
             //Unlocking the canvas
             surfaceHolder.unlockCanvasAndPost(canvas);
@@ -168,6 +190,9 @@ public class GameView extends SurfaceView implements Runnable {
         gameThread.start();
     }
 
+    public int getScore(){
+        return mScore;
+    }
 
 
 
@@ -186,8 +211,6 @@ public class GameView extends SurfaceView implements Runnable {
                 mLevel = new Picture(R.drawable.level5,mContext);
                 rbgpy = new boolean[] {true,false,true,false,false};
                 break;
-            default:
-                playing = false;
         }
 
     }

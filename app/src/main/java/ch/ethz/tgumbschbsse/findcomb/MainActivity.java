@@ -16,8 +16,11 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mNameEntry;
+    private EditText mEmail;
     private Button mEasy;
     private Button mHard;
+
+    public final static int REQUEST_CODE = 1;
 
 
 
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mNameEntry = (EditText) findViewById(R.id.et_name);
+        mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
         mHard = (Button) findViewById(R.id.b_hard);
 
@@ -38,13 +42,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //adding a click listener
         mEasy.setOnClickListener(this);
+        mHard.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        String name = mNameEntry.getText().toString();
+        if(v == mEasy) {
+            //starting game activity
+            startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
+        }
+        if(v == mHard){
+            startActivity(new Intent(MainActivity.this, HighScore.class));
+        }
+    }
 
-        //starting game activity
-        startActivity(new Intent(this, GameActivity.class));
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case REQUEST_CODE:
+                int score = data.getExtras().getInt("score");
+                String name = mNameEntry.getText().toString();
+                String email = mEmail.getText().toString();
+                startActivity(new Intent(MainActivity.this, HighScore.class));
+        }
     }
 }
