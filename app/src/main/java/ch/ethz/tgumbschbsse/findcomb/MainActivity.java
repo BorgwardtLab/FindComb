@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mEasy;
     private Button mHard;
 
+
+
+    // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,38 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //adding a click listener
         mEasy.setOnClickListener(this);
     }
-
-
-    /*
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-
-
-        mNameEntry = (EditText) findViewById(R.id.et_name);
-        mEasy = (Button) findViewById(R.id.b_easy);
-        mHard = (Button) findViewById(R.id.b_hard);
-        mEasy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = mNameEntry.getText().toString();
-                Context context = MainActivity.this;
-
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                startActivity(new Intent(context, GameActivity.class));
-                setContentView(new GamePanel(context, name));
-
-
-                // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
-            }
-        });
-
-        mEasy.setOnClickListener(this);
-    }
-      */
 
     @Override
     public void onClick(View v) {

@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Initializing game view object
-        gameView = new GameView(this,0);
+        gameView = new GameView(this);
 
         //adding it to contentview
         setContentView(gameView);

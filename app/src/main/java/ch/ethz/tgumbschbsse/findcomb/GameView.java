@@ -31,31 +31,38 @@ public class GameView extends SurfaceView implements Runnable {
     private int mScore;
 
     // Mechanics
-    private int[] rbgPlayer;
-    private int[] rbgLevel;
+    private boolean[] rbgpy;
+    private int mLevelIndicator;
 
 
     //These objects will be used for drawing
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
+    private Context mContext;
 
-    public GameView(Context context, int Score) {
+    public GameView(Context context) {
         super(context);
 
         //Stuff that we might need later
         mPlayer = new Point(1500,300);
 
-        // The visuals
-        mrectRed = new Rectangle((new Rect(1400,100,1800,300)),Color.rgb(255,0,0));
-        mrectBlue = new Rectangle((new Rect(1400,350,1800,550)),Color.rgb(0,112,192));
-        mrectGreen = new Rectangle((new Rect(1400,600,1800,800)),Color.rgb(0,176,80));
-        mLevel = new Picture(R.drawable.level1,context);
-        mScore = Score;
+        int[] red = { Color.rgb(200,0,0),Color.rgb(255,0,0)};
+        int[] blue = { Color.rgb(0,100,150),Color.rgb(0,112,192)};
+        int[] green = { Color.rgb(0,140,50),Color.rgb(0,176,80)};
+        int[] purple = { Color.rgb(200,0,0),Color.rgb(112, 48, 160)};
+        int[] yellow = { Color.rgb(200,200,0),Color.rgb(255,255,0)};
 
-        //The mechanics
-        rbgPlayer = new int[] {0,0,0};
-        rbgLevel = new int[] {1,0,0};
+        // The visuals
+        mrectRed = new Rectangle((new Rect(1400,100,1800,300)),red);
+        mrectBlue = new Rectangle((new Rect(1400,350,1800,550)),blue);
+        mrectGreen = new Rectangle((new Rect(1400,600,1800,800)),green);
+        mScore = 0;
+
+        mContext = context;
+        mLevelIndicator = 0;
+
+        LevelInit();
 
 
         //initializing drawing objects
@@ -80,40 +87,22 @@ public class GameView extends SurfaceView implements Runnable {
         //return super.onTouchEvent(event);
     }
 
-    @Override
-    public void run() {
-        while (playing) {
-            update();
-            draw();
-            control();
-        }
-    }
 
     private void update() {
 
-        if(mrectBlue.clicked == true){
-            rbgPlayer[1] = rbgPlayer[1] + 1;
-            mrectBlue.processClicked();
-        }
-
-        if(mrectRed.clicked == true){
-            rbgPlayer[0] = rbgPlayer[0] + 1;
-            mrectRed.processClicked();
-        }
-
-        if(mrectGreen.clicked == true){
-            rbgPlayer[2] = rbgPlayer[2] +  1;
-            mrectGreen.processClicked();
-        }
-
         if(mLevel.clicked == true){
-            playing = false;
-            if (Arrays.equals(rbgLevel,rbgPlayer)){
+            boolean[] rbgpyPlayer = {mrectRed.clicked,mrectBlue.clicked,mrectGreen.clicked,false,false};
+            mrectBlue.processClicked();
+            mrectRed.processClicked();
+            mrectGreen.processClicked();
+            if (Arrays.equals(rbgpy,rbgpyPlayer)){
                 mScore++;
             }
             else{
                 mScore--;
             }
+            mLevelIndicator = 5;
+            LevelInit();
         }
     }
 
@@ -140,6 +129,23 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+
+
+
+
+
+
+
+    @Override
+    public void run() {
+        while (playing) {
+            update();
+            draw();
+            control();
+        }
+    }
+
+
     private void control() {
         try {
             gameThread.sleep(17);
@@ -160,5 +166,29 @@ public class GameView extends SurfaceView implements Runnable {
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+
+
+
+
+
+
+    // The level architecture
+
+    public void LevelInit(){
+        switch (mLevelIndicator){
+            case 0:
+                mLevel = new Picture(R.drawable.level1,mContext);
+                rbgpy = new boolean[] {true,false,false,false,false};
+                break;
+            case 5:
+                mLevel = new Picture(R.drawable.level5,mContext);
+                rbgpy = new boolean[] {true,false,true,false,false};
+                break;
+            default:
+                playing = false;
+        }
+
     }
 }

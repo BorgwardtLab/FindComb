@@ -12,10 +12,10 @@ import android.graphics.Rect;
 
 public class Rectangle implements GameObject {
     private Rect mrectangle;
-    private int mcolor;
+    private int[] mcolor;
     public boolean clicked;
 
-    public Rectangle(Rect rectangle, int color){
+    public Rectangle(Rect rectangle, int[] color){
         mrectangle = rectangle;
         mcolor = color;
         clicked = false;
@@ -24,9 +24,16 @@ public class Rectangle implements GameObject {
     @Override
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(mcolor);
+        if (clicked == true) {
+            paint.setColor(mcolor[1]);
+        }
+        else{
+
+            paint.setColor(mcolor[0]);
+        }
         canvas.drawRect(mrectangle,paint);
     }
+
 
     @Override
     public void update() {
@@ -35,7 +42,12 @@ public class Rectangle implements GameObject {
 
     public void checkClicked(Point point){
         if(mrectangle.contains(point.x,point.y)){
-            clicked = true;
+            if (clicked == true) {
+                clicked = false;
+            }
+            else{
+                clicked = true;
+            }
         }
     }
 
