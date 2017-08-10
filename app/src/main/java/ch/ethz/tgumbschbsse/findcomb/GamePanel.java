@@ -119,13 +119,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.WHITE);
-        mLevel.draw(canvas);
-        mrectRed.draw(canvas);
-        mrectBlue.draw(canvas);
-        mrectGreen.draw(canvas);
 
         // This is not working
         if(mLevel.clicked == true) {
+
+            System.out.println("draw2");
             // mLevel.clicked = false;
             Paint paint =  new Paint();
             paint.setTextSize(100);
@@ -137,6 +135,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
                 canvas.drawText("LOSE", 1200, 400, paint);
             }
 
+        }
+        else{
+            mLevel.draw(canvas);
+            mrectRed.draw(canvas);
+            mrectBlue.draw(canvas);
+            mrectGreen.draw(canvas);
+
+            System.out.println("draw1");
         }
         super.onDraw(canvas);
     }
