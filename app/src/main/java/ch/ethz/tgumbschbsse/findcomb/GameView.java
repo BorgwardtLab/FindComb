@@ -30,6 +30,8 @@ public class GameView extends SurfaceView implements Runnable {
     private Rectangle mrectRed;
     private Rectangle mrectBlue;
     private Rectangle mrectGreen;
+    private Rectangle mrectPurple;
+    private Rectangle mrectYellow;
     private Picture mLevel;
     private int mScore;
 
@@ -51,16 +53,18 @@ public class GameView extends SurfaceView implements Runnable {
         mPlayer = new Point(1500,300);
         playing = true;
 
-        int[] red = { Color.rgb(200,0,0),Color.rgb(255,0,0)};
-        int[] blue = { Color.rgb(0,100,150),Color.rgb(0,112,192)};
-        int[] green = { Color.rgb(0,140,50),Color.rgb(0,176,80)};
-        int[] purple = { Color.rgb(200,0,0),Color.rgb(112, 48, 160)};
-        int[] yellow = { Color.rgb(200,200,0),Color.rgb(255,255,0)};
+        int[] red = { Color.rgb(212,0,0),Color.rgb(255,0,0)};
+        int[] blue = { Color.rgb(0,90,154),Color.rgb(0,112,192)};
+        int[] green = { Color.rgb(0,141,64),Color.rgb(0,176,80)};
+        int[] purple = { Color.rgb(90,38,128),Color.rgb(112, 48, 160)};
+        int[] yellow = { Color.rgb(212,212,0),Color.rgb(255,255,0)};
 
         // The visuals
-        mrectRed = new Rectangle((new Rect(1400,100,1800,300)),red);
-        mrectBlue = new Rectangle((new Rect(1400,350,1800,550)),blue);
-        mrectGreen = new Rectangle((new Rect(1400,600,1800,800)),green);
+        mrectRed = new Rectangle((new Rect(100,800,300,1000)),red);
+        mrectBlue = new Rectangle((new Rect(450,800,650,1000)),blue);
+        mrectGreen = new Rectangle((new Rect(800,800,1000,1000)),green);
+        mrectPurple = new Rectangle((new Rect(1150,800,1350,1000)),purple);
+        mrectYellow = new Rectangle((new Rect(1500,800,1700,1000)),yellow);
         mScore = 0;
 
         mContext = context;
@@ -83,6 +87,8 @@ public class GameView extends SurfaceView implements Runnable {
                 mrectGreen.checkClicked(mPlayer);
                 mrectRed.checkClicked(mPlayer);
                 mrectBlue.checkClicked(mPlayer);
+                mrectPurple.checkClicked(mPlayer);
+                mrectYellow.checkClicked(mPlayer);
                 mLevel.checkClicked(mPlayer);
         }
 
@@ -96,14 +102,21 @@ public class GameView extends SurfaceView implements Runnable {
 
         if(mLevel.clicked == true){
             //Evaluate configuration
-            boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, false, false};
+            boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, mrectPurple.clicked, mrectYellow.clicked};
             mrectBlue.processClicked();
             mrectRed.processClicked();
             mrectGreen.processClicked();
+            mrectPurple.processClicked();
+            mrectYellow.processClicked();
+            Paint paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.BLACK);
             if (Arrays.equals(rbgpy, rbgpyPlayer)) {
                 mScore++;
+
             } else {
                 mScore--;
+                canvas.drawText("WRONG", 600, 700, paint);
             }
 
             //What happens next?
@@ -133,7 +146,8 @@ public class GameView extends SurfaceView implements Runnable {
                 mrectRed.draw(canvas);
                 mrectBlue.draw(canvas);
                 mrectGreen.draw(canvas);
-                canvas.drawText("Score:" + String.valueOf(mScore), 600, 700, paint);
+                mrectPurple.draw(canvas);
+                mrectYellow.draw(canvas);
             }
             else{
                 canvas.drawText("Score:" + String.valueOf(mScore), 600, 700, paint);

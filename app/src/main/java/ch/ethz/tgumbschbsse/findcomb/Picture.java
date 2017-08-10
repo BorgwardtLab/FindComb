@@ -27,8 +27,8 @@ public class Picture implements GameObject {
         mscratch = BitmapFactory.decodeResource(context.getResources(), picture);
 
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels * 2 / 3;
-        int height = metrics.heightPixels* 3 / 4;
+        int width = metrics.widthPixels * 9 / 10;
+        int height = metrics.heightPixels* 3 / 5;
 
         System.out.println(String.valueOf(width));
         System.out.println(String.valueOf(height));
