@@ -30,24 +30,9 @@ class ScoreViewSet(viewsets.ModelViewSet):
     """
     API for scores
 
-    list:
-    Lists all stored scores
-
-    retrieve:
-    Retrieves information about a specific score
-
-    create:
-    add a new score to the leaderboard
-
-    top:
-    Lists the top 10 scores (for specific set of parameters, e.g. date)
-
-    post:
-
     """
     queryset = Score.objects.all()
     serializer_class = ScoreSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     # Overriding get_queryset to allow for case-insensitive custom ordering
     def get_queryset(self):

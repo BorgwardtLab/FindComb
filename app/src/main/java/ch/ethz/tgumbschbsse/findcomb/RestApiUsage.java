@@ -2,6 +2,8 @@ package ch.ethz.tgumbschbsse.findcomb;
 import org.json.*;
 import com.loopj.android.http.*;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.entity.mime.Header;
 
 /**
@@ -9,35 +11,34 @@ import cz.msebera.android.httpclient.entity.mime.Header;
  */
 
 public class RestApiUsage {
-    public void getTopTenTimeline() throws JSONException{
-        System.out.println("Here");
-        Api.get_top_n(10, null, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                // If the response is JSONObject instead of expected JSONArray
-//            }
+    public ArrayList<String> topTen = new ArrayList<>();
+    private boolean done = false;
 
+    public void getTopTenTimeline() throws JSONException{
+        Api.get_top_n(10, null, topTen, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                String tweetText = " ";
-                try {
-                    JSONArray firstEvent = (JSONArray) response.get(0);
-                    tweetText = firstEvent.getString(0);
-                }catch (JSONException e){
-                    e.printStackTrace();
+                System.out.println("In onSuccess");
+                for (int i = 0; i < response.length(); i++) {
+                    String lbString = String.valueOf(i+1) + ". ";
+                    try {
+                        JSONObject firstEvent = (JSONObject) response.get(i);
+                        lbString += firstEvent.getString("user") + " : \t" + firstEvent.getString("score");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // Do something with the response
+                    System.out.println(lbString);
+                    topTen.add(lbString);
                 }
-
-                // Do something with the response
-                System.out.println(tweetText);
             }
-
-
         });
     }
+
     public void postResult(String username, Float score) throws JSONException {
         RequestParams params = new RequestParams();
-        params.put("user", "admin");
-        params.put("password", "mlcb2017"); //TODO: correct this for the right params (key-value pairs)
+        params.put("username", "admin");
+        params.put("password", "mlcb2017");
         Api.post(params, new JsonHttpResponseHandler() {
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

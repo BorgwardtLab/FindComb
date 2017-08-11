@@ -66,17 +66,28 @@ public class HighScore extends AppCompatActivity {
         String name = intent.getExtras().getString("name");
         int score = intent.getExtras().getInt("score");
 
-        Scores.get(0).setText(name+ " : "+String.valueOf(score));
+//        Scores.get(0).setText(name+ " : "+String.valueOf(score));
 
+        System.out.println("Here");
 
 
         // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
         RestApiUsage Communication = new RestApiUsage();
         //Communication.postResult(name,(float)score);
+        ArrayList<String> topTen = new ArrayList<>();
         try {
             Communication.getTopTenTimeline();
         }catch(JSONException e){
             e.printStackTrace();
+        }
+        while (topTen.isEmpty()) {
+            topTen = Communication.topTen;
+        }
+        System.out.println("Here2");
+        System.out.println(topTen);
+        for (int i = 0; i < topTen.size(); i++) {
+            System.out.println(topTen.get(i));
+            Scores.get(i).setText(topTen.get(i));
         }
 
 
