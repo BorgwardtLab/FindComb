@@ -58,12 +58,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode){
             case REQUEST_CODE:
                 int score = data.getExtras().getInt("score");
-                String name = mNameEntry.getText().toString();
-                //String email = mEmail.getText().toString();
-                Intent intent = new Intent(this, HighScore.class);
-                intent.putExtra("name", name);
-                intent.putExtra("score", score);
-                this.startActivity(intent);
+                if(score > 0) {
+                    String name = mNameEntry.getText().toString();
+                    //String email = mEmail.getText().toString();
+                    Intent intent = new Intent(this, HighScore.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("score", score);
+                    this.startActivity(intent);
+                }
         }
     }
 }
