@@ -8,6 +8,7 @@ package ch.ethz.tgumbschbsse.findcomb;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ public class GameActivity extends AppCompatActivity {
 
         //Initializing game view object
         gameView = new GameView(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //adding it to contentview
         setContentView(gameView);

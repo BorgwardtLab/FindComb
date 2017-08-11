@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,6 +29,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     // In case moving is an option
     private Point mPlayer;
+    private int mLevelsNumber;
 
     // Layout stuff
     private Rectangle mrectRed;
@@ -46,6 +49,8 @@ public class GameView extends SurfaceView implements Runnable {
     //These objects will be used for drawing
     //private Paint paint;
     private Canvas canvas;
+    private int width;
+    private int height;
     private SurfaceHolder surfaceHolder;
     private Context mContext;
 
@@ -59,16 +64,20 @@ public class GameView extends SurfaceView implements Runnable {
         int[] yellow = { Color.rgb(212,212,0),Color.rgb(255,255,0)};
 
         // The visuals
-        mrectRed = new Rectangle((new Rect(100,800,300,1000)),red);
-        mrectBlue = new Rectangle((new Rect(450,800,650,1000)),blue);
-        mrectGreen = new Rectangle((new Rect(800,800,1000,1000)),green);
-        mrectPurple = new Rectangle((new Rect(1150,800,1350,1000)),purple);
-        mrectYellow = new Rectangle((new Rect(1500,800,1700,1000)),yellow);
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        width = metrics.widthPixels;
+        height = metrics.heightPixels;
+        mrectRed = new Rectangle((new Rect(width/16, 6*height/10,3*width/16,8*height/10)),red);
+        mrectBlue = new Rectangle((new Rect(4*width/16,6*height/10,6*width/16,8*height/10)),blue);
+        mrectGreen = new Rectangle((new Rect(7*width/16,6*height/10,9*width/16,8*height/10)),green);
+        mrectPurple = new Rectangle((new Rect(10*width/16,6*height/10,12*width/16,8*height/10)),purple);
+        mrectYellow = new Rectangle((new Rect(13*width/16,6*height/10,15*width/16,8*height/10)),yellow);
 
         //init mechanics
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
+        mLevelsNumber = 15;
 
 
         //initializing drawing objects
@@ -86,15 +95,24 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                mPlayer.set((int) event.getX(), (int) event.getY());
-                mrectGreen.checkClicked(mPlayer);
-                mrectRed.checkClicked(mPlayer);
-                mrectBlue.checkClicked(mPlayer);
-                mrectPurple.checkClicked(mPlayer);
-                mrectYellow.checkClicked(mPlayer);
-                mLevel.checkClicked(mPlayer);
+        if(mScore > 0) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mPlayer.set((int) event.getX(), (int) event.getY());
+                    mrectGreen.checkClicked(mPlayer);
+                    mrectRed.checkClicked(mPlayer);
+                    mrectBlue.checkClicked(mPlayer);
+                    mrectPurple.checkClicked(mPlayer);
+                    mrectYellow.checkClicked(mPlayer);
+                    mLevel.checkClicked(mPlayer);
+            }
+        }
+        else{
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    playing = false;
+            }
+
         }
 
 
@@ -104,39 +122,40 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     private void update() {
+        if(mScore > 0) {
 
-        if((System.currentTimeMillis()-mTimestamp) > 1000 ) {
-            mScore--;
-            mTimestamp = System.currentTimeMillis();
-        }
-
-        if (mScore < 0){
-            playing = false;
-        }
-
-        if(mLevel.clicked == true){
-            //Evaluate configuration
-            boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, mrectPurple.clicked, mrectYellow.clicked};
-            mrectBlue.processClicked();
-            mrectRed.processClicked();
-            mrectGreen.processClicked();
-            mrectPurple.processClicked();
-            mrectYellow.processClicked();
-            if (Arrays.equals(rbgpy, rbgpyPlayer)) {
-                mScore = mScore + 10;
-
-            } else {
-                mScore = mScore - 10;
-                //canvas.drawText("WRONG", 600, 700, paint);
+            if ((System.currentTimeMillis() - mTimestamp) > 1000) {
+                mScore--;
+                mTimestamp = System.currentTimeMillis();
             }
 
-            //What happens next?
-            if (mLevelIndicator <= 15) {
-                mLevelIndicator++;
-                LevelInit();
-            }
-            else{
+            if (mScore < 0) {
                 playing = false;
+            }
+
+            if (mLevel.clicked == true) {
+                //Evaluate configuration
+                boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, mrectPurple.clicked, mrectYellow.clicked};
+                mrectBlue.processClicked();
+                mrectRed.processClicked();
+                mrectGreen.processClicked();
+                mrectPurple.processClicked();
+                mrectYellow.processClicked();
+                if (Arrays.equals(rbgpy, rbgpyPlayer)) {
+                    mScore = mScore + 10;
+
+                } else {
+                    mScore = mScore - 10;
+                }
+
+                //What happens next?
+                if (mLevelIndicator <= mLevelsNumber) {
+                    mLevelIndicator++;
+                    LevelInit();
+                }
+                else{
+                    mLevelIndicator++;
+                }
             }
         }
     }
@@ -152,23 +171,23 @@ public class GameView extends SurfaceView implements Runnable {
             //drawing a background color for canvas
             canvas.drawColor(Color.WHITE);
 
-            if(playing == true) {
+            if(mScore>0 && mLevelIndicator <= mLevelsNumber) {
                 mLevel.draw(canvas);
                 mrectRed.draw(canvas);
                 mrectBlue.draw(canvas);
                 mrectGreen.draw(canvas);
                 mrectPurple.draw(canvas);
                 mrectYellow.draw(canvas);
-                canvas.drawText(String.valueOf(mScore), 1650, 100, paint);
+                canvas.drawText(String.valueOf(mScore), 27*width/30, height/10, paint);
                 //Unlocking the canvas
 
             }
             else{
                 if(mScore < 0){
-                    canvas.drawText("Game Over", 600, 600, paint);
+                    canvas.drawText("Game Over", width/3, height/2, paint);
                 }
                 else{
-                    canvas.drawText("Your Score: " + String.valueOf(mScore), 500, 600, paint);
+                    canvas.drawText("Your Score: " + String.valueOf(mScore), width/4, height/2, paint);
                 }
 
             }
@@ -201,10 +220,6 @@ public class GameView extends SurfaceView implements Runnable {
         }
 
         if (playing != true){
-
-            while((System.currentTimeMillis()-mTimestamp)< 5000){
-                control();
-            }
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("score",mScore);

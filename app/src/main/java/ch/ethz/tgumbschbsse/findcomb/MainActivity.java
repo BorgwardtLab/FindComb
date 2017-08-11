@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +15,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 //public class MainActivity extends Activity {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText mNameEntry;
+    private ImageView mImageView;
     //private EditText mEmail;
     private Button mEasy;
     //private Button mHard;
@@ -32,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
+        mImageView = (ImageView) findViewById(R.id.Logo);
+        Bitmap ethlogo = BitmapFactory.decodeResource(getResources(), R.drawable.eth);
+        ethlogo = getResizedBitmap(ethlogo,800,200);
+        mImageView.setImageBitmap(ethlogo);
         //mHard = (Button) findViewById(R.id.b_hard);
 
         //setting the orientation to landscape
@@ -67,5 +77,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     this.startActivity(intent);
                 }
         }
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 }
