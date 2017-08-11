@@ -10,6 +10,7 @@
 # ignore virtualenvs
 venv/
 env/
+yourenvname/
 .venv
 # Server
 findcomb_server/.idea/
