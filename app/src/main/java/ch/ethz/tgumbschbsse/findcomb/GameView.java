@@ -108,15 +108,15 @@ public class GameView extends SurfaceView implements Runnable {
             mrectGreen.processClicked();
             mrectPurple.processClicked();
             mrectYellow.processClicked();
-            Paint paint = new Paint();
-            paint.setTextSize(100);
-            paint.setColor(Color.BLACK);
+            //Paint paint = new Paint();
+            //paint.setTextSize(100);
+            //paint.setColor(Color.BLACK);
             if (Arrays.equals(rbgpy, rbgpyPlayer)) {
                 mScore++;
 
             } else {
                 mScore--;
-                canvas.drawText("WRONG", 600, 700, paint);
+                //canvas.drawText("WRONG", 600, 700, paint);
             }
 
             //What happens next?
