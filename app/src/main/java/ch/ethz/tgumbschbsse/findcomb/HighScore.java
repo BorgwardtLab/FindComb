@@ -66,6 +66,8 @@ public class HighScore extends AppCompatActivity {
         String name = intent.getExtras().getString("name");
         int score = intent.getExtras().getInt("score");
 
+        Scores.get(0).setText(name+ " : "+String.valueOf(score));
+
 
 
         // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
