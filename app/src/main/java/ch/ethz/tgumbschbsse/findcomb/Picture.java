@@ -23,19 +23,19 @@ public class Picture implements GameObject {
     public boolean clicked;
 
 
-    public Picture(int picture, Context context){
+    public Picture(int picture, Context context, int x, int y, int width, int height){
         mscratch = BitmapFactory.decodeResource(context.getResources(), picture);
 
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        int width = metrics.widthPixels * 9 / 10;
-        int height = metrics.heightPixels* 3 / 5;
+        //DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        //int width = metrics.widthPixels * 9 / 10;
+        //int height = metrics.heightPixels* 3 / 5;
 
         System.out.println(String.valueOf(width));
         System.out.println(String.valueOf(height));
         mscratch = Bitmap.createScaledBitmap(mscratch, width, height, false);
 
-        mframeToDraw = new Rect(0, 0, width, height);
-        mwhereToDraw = new RectF(0, 0, width, height);
+        mframeToDraw = new Rect(x, y, x+width, y+height);
+        mwhereToDraw = new RectF(x, y, x+width, y+height);
 
         clicked = false;
     }
