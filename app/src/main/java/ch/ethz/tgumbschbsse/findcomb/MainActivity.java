@@ -19,8 +19,12 @@ import android.widget.ImageView;
 
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 //public class MainActivity extends Activity {
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnApiRequestCompleted {
 
     private EditText mNameEntry;
     private ImageView mImageView;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //private Button mHard;
 
     public final static int REQUEST_CODE = 1;
+    private Intent intent;
 
 
 
@@ -79,16 +84,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     params.put("password", "mlcb2017");
                     params.put("user", name);
                     params.put("score", score);
+                    intent =  new Intent(this, HighScore.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("score", score);
+                    Api postApi = new Api(this);
                     try {
                         Api.post(params);
                         System.out.println("Post ok");
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(this, HighScore.class);
-                    this.startActivity(intent);
+
 //                }
         }
+    }
+    @Override
+    public void taskCompleted(JSONArray response) {
+        System.out.println("finished posting");
+        System.out.println(response);
+
+        int position = 0;
+        try {
+            JSONObject positionjson = (JSONObject) response.get(0);
+            position = positionjson.getInt("position");
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(position);
+        intent.putExtra("position", position);
+        this.startActivity(intent);
+
     }
 
     public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {

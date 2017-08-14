@@ -44,7 +44,25 @@ public class Api {
     }
 
     public static void post(RequestParams params) {
-        client.post(getAbsoluteUrl(""), params, new JsonHttpResponseHandler());
+        client.post(getAbsoluteUrl(""), params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                apiListener.taskCompleted(response);
+            }
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                JSONArray mulres = new JSONArray();
+                System.out.println(response);
+                try{
+                    mulres = new JSONArray("["+response.toString()+"]");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                System.out.println(mulres);
+                apiListener.taskCompleted(mulres);
+
+            }
+        });
     }
     /*
     public static URL buildUrl(String githubSearchQuery) {
