@@ -5,3 +5,4 @@ gwasdb/static/*
 __pycache__/
 *.py[cod]
 *$py.class
+yourvenvname/

@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
-        mImageView = (ImageView) findViewById(R.id.Logo);
-        Bitmap ethlogo = BitmapFactory.decodeResource(getResources(), R.drawable.eth);
-        ethlogo = getResizedBitmap(ethlogo,800,200);
-        mImageView.setImageBitmap(ethlogo);
+        //mImageView = (ImageView) findViewById(R.id.Logo);
+        //Bitmap ethlogo = BitmapFactory.decodeResource(getResources(), R.drawable.eth);
+        //ethlogo = getResizedBitmap(ethlogo,800,200);
+        //mImageView.setImageBitmap(ethlogo);
         //mHard = (Button) findViewById(R.id.b_hard);
 
         //setting the orientation to landscape
