@@ -58,11 +58,11 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context) {
         super(context);
 
-        int[] red = { Color.rgb(212,0,0),Color.rgb(255,0,0)};
-        int[] blue = { Color.rgb(0,90,154),Color.rgb(0,112,192)};
-        int[] green = { Color.rgb(0,141,64),Color.rgb(0,176,80)};
-        int[] purple = { Color.rgb(90,38,128),Color.rgb(112, 48, 160)};
-        int[] yellow = { Color.rgb(212,212,0),Color.rgb(255,255,0)};
+        int[] red = { Color.rgb(128,0,0),Color.rgb(255,0,0)};
+        int[] blue = { Color.rgb(0,56,96),Color.rgb(0,112,192)};
+        int[] green = { Color.rgb(0,88,40),Color.rgb(0,176,80)};
+        int[] purple = { Color.rgb(56,24,80),Color.rgb(112, 48, 160)};
+        int[] yellow = { Color.rgb(128,128,0),Color.rgb(255,255,0)};
 
         // The visuals
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
