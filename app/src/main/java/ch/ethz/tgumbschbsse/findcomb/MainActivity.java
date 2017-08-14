@@ -86,8 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         e.printStackTrace();
                     }
                     Intent intent = new Intent(this, HighScore.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("score", score);
                     this.startActivity(intent);
 //                }
         }

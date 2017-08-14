@@ -39,6 +39,7 @@ import static java.util.Arrays.hashCode;
 public class HighScore extends AppCompatActivity implements OnApiRequestCompleted {
 
     static TextView textView,textView2,textView3,textView4,textView5,textView6,textView7,textView8,textView9,textView10;
+    static TextView header;
     public ArrayList<TextView> Scores;
 
     SharedPreferences sharedPreferences;
@@ -49,6 +50,7 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         setContentView(R.layout.activity_high_score);
 
         //initializing the textViews
+        header = (TextView) findViewById(R.id.header);
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);
         textView3 = (TextView) findViewById(R.id.textView3);
@@ -64,13 +66,9 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
 
         //Recieve Result
         Intent intent = getIntent();
-        //String email = getIntent().getStringExtra("email");
-        String name = intent.getExtras().getString("name");
-        int score = intent.getExtras().getInt("score");
 
-//        Scores.get(0).setText(name+ " : "+String.valueOf(score));
+        header.setText("Leaderboard: \n");
 
-        System.out.println("Here");
 
         Api Communication = new Api(this);
         // Post result
