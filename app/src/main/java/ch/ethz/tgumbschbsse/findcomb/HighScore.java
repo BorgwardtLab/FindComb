@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.loopj.android.http.RequestParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,6 +73,19 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         System.out.println("Here");
 
         Api Communication = new Api(this);
+        // Post result
+//        RequestParams params = new RequestParams();
+//        params.put("username", "admin");
+//        params.put("password", "mlcb2017");
+//        params.put("user", name);
+//        params.put("score", score);
+//        try {
+//            Api.post(params);
+//            System.out.println("Post ok");
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+        // Retrieve top 10
         try {
             Api.get_top_n(10, null);
             System.out.println("First call ok");

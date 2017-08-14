@@ -22,21 +22,5 @@ public class RestApiUsage {
         RequestParams params = new RequestParams();
         params.put("username", "admin");
         params.put("password", "mlcb2017");
-        Api.post(params, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                // If the response is JSONObject instead of expected JSONArray
-//            }
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-//                // Pull out the first event on the public timeline
-//                JSONObject firstEvent = timeline.get(0);
-//                String tweetText = firstEvent.getString("text");
-//
-//                // Do something with the response
-//                System.out.println(tweetText);
-//            }
-        });
     }
 }

@@ -77,7 +77,7 @@ public class GameView extends SurfaceView implements Runnable {
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
-        mLevelsNumber = 15;
+        mLevelsNumber = 2;
 
 
         //initializing drawing objects

@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.loopj.android.http.RequestParams;
+
 //public class MainActivity extends Activity {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -68,14 +70,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode){
             case REQUEST_CODE:
                 int score = data.getExtras().getInt("score");
-                if(score > 0) {
+//                if(score > 0) {
                     String name = mNameEntry.getText().toString();
                     //String email = mEmail.getText().toString();
+                    // post score
+                    RequestParams params = new RequestParams();
+                    params.put("username", "admin");
+                    params.put("password", "mlcb2017");
+                    params.put("user", name);
+                    params.put("score", score);
+                    try {
+                        Api.post(params);
+                        System.out.println("Post ok");
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
                     Intent intent = new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", score);
                     this.startActivity(intent);
-                }
+//                }
         }
     }
 

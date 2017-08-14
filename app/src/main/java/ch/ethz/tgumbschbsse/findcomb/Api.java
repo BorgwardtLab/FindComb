@@ -43,8 +43,8 @@ public class Api {
         client.get(getAbsoluteUrl(id.toString()+"/ranking"), params, responseHandler);
     }
 
-    public static void post(RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.post(getAbsoluteUrl(""), params, responseHandler);
+    public static void post(RequestParams params) {
+        client.post(getAbsoluteUrl(""), params, new JsonHttpResponseHandler());
     }
     /*
     public static URL buildUrl(String githubSearchQuery) {
