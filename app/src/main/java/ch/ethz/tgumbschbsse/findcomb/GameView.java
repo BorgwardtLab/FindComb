@@ -32,11 +32,12 @@ public class GameView extends SurfaceView implements Runnable {
     private int mLevelsNumber;
 
     // Layout stuff
-    private Rectangle mrectRed;
-    private Rectangle mrectBlue;
-    private Rectangle mrectGreen;
-    private Rectangle mrectPurple;
-    private Rectangle mrectYellow;
+    //private Rectangle mrectRed;
+    //private Rectangle mrectBlue;
+    //private Rectangle mrectGreen;
+    //private Rectangle mrectPurple;
+    //private Rectangle mrectYellow;
+    private Circle mRed, mBlue, mGreen, mPurple, mYellow;
     private Picture mLevel;
 
     // Mechanics
@@ -67,17 +68,22 @@ public class GameView extends SurfaceView implements Runnable {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         width = metrics.widthPixels;
         height = metrics.heightPixels;
-        mrectRed = new Rectangle((new Rect(width/16, 6*height/10,3*width/16,8*height/10)),red);
-        mrectBlue = new Rectangle((new Rect(4*width/16,6*height/10,6*width/16,8*height/10)),blue);
-        mrectGreen = new Rectangle((new Rect(7*width/16,6*height/10,9*width/16,8*height/10)),green);
-        mrectPurple = new Rectangle((new Rect(10*width/16,6*height/10,12*width/16,8*height/10)),purple);
-        mrectYellow = new Rectangle((new Rect(13*width/16,6*height/10,15*width/16,8*height/10)),yellow);
+        mRed = new Circle(2*width/16, 15*height/20, width/18, red);
+        mBlue = new Circle(5*width/16, 15*height/20, width/18, blue);
+        mGreen = new Circle(8*width/16, 15*height/20, width/18, green);
+        mPurple = new Circle(11*width/16, 15*height/20, width/18, purple);
+        mYellow = new Circle(14*width/16, 15*height/20, width/18, yellow);
+        //mrectRed = new Rectangle((new Rect(width/16, 6*height/10,3*width/16,8*height/10)),red);
+        //mrectBlue = new Rectangle((new Rect(4*width/16,6*height/10,6*width/16,8*height/10)),blue);
+        //mrectGreen = new Rectangle((new Rect(7*width/16,6*height/10,9*width/16,8*height/10)),green);
+        //mrectPurple = new Rectangle((new Rect(10*width/16,6*height/10,12*width/16,8*height/10)),purple);
+        //mrectYellow = new Rectangle((new Rect(13*width/16,6*height/10,15*width/16,8*height/10)),yellow);
 
         //init mechanics
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
-        mLevelsNumber = 15;
+        mLevelsNumber = 3;
 
 
         //initializing drawing objects
@@ -95,15 +101,15 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(mScore > 0) {
+        if(mScore > 0 && mLevelIndicator <= mLevelsNumber) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPlayer.set((int) event.getX(), (int) event.getY());
-                    mrectGreen.checkClicked(mPlayer);
-                    mrectRed.checkClicked(mPlayer);
-                    mrectBlue.checkClicked(mPlayer);
-                    mrectPurple.checkClicked(mPlayer);
-                    mrectYellow.checkClicked(mPlayer);
+                    mGreen.checkClicked(mPlayer);
+                    mRed.checkClicked(mPlayer);
+                    mBlue.checkClicked(mPlayer);
+                    mPurple.checkClicked(mPlayer);
+                    mYellow.checkClicked(mPlayer);
                     mLevel.checkClicked(mPlayer);
             }
         }
@@ -124,7 +130,7 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         if(mScore > 0) {
 
-            if ((System.currentTimeMillis() - mTimestamp) > 1000) {
+            if ((System.currentTimeMillis() - mTimestamp) > 1000 && mLevelIndicator <= mLevelsNumber) {
                 mScore--;
                 mTimestamp = System.currentTimeMillis();
             }
@@ -135,17 +141,19 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (mLevel.clicked == true) {
                 //Evaluate configuration
-                boolean[] rbgpyPlayer = {mrectRed.clicked, mrectBlue.clicked, mrectGreen.clicked, mrectPurple.clicked, mrectYellow.clicked};
-                mrectBlue.processClicked();
-                mrectRed.processClicked();
-                mrectGreen.processClicked();
-                mrectPurple.processClicked();
-                mrectYellow.processClicked();
-                if (Arrays.equals(rbgpy, rbgpyPlayer)) {
-                    mScore = mScore + 10;
+                boolean[] rbgpyPlayer = {mRed.clicked, mBlue.clicked, mGreen.clicked, mPurple.clicked, mYellow.clicked};
+                mBlue.processClicked();
+                mRed.processClicked();
+                mGreen.processClicked();
+                mPurple.processClicked();
+                mYellow.processClicked();
+                if(mLevelIndicator <= mLevelsNumber) {
+                    if (Arrays.equals(rbgpy, rbgpyPlayer)) {
+                        mScore = mScore + 10;
 
-                } else {
-                    mScore = mScore - 10;
+                    } else {
+                        mScore = mScore - 10;
+                    }
                 }
 
                 //What happens next?
@@ -173,11 +181,11 @@ public class GameView extends SurfaceView implements Runnable {
 
             if(mScore>0 && mLevelIndicator <= mLevelsNumber) {
                 mLevel.draw(canvas);
-                mrectRed.draw(canvas);
-                mrectBlue.draw(canvas);
-                mrectGreen.draw(canvas);
-                mrectPurple.draw(canvas);
-                mrectYellow.draw(canvas);
+                mRed.draw(canvas);
+                mBlue.draw(canvas);
+                mGreen.draw(canvas);
+                mPurple.draw(canvas);
+                mYellow.draw(canvas);
                 canvas.drawText(String.valueOf(mScore), 27*width/30, height/10, paint);
                 //Unlocking the canvas
 
@@ -218,6 +226,8 @@ public class GameView extends SurfaceView implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        System.out.println(String.valueOf(playing));
 
         if (playing != true){
 
