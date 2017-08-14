@@ -4,6 +4,7 @@ import android.net.Uri;
 import com.loopj.android.http.*;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -18,12 +19,24 @@ import java.util.ArrayList;
 public class Api {
     private static final String BASE_URL = "http://10.0.2.2:8000/api/scores/"; // TODO: add final server port URL, this one is for temporary development
     private static AsyncHttpClient client = new AsyncHttpClient();
+    private static OnApiRequestCompleted apiListener;
+
+    public Api(OnApiRequestCompleted listener) {
+        client = new AsyncHttpClient();
+        apiListener = listener;
+    }
+
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void get_top_n(Integer n, RequestParams params, ArrayList<String> reference, AsyncHttpResponseHandler responseHandler) {
-        client.get(getAbsoluteUrl("top_n/?n="+n.toString()), params, responseHandler);
+    public static void get_top_n(Integer n, RequestParams params) {
+        client.get(getAbsoluteUrl("top_n/?n="+n.toString()), params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                apiListener.taskCompleted(response);
+            }
+        });
     }
 
     public static void get_ranking(Integer id, RequestParams params, AsyncHttpResponseHandler responseHandler) {

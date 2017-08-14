@@ -15,24 +15,7 @@ public class RestApiUsage {
     private boolean done = false;
 
     public void getTopTenTimeline() throws JSONException{
-        Api.get_top_n(10, null, topTen, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                System.out.println("In onSuccess");
-                for (int i = 0; i < response.length(); i++) {
-                    String lbString = String.valueOf(i+1) + ". ";
-                    try {
-                        JSONObject firstEvent = (JSONObject) response.get(i);
-                        lbString += firstEvent.getString("user") + " : \t" + firstEvent.getString("score");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    // Do something with the response
-                    System.out.println(lbString);
-                    topTen.add(lbString);
-                }
-            }
-        });
+        ArrayList<String> top = new ArrayList<>();
     }
 
     public void postResult(String username, Float score) throws JSONException {

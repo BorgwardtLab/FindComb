@@ -31,11 +31,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.hashCode;
 
 
-public class HighScore extends AppCompatActivity {
+public class HighScore extends AppCompatActivity implements OnApiRequestCompleted {
 
-    TextView textView,textView2,textView3,textView4,textView5,textView6,textView7,textView8,textView9,textView10;
+    static TextView textView,textView2,textView3,textView4,textView5,textView6,textView7,textView8,textView9,textView10;
+    public ArrayList<TextView> Scores;
 
     SharedPreferences sharedPreferences;
 
@@ -43,8 +45,6 @@ public class HighScore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
-
-
 
         //initializing the textViews
         textView = (TextView) findViewById(R.id.textView);
@@ -58,7 +58,7 @@ public class HighScore extends AppCompatActivity {
         textView9 = (TextView) findViewById(R.id.textView9);
         textView10 = (TextView) findViewById(R.id.textView10);
 
-        ArrayList<TextView> Scores = new ArrayList<>(asList(textView, textView2,textView3, textView4,textView5,textView6, textView7,textView8, textView9,textView10));
+        Scores = new ArrayList<>(asList(textView, textView2,textView3, textView4,textView5,textView6, textView7,textView8, textView9,textView10));
 
         //Recieve Result
         Intent intent = getIntent();
@@ -70,32 +70,31 @@ public class HighScore extends AppCompatActivity {
 
         System.out.println("Here");
 
-
-        // TODO: @tgumbsch, could you add a 'submit' button that takes the name and the score of the player and calls the restSubmitScore function please?
-        RestApiUsage Communication = new RestApiUsage();
-        //Communication.postResult(name,(float)score);
-        ArrayList<String> topTen = new ArrayList<>();
+        Api Communication = new Api(this);
         try {
-            Communication.getTopTenTimeline();
-        }catch(JSONException e){
+            Api.get_top_n(10, null);
+            System.out.println("First call ok");
+        }catch(Exception e){
             e.printStackTrace();
         }
-        while (topTen.isEmpty()) {
-            topTen = Communication.topTen;
-        }
-        System.out.println("Here2");
-        System.out.println(topTen);
-        for (int i = 0; i < topTen.size(); i++) {
-            System.out.println(topTen.get(i));
-            Scores.get(i).setText(topTen.get(i));
-        }
-
-
-
-
-
-
 
     }
+    @Override
+    public void taskCompleted(JSONArray response) {
+        System.out.println("Task Completed");
+        for (int i = 0; i < response.length(); i++) {
+            String lbString = String.valueOf(i+1) + ". ";
+            try {
+                JSONObject firstEvent = (JSONObject) response.get(i);
+                lbString += firstEvent.getString("user") + " : \t" + firstEvent.getString("score");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Scores.get(i).setText(lbString);
+            // Do something with the response
+        };
+        System.out.println("Data Loaded");
+    }
+
 
 }
