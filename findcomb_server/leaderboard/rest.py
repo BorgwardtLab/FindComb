@@ -37,17 +37,24 @@ class ScoreViewSet(viewsets.ModelViewSet):
     # Overriding get_queryset to allow for case-insensitive custom ordering
     def get_queryset(self):
         queryset = self.queryset
-        ordering = '-score'
-        from django.db.models.functions import Lower
-        inverted = False
-        if ordering.startswith('-'):
-            ordering = ordering[1:]
-            inverted = True
-        ordering = Lower(ordering)
-        queryset = queryset.order_by(ordering)
-        if inverted:
-            queryset = queryset.reverse()
+        queryset = queryset.order_by('-score')
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        serializer = ScoreSerializer(data=request.data)
+        if serializer.is_valid():
+            score = request.data['score']
+            saved = serializer.save()
+            id = saved.pk
+            index = Score.objects.filter(
+                        Q(score__gt=score) |
+                        Q(score=score, pk__lt=id)
+                    ).count() + 1
+            data = serializer.data
+            data['position'] = index
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     @detail_route(methods=['GET'], url_path='ranking')
     def get_ranking(self, request, pk):

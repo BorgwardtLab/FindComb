@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -39,7 +40,7 @@ import static java.util.Arrays.hashCode;
 public class HighScore extends AppCompatActivity implements OnApiRequestCompleted {
 
     static TextView textView,textView2,textView3,textView4,textView5,textView6,textView7,textView8,textView9,textView10;
-    static TextView header;
+    static TextView header, textView11;
     public ArrayList<TextView> Scores;
 
     SharedPreferences sharedPreferences;
@@ -61,28 +62,26 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         textView8 = (TextView) findViewById(R.id.textView8);
         textView9 = (TextView) findViewById(R.id.textView9);
         textView10 = (TextView) findViewById(R.id.textView10);
+        textView11 = (TextView) findViewById(R.id.textView11);
 
         Scores = new ArrayList<>(asList(textView, textView2,textView3, textView4,textView5,textView6, textView7,textView8, textView9,textView10));
 
         //Recieve Result
         Intent intent = getIntent();
+        String name = intent.getExtras().getString("name");
+        int score = intent.getExtras().getInt("score");
+        int position = intent.getExtras().getInt("position");
 
-        header.setText("Leaderboard: \n");
+        header.setText("Leaderboard:");
 
+        if(position > 10){
+            textView11.setText(position + ". " + name + " : \t" + score);
+            textView11.setTextColor(Color.parseColor("aqua"));
+        } else {
+            Scores.get(position-1).setTextColor(Color.parseColor("aqua"));
+        }
 
         Api Communication = new Api(this);
-        // Post result
-//        RequestParams params = new RequestParams();
-//        params.put("username", "admin");
-//        params.put("password", "mlcb2017");
-//        params.put("user", name);
-//        params.put("score", score);
-//        try {
-//            Api.post(params);
-//            System.out.println("Post ok");
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
         // Retrieve top 10
         try {
             Api.get_top_n(10, null);
@@ -94,12 +93,12 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
     }
     @Override
     public void taskCompleted(JSONArray response) {
-        System.out.println("Task Completed");
         for (int i = 0; i < response.length(); i++) {
             String lbString = String.valueOf(i+1) + ". ";
             try {
                 JSONObject firstEvent = (JSONObject) response.get(i);
-                lbString += firstEvent.getString("user") + " : \t" + firstEvent.getString("score");
+                int lbscore = (int) Float.parseFloat(firstEvent.getString("score")); // TODO: change this if we use float scores
+                lbString += firstEvent.getString("user") + " : \t" + lbscore;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
