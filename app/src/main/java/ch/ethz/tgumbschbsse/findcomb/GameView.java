@@ -302,8 +302,8 @@ public class GameView extends SurfaceView implements Runnable {
             case 6:
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, false, true, false, true,false},
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{false, true, false, true, true,false},
+                        new boolean[]{true, true, false, false, true,false},
+                        new boolean[]{false, true, false, true, false,false},
                         new boolean[]{true, false, true, false, true,false},
                         new boolean[]{true, true, false, true, false,false},
                         new boolean[]{true, false, false, true, true,false},
