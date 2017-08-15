@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -60,6 +61,9 @@ public class GameView extends SurfaceView implements Runnable {
     private SurfaceHolder surfaceHolder;
     private Context mContext;
 
+    private final MediaPlayer soundfinal;
+    private final MediaPlayer soundright;
+    private final MediaPlayer soundwrong;
 
     public GameView(Context context) {
         super(context);
@@ -68,6 +72,11 @@ public class GameView extends SurfaceView implements Runnable {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         width = metrics.widthPixels;
         height = metrics.heightPixels;
+
+
+        soundright = MediaPlayer.create(context,R.raw.stapler);
+        soundwrong = MediaPlayer.create(context,R.raw.buzz);
+        soundfinal = MediaPlayer.create(context,R.raw.fanfare);
 
         //init mechanics
         mScore = 120; //The player has two minutes
@@ -129,19 +138,27 @@ public class GameView extends SurfaceView implements Runnable {
                 if (mLevelIndicator <= mLevelsNumber) {
                     if (Arrays.equals(rbgpy, rbgpyPlayer)) {
                         mScore = mScore + 10;
+                        if(mLevelIndicator < mLevelsNumber) {
+                            soundright.start();
+                        }
+                        else{
+                            soundfinal.start();
+                        }
+                        mLevelIndicator++;
+                        LevelInit();
 
                     } else {
                         mScore = mScore - 10;
+                        soundwrong.start();
+                        mLevel.reset();
                     }
                 }
 
                 //What happens next?
-                if (mLevelIndicator <= mLevelsNumber) {
-                    mLevelIndicator++;
-                    LevelInit();
-                } else {
-                    mLevelIndicator++;
-                }
+                //if (mLevelIndicator <= mLevelsNumber) {
+                //} else {
+                //    mLevelIndicator++;
+                //}
             }
         }
     }
@@ -165,6 +182,7 @@ public class GameView extends SurfaceView implements Runnable {
             } else {
                 if (mScore < 0) {
                     canvas.drawText("Game Over", width / 3, height / 2, paint);
+                    soundwrong.start();
                 } else {
                     canvas.drawText("Your Score: " + String.valueOf(mScore), width / 4, height / 2, paint);
                 }

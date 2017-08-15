@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 
 /**
  * Created by tgumbsch on 8/14/17.
@@ -21,7 +22,8 @@ public class Level implements  GameObject{
     private boolean[] msick2;
     private boolean[] msick3;
     private Picture h1;
-    private Rectangle msubmit;
+
+
 
 
 
@@ -51,6 +53,7 @@ public class Level implements  GameObject{
         clicked = false;
 
         h1 = new Picture(R.drawable.leftside, context,0,0,3*mheight/7,2*mheight/3);
+
 
 
 
@@ -96,6 +99,16 @@ public class Level implements  GameObject{
         }
 
 
+
+    }
+
+    public void reset(){
+        clicked = false;
+        mRed.clicked = false;
+        mBlue.clicked = false;
+        mGreen.clicked = false;
+        mPurple.clicked = false;
+        mYellow.clicked = false;
 
     }
 
