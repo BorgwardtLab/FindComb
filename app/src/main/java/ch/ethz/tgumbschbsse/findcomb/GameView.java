@@ -287,83 +287,93 @@ public class GameView extends SurfaceView implements Runnable {
         switch (mLevelIndicator) {
             case 1:
                 Introduction();
+                // Binary indicator of colors in columns: {red, blue, green, pruple, yellow}
+                // mLevel = new Level(mContext, width, height,
+                // the first column healthy        new boolean[]{false, true, false, false, false},
+                // the second column healthy       new boolean[]{false, true, false, false, false},
+                //the third column thealthy        new boolean[]{false, true, false, false, false},
+                // the first column sick        new boolean[]{false, true, false, false, false},
+                // the second column sick       new boolean[]{false, true, false, false, false},
+                //the third column sick        new boolean[]{false, true, false, false, false},
+                // what colors to we use?        new boolean[]{true, true, false, false, false});
+                // The solution rbgpy = new boolean[]{true, false, false, false, false};
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{false, true, false, false, false,false},
-                        new boolean[]{false, true, false, false, false,false},
-                        new boolean[]{false, true, false, false, false,false},
-                        new boolean[]{true, false, false, false, false,false},
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{true, false, false, false, false,false},
-                        new boolean[]{true, true, false, false, false,false});
+                        new boolean[]{false, true, false, false, false},
+                        new boolean[]{false, true, false, false, false},
+                        new boolean[]{false, true, false, false, false},
+                        new boolean[]{true, false, false, false, false},
+                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{true, false, false, false, false},
+                        new boolean[]{true, true, false, false, false});
                 rbgpy = new boolean[]{true, false, false, false, false};
                 break;
             case 2:
                 rbgpy = new boolean[]{true, false, false, false, false};
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{false, false, true, false, false,false},
-                        new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{true, true, true, false, false,false});
+                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{false, false, true, false, false},
+                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{true, true, true, false, false});
                 break;
             case 3:
                 Combination();
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false});
+                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false});
 
                 break;
             case 4:
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{true, true, false, false, false,false},
-                        new boolean[]{false, true, false, false, false,false},
-                        new boolean[]{false, false, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false});
+                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{false, true, false, false, false},
+                        new boolean[]{false, false, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, true, false, false});
                 break;
             case 5:
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{true, true, false, false, true,false},
-                        new boolean[]{false, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false});
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, false, false, true},
+                        new boolean[]{false, true, true, false, true},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, true, false, true});
                 rbgpy = new boolean[]{true, false, true, false, false};
                 break;
             case 6:
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, false, false, true,false},
-                        new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{false, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false},
-                        new boolean[]{true, true, true, false, true,false});
+                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, true, false, false, true},
+                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{false, true, true, false, true},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, true, false, true});
                 rbgpy = new boolean[]{false, false, true, false, true};
                 break;
             case 7:
                 Logic();
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{false, false, true, false, true,false},
-                        new boolean[]{true, true, false, false, true,false},
-                        new boolean[]{false, true, false, true, false,false},
-                        new boolean[]{true, false, true, false, true,false},
-                        new boolean[]{true, true, false, true, false,false},
-                        new boolean[]{true, false, false, true, true,false},
-                        new boolean[]{true, true, true, true, true,false});
+                        new boolean[]{false, false, true, false, true},
+                        new boolean[]{true, true, false, false, true},
+                        new boolean[]{false, true, false, true, false},
+                        new boolean[]{true, false, true, false, true},
+                        new boolean[]{true, true, false, true, false},
+                        new boolean[]{true, false, false, true, true},
+                        new boolean[]{true, true, true, true, true});
                 rbgpy = new boolean[]{true, false, true, true, false};
                 break;
 
