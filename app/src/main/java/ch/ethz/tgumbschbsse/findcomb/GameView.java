@@ -82,7 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
-        mLevelsNumber = 5;
+        mLevelsNumber = 6;
 
 
         //initializing drawing objects
@@ -299,10 +299,17 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true,false});
                 rbgpy = new boolean[]{false, false, true, false, true};
                 break;
-            /*
             case 6:
-                mLevel = new Picture(R.drawable.level6, mContext, 0, 0, width * 9 / 10, height * 3 / 5);
-                rbgpy = new boolean[]{true, false, true, false, true};
+                mLevel = new Level(mContext, width, height,
+                        new boolean[]{false, false, true, false, true,false},
+                        new boolean[]{true, true, false, false, false,false},
+                        new boolean[]{false, true, false, true, true,false},
+                        new boolean[]{true, false, true, false, true,false},
+                        new boolean[]{true, true, false, true, false,false},
+                        new boolean[]{true, false, false, true, true,false},
+                        new boolean[]{true, true, true, true, true,false});
+                rbgpy = new boolean[]{true, false, true, true, false};
+            /*
                 break;
             case 7:
                 mLevel = new Picture(R.drawable.level7, mContext, 0, 0, width * 9 / 10, height * 3 / 5);
