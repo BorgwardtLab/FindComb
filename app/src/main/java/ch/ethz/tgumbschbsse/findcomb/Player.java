@@ -29,7 +29,7 @@ public class Player {
         speed = 1;
 
         //Getting bitmap from drawable resource
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.level1);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.leftside);
     }
 
     //Method to update coordinate of character
