@@ -76,10 +76,10 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
 
         if(position > 10){
             textView11.setText(position + ". " + name + " : \t" + score);
-            textView11.setTextColor(Color.parseColor("aqua"));
+            textView11.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
         } else {
             header.setPadding(0,75,0, 50);
-            Scores.get(position-1).setTextColor(Color.parseColor("aqua"));
+            Scores.get(position-1).setTextColor(Color.parseColor("#2F36A9"));
         }
 
         Api Communication = new Api(this);
