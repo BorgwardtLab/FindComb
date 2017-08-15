@@ -82,7 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
-        mLevelsNumber = 6;
+        mLevelsNumber = 7;
 
 
         //initializing drawing objects
@@ -245,17 +245,28 @@ public class GameView extends SurfaceView implements Runnable {
     public void LevelInit() {
         switch (mLevelIndicator) {
             case 1:
+                mLevel = new Level(mContext, width, height,
+                        new boolean[]{false, true, false, false, false,false},
+                        new boolean[]{false, true, false, false, false,false},
+                        new boolean[]{false, true, false, false, false,false},
+                        new boolean[]{true, false, false, false, false,false},
+                        new boolean[]{true, true, false, false, false,false},
+                        new boolean[]{true, false, false, false, false,false},
+                        new boolean[]{true, true, false, false, false,false});
+                rbgpy = new boolean[]{true, false, false, false, false};
+                break;
+            case 2:
                 rbgpy = new boolean[]{true, false, false, false, false};
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, true, true, false, false,false},
+                        new boolean[]{false, false, true, false, false,false},
                         new boolean[]{false, true, true, false, false,false},
-                        new boolean[]{false, true, true, false, false,false},
+                        new boolean[]{true, true, false, false, false,false},
                         new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
-                        new boolean[]{true, true, true, false, false,false},
+                        new boolean[]{true, true, false, false, false,false},
                         new boolean[]{true, true, true, false, false,false});
                 break;
-            case 2:
+            case 3:
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, true, true, false, false,false},
@@ -266,7 +277,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false,false},
                         new boolean[]{true, true, true, false, false,false});
                 break;
-            case 3:
+            case 4:
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{true, true, false, false, false,false},
@@ -277,7 +288,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false,false},
                         new boolean[]{true, true, true, false, false,false});
                 break;
-            case 4:
+            case 5:
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{true, true, true, false, true,false},
                         new boolean[]{true, true, false, false, true,false},
@@ -288,7 +299,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true,false});
                 rbgpy = new boolean[]{true, false, true, false, false};
                 break;
-            case 5:
+            case 6:
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{true, true, true, false, false,false},
                         new boolean[]{true, true, false, false, true,false},
@@ -299,7 +310,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true,false});
                 rbgpy = new boolean[]{false, false, true, false, true};
                 break;
-            case 6:
+            case 7:
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, false, true, false, true,false},
                         new boolean[]{true, true, false, false, true,false},
@@ -309,6 +320,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, false, false, true, true,false},
                         new boolean[]{true, true, true, true, true,false});
                 rbgpy = new boolean[]{true, false, true, true, false};
+                break;
+
         }
 
     }
