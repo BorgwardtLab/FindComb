@@ -13,13 +13,17 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
+import android.support.v4.app.ShareCompat;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Created by tgumbsch on 8/10/17.
@@ -30,6 +34,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     volatile boolean playing;
     private Thread gameThread = null;
+    Activity mact;
 
     // In case moving is an option
     private Point mPlayer;
@@ -44,14 +49,6 @@ public class GameView extends SurfaceView implements Runnable {
     private long mTimestamp;
 
 
-    private boolean[] h1;
-    private boolean[] h2;
-    private boolean[] h3;
-    private boolean[] s1;
-    private boolean[] s2;
-    private boolean[] s3;
-    private boolean[] colors;
-
 
     //These objects will be used for drawing
     //private Paint paint;
@@ -65,8 +62,10 @@ public class GameView extends SurfaceView implements Runnable {
     private final MediaPlayer soundright;
     private final MediaPlayer soundwrong;
 
-    public GameView(Context context) {
+
+    public GameView(Context context, Activity act) {
         super(context);
+        mact = act;
 
         // The visuals
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -95,6 +94,8 @@ public class GameView extends SurfaceView implements Runnable {
         //Stuff that we might need later
         mPlayer = new Point(1500, 300);
         playing = true;
+
+
     }
 
 
@@ -119,6 +120,46 @@ public class GameView extends SurfaceView implements Runnable {
         //return super.onTouchEvent(event);
     }
 
+    public void Introduction(){
+        mact.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CharSequence text = "wähle das entscheidende Merkmal";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(mContext, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void Combination(){
+        mact.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CharSequence text = "vielleicht sind auch mehrere Merkmale entscheidend";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(mContext, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+
+    public void Logic(){
+        mact.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CharSequence text = "Tipp: A UND (B ODER C)";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(mContext, text, duration);
+                toast.show();
+            }
+        });
+
+    }
 
     private void update() {
         if (mScore > 0) {
@@ -245,6 +286,7 @@ public class GameView extends SurfaceView implements Runnable {
     public void LevelInit() {
         switch (mLevelIndicator) {
             case 1:
+                Introduction();
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, true, false, false, false,false},
                         new boolean[]{false, true, false, false, false,false},
@@ -267,6 +309,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false,false});
                 break;
             case 3:
+                Combination();
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, true, true, false, false,false},
@@ -276,6 +319,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false,false},
                         new boolean[]{true, true, true, false, false,false},
                         new boolean[]{true, true, true, false, false,false});
+
                 break;
             case 4:
                 rbgpy = new boolean[]{true, false, true, false, false};
@@ -311,6 +355,7 @@ public class GameView extends SurfaceView implements Runnable {
                 rbgpy = new boolean[]{false, false, true, false, true};
                 break;
             case 7:
+                Logic();
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, false, true, false, true,false},
                         new boolean[]{true, true, false, false, true,false},
@@ -323,6 +368,7 @@ public class GameView extends SurfaceView implements Runnable {
                 break;
 
         }
+
 
     }
 }
