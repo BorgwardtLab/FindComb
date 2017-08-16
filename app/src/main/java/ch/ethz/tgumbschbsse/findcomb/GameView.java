@@ -124,7 +124,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "wähle das entscheidende Merkmal";
+                CharSequence text = "wähle das unterscheidende Merkmal der Patientengruppen";
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -137,7 +137,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "vielleicht sind auch mehrere Merkmale entscheidend";
+                CharSequence text = "vielleicht sind auch Interaktionen unterscheidend";
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -151,7 +151,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "Tipp: A UND (B ODER C)";
+                CharSequence text = "Unterschiedliche Merkmale koennen den gleichen Effekt haben.";
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -313,7 +313,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{false, true, true, false, false},
                         new boolean[]{false, false, true, false, false},
                         new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, true, false, false, false},
+                        new boolean[]{true, false, false, false, false},
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, false, false, false},
                         new boolean[]{true, true, true, false, false});
@@ -338,7 +338,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{false, true, false, false, false},
                         new boolean[]{false, false, true, false, false},
                         new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, true, false, false},
+                        new boolean[]{true, false, true, false, false},
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, true, false, false});
                 break;
