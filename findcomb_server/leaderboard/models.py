@@ -1,8 +1,8 @@
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
 
 def get_current_date():
-    return datetime.now()
+    return timezone.now()
 
 # Create your models here.
 class Score(models.Model):
