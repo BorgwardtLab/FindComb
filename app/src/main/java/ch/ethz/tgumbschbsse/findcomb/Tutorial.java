@@ -101,20 +101,26 @@ public class Tutorial extends SurfaceView implements Runnable {
             //drawing a background color for canvas
             canvas.drawColor(Color.parseColor("#0099cc"));
 
-            canvas.drawText("Es gibt sechs Patienten, drei Gesunde und drei Kranke.", width/10, 2*width/30, paint);
+            String text = getContext().getString(R.string.Tut1);
+            canvas.drawText(text, width/10, 2*width/30, paint);
             if(mstage == 0){
 
                 // Display pictures
             }
+
             if(mstage > 0) {
-                canvas.drawText("Jeder Patient kann Merkmale verschieder Farben tragen.", width / 10, 7 * width / 60, paint);
+                text = getContext().getString(R.string.Tut2);
+                canvas.drawText(text, width / 10, 7 * width / 60, paint);
             }
             if(mstage ==1){
                 // Display buttons
             }
+
+
+
             if(mstage>1) {
-                canvas.drawText("Deine Aufagbe ist es die Merkmale zu finden,", width / 10, 5 * width / 30, paint);
-                canvas.drawText("welche zu Krankheit fuehren.", width/10, 13*width/60, paint);
+                text = getContext().getString(R.string.Tut3);
+                canvas.drawText(text, width/10, 5*width/30, paint);
             }
             if(mstage==2){
                 //Display correct combination

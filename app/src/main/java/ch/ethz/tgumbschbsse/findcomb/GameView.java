@@ -47,6 +47,8 @@ public class GameView extends SurfaceView implements Runnable {
     private int mLevelIndicator;
     private int mScore;
     private long mTimestamp;
+    private long mpm;
+    private int deviation;
 
 
 
@@ -124,7 +126,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "Wähle das unterscheidende Merkmal der Patientengruppen.";
+                CharSequence text =  getContext().getString(R.string.Toast_One);
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -137,7 +139,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "Vielleicht sind auch Interaktionen unterscheidend.";
+                CharSequence text = getContext().getString(R.string.Toast_Two);
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -151,7 +153,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "Unterschiedliche Merkmale koennen den gleichen Effekt haben.";
+                CharSequence text =  getContext().getString(R.string.Toast_Three);
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -179,6 +181,8 @@ public class GameView extends SurfaceView implements Runnable {
                 if (mLevelIndicator <= mLevelsNumber) {
                     if (Arrays.equals(rbgpy, rbgpyPlayer)) {
                         mScore = mScore + 10;
+                        deviation = 10;
+                        mpm = System.currentTimeMillis();
                         if(mLevelIndicator < mLevelsNumber) {
                             soundright.start();
                         }
@@ -190,6 +194,8 @@ public class GameView extends SurfaceView implements Runnable {
 
                     } else {
                         mScore = mScore - 10;
+                        mpm = System.currentTimeMillis();
+                        deviation = -10;
                         soundwrong.start();
                         mLevel.reset();
                     }
@@ -211,13 +217,26 @@ public class GameView extends SurfaceView implements Runnable {
             canvas = surfaceHolder.lockCanvas();
             Paint paint = new Paint();
             paint.setTextSize(100);
-            paint.setColor(Color.BLACK);
             //drawing a background color for canvas
             canvas.drawColor(Color.WHITE);
 
+
+            //Score drawing
+            paint.setColor(Color.BLACK);
             if (mScore > 0 && mLevelIndicator <= mLevelsNumber) {
                 mLevel.draw(canvas);
                 canvas.drawText(String.valueOf(mScore), 27 * width / 30, height / 10, paint);
+
+
+                if(System.currentTimeMillis() - mpm < 1000){
+                    if(deviation>0){
+                        paint.setColor(Color.GREEN);
+                    }
+                    else{
+                        paint.setColor(Color.RED);
+                    }
+                    canvas.drawText(String.valueOf(deviation), 24 * width / 30, height / 10, paint);
+                }
                 //Unlocking the canvas
 
             } else {

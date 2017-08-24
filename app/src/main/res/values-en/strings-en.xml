@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FindComb</string>
+    <string name="Toast_One">Chose the discriminative trait.</string>
+    <string name="Toast_Two">Maybe interactions are discriminative.</string>
+    <string name="Toast_Three">Different traints may have the same effect.</string>
+    <string name="Tut1">There are healthy and sick patients.</string>
+    <string name="Tut2">Every patient possesses traits in different colors</string>
+    <string name="Tut3">Chose the traits that lead to the illness.</string>
+</resources>
