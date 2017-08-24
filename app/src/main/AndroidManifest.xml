@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".TutorialActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />

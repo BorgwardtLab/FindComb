@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //private Button mHard;
 
     public final static int REQUEST_CODE = 1;
+    public final static int REQUEST = 2;
     private Intent intent;
 
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mEasy) {
             //starting game activity
-            startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
+            startActivityForResult(new Intent(this,TutorialActivity.class), REQUEST);
         }
         //if(v == mHard){
         //    startActivity(new Intent(MainActivity.this, HighScore.class));
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }catch(Exception e){
                         e.printStackTrace();
                     }
+                    break;
+            case REQUEST:
+                startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
 
 //                }
         }

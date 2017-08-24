@@ -23,6 +23,8 @@ public class Level implements  GameObject{
     private boolean[] msick3;
     private Picture h1;
 
+    //private Picture hh1,hh2,hh3,hs1,hs2,hs3;
+
 
 
 
@@ -57,45 +59,47 @@ public class Level implements  GameObject{
 
 
 
+
         int i = 2;
+        int radius = 18;
 
         if (colors[0] == true) {
-            mRed = new Circle(i * width / 16, 15 * height / 20, width / 18, red);
+            mRed = new Circle(i * width / 16, 15 * height / 20, width / radius, red);
             i += 3;
         }
         else{
-            mRed = new Circle(width*2, 15 * height / 20, width / 18, red);
+            mRed = new Circle(width*2, 15 * height / 20, width / radius, red);
         }
 
         if( colors[1] == true) {
-            mBlue = new Circle(i * width / 16, 15 * height / 20, width / 18, blue);
+            mBlue = new Circle(i * width / 16, 15 * height / 20, width / radius, blue);
             i += 3;
         }
         else{
-            mBlue = new Circle(width*2, 15 * height / 20, width / 18, red);
+            mBlue = new Circle(width*2, 15 * height / 20, width / radius, red);
         }
 
         if(colors[2] == true) {
-            mGreen = new Circle(i * width / 16, 15 * height / 20, width / 18, green);
+            mGreen = new Circle(i * width / 16, 15 * height / 20, width / radius, green);
             i += 3;
         }
         else{
-            mGreen = new Circle(width*2, 15 * height / 20, width / 18, red);
+            mGreen = new Circle(width*2, 15 * height / 20, width / radius, red);
         }
 
         if(colors[4] == true) {
-            mYellow = new Circle(i * width / 16, 15 * height / 20, width / 18, yellow);
+            mYellow = new Circle(i * width / 16, 15 * height / 20, width / radius, yellow);
             i += 3;
         }
         else{
-            mYellow = new Circle(width*2, 15 * height / 20, width / 18, red);
+            mYellow = new Circle(width*2, 15 * height / 20, width / radius, red);
         }
 
         if(colors[3]==true) {
-            mPurple = new Circle(i * width / 16, 15 * height / 20, width / 18, purple);
+            mPurple = new Circle(i * width / 16, 15 * height / 20, width / radius, purple);
         }
         else{
-            mPurple = new Circle(width*2, 15 * height / 20, width / 18, red);
+            mPurple = new Circle(width*2, 15 * height / 20, width / radius, red);
         }
 
 
@@ -138,6 +142,13 @@ public class Level implements  GameObject{
         int xs2 = 0;
         int xs3 = 0;
 
+        int radius = 22;
+
+        canvas.drawRect(new Rect(3*mheight/7, mheight/10-1, 5*mwidth/7, mheight/10+1), paint);
+        canvas.drawRect(new Rect(3*mheight/7, 2*mheight/10-1, 5*mwidth/7, 2*mheight/10+1), paint);
+        canvas.drawRect(new Rect(3*mheight/7, 9*mheight/20-1, 5*mwidth/7, 9*mheight/20+1), paint);
+        canvas.drawRect(new Rect(3*mheight/7, 11*mheight/20-1, 5*mwidth/7, 11*mheight/20+1), paint);
+
         //Red
         if(mRed.clicked == true){
             paint.setColor(red[1]);
@@ -146,22 +157,22 @@ public class Level implements  GameObject{
             paint.setColor(red[0]);
         }
         if(mhealthy1[0] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
         }
         if(mhealthy2[0] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
         }
         if(mhealthy3[0] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
         }
         if(msick1[0] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
         }
         if(msick2[0] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
         }
         if(msick3[0] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
         }
         xh1 += 1;
         xh2 += 1;
@@ -178,22 +189,22 @@ public class Level implements  GameObject{
             paint.setColor(blue[0]);
         }
         if(mhealthy1[1] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
         }
         if(mhealthy2[1] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
         }
         if(mhealthy3[1] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
         }
         if(msick1[1] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
         }
         if(msick2[1] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
         }
         if(msick3[1] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
         }
         xh1 += 1;
         xh2 += 1;
@@ -210,22 +221,22 @@ public class Level implements  GameObject{
             paint.setColor(green[0]);
         }
         if(mhealthy1[2] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
         }
         if(mhealthy2[2] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
         }
         if(mhealthy3[2] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
         }
         if(msick1[2] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
         }
         if(msick2[2] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
         }
         if(msick3[2] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
         }
         xh1 += 1;
         xh2 += 1;
@@ -241,22 +252,22 @@ public class Level implements  GameObject{
             paint.setColor(yellow[0]);
         }
         if(mhealthy1[4] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
         }
         if(mhealthy2[4] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
         }
         if(mhealthy3[4] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
         }
         if(msick1[4] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
         }
         if(msick2[4] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
         }
         if(msick3[4] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
         }
 
 
@@ -277,22 +288,22 @@ public class Level implements  GameObject{
             paint.setColor(purple[0]);
         }
         if(mhealthy1[3] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
         }
         if(mhealthy2[3] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
         }
         if(mhealthy3[3] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
         }
         if(msick1[3] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
         }
         if(msick2[3] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
         }
         if(msick3[3] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/20,paint);
+            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
         }
 
 

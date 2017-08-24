@@ -124,7 +124,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "wähle das unterscheidende Merkmal der Patientengruppen";
+                CharSequence text = "Wähle das unterscheidende Merkmal der Patientengruppen.";
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -137,7 +137,7 @@ public class GameView extends SurfaceView implements Runnable {
         mact.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = "vielleicht sind auch Interaktionen unterscheidend";
+                CharSequence text = "Vielleicht sind auch Interaktionen unterscheidend.";
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(mContext, text, duration);
@@ -225,7 +225,7 @@ public class GameView extends SurfaceView implements Runnable {
                     canvas.drawText("Game Over", width / 3, height / 2, paint);
                     soundwrong.start();
                 } else {
-                    canvas.drawText("Your Score: " + String.valueOf(mScore), width / 4, height / 2, paint);
+                    canvas.drawText("Score: " + String.valueOf(mScore), width / 4, height / 2, paint);
                 }
 
             }
