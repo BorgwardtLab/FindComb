@@ -225,6 +225,16 @@ public class GameView extends SurfaceView implements Runnable {
             paint.setColor(Color.BLACK);
             if (mScore > 0 && mLevelIndicator <= mLevelsNumber) {
                 mLevel.draw(canvas);
+
+                Paint paintb = new Paint();
+                paintb.setColor(Color.parseColor("#0099cc"));
+
+                canvas.drawRect(new Rect(19*width/20,3*height/20,15*width/20, 3*height/5),paintb);
+
+                paintb.setColor(Color.BLACK);
+                paintb.setTextSize(100);
+                canvas.drawText("Go!",16*width/20, 8*height/20,paintb);
+
                 canvas.drawText(String.valueOf(mScore), 27 * width / 30, height / 10, paint);
 
 

@@ -22,6 +22,7 @@ public class Level implements  GameObject{
     private boolean[] msick2;
     private boolean[] msick3;
     private Picture h1;
+    public int Tut;
 
     //private Picture hh1,hh2,hh3,hs1,hs2,hs3;
 
@@ -39,7 +40,7 @@ public class Level implements  GameObject{
     private int mheight;
 
 
-    private Circle mRed, mBlue, mGreen, mPurple, mYellow;
+    public Circle mRed, mBlue, mGreen, mPurple, mYellow;
 
     public boolean clicked;
 
@@ -53,6 +54,7 @@ public class Level implements  GameObject{
         mwidth = width;
         mheight = height;
         clicked = false;
+        Tut = 0;
 
         h1 = new Picture(R.drawable.leftside, context,0,0,3*mheight/7,2*mheight/3);
 
@@ -120,20 +122,15 @@ public class Level implements  GameObject{
     @Override
     public void draw(Canvas canvas) {
         h1.draw(canvas);
-        mRed.draw(canvas);
-        mBlue.draw(canvas);
-        mGreen.draw(canvas);
-        mPurple.draw(canvas);
-        mYellow.draw(canvas);
 
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#0099cc"));
+        if(Tut == 0) {
+            mRed.draw(canvas);
+            mBlue.draw(canvas);
+            mGreen.draw(canvas);
+            mPurple.draw(canvas);
+            mYellow.draw(canvas);
+        }
 
-        canvas.drawRect(new Rect(19*mwidth/20,3*mheight/20,15*mwidth/20, 3*mheight/5),paint);
-
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(100);
-        canvas.drawText("Go!",16*mwidth/20, 8*mheight/20,paint);
 
         int xh1 = 0;
         int xh2 = 0;
@@ -143,6 +140,8 @@ public class Level implements  GameObject{
         int xs3 = 0;
 
         int radius = 22;
+
+        Paint paint = new Paint();
 
         canvas.drawRect(new Rect(3*mheight/7, mheight/10-1, 5*mwidth/7, mheight/10+1), paint);
         canvas.drawRect(new Rect(3*mheight/7, 2*mheight/10-1, 5*mwidth/7, 2*mheight/10+1), paint);

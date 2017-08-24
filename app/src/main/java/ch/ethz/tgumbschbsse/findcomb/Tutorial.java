@@ -12,9 +12,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -35,6 +38,9 @@ public class Tutorial extends SurfaceView implements Runnable {
     volatile boolean playing;
     private Thread gameThread = null;
     Activity mact;
+
+    private Level mLevel;
+    private Picture h1;
 
     // In case moving is an option
     private Point mPlayer;
@@ -66,6 +72,18 @@ public class Tutorial extends SurfaceView implements Runnable {
         mContext = context;
         mstage = 0;
 
+        h1 = new Picture(R.drawable.leftside, mContext,0,0,3*height/7,2*height/3);
+
+        mLevel = new Level(mContext, width, height,
+                new boolean[]{false, true, false, false, false},
+                new boolean[]{false, true, false, false, false},
+                new boolean[]{false, true, false, false, false},
+                new boolean[]{true, false, false, false, false},
+                new boolean[]{true, true, false, false, false},
+                new boolean[]{true, false, false, false, false},
+                new boolean[]{true, true, false, false, false});
+        mLevel.Tut = 1;
+
 
         //Stuff that we might need later
         mPlayer = new Point(1500, 300);
@@ -78,6 +96,9 @@ public class Tutorial extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mstage++;
+        if(mstage == 2){
+            mLevel.mRed.clicked = true;
+        }
         if(mstage>2) {
             playing = false;
         }
@@ -97,33 +118,34 @@ public class Tutorial extends SurfaceView implements Runnable {
             canvas = surfaceHolder.lockCanvas();
             Paint paint = new Paint();
             paint.setTextSize(width/30);
-            paint.setColor(Color.WHITE);
+            //paint.setColor(Color.WHITE);
+            paint.setColor(Color.BLACK);
             //drawing a background color for canvas
-            canvas.drawColor(Color.parseColor("#0099cc"));
+            //canvas.drawColor(Color.parseColor("#0099cc"));
+            canvas.drawColor(Color.WHITE);
 
-            String text = getContext().getString(R.string.Tut1);
-            canvas.drawText(text, width/10, 2*width/30, paint);
-            if(mstage == 0){
 
-                // Display pictures
+            String text;
+
+
+            if(mstage==0) {
+                h1.draw(canvas);
+                text = getContext().getString(R.string.Tut1);
+                canvas.drawText(text, width / 10, 9 * height / 12, paint);
             }
 
-            if(mstage > 0) {
+            if(mstage == 1) {
+                mLevel.draw(canvas);
                 text = getContext().getString(R.string.Tut2);
-                canvas.drawText(text, width / 10, 7 * width / 60, paint);
-            }
-            if(mstage ==1){
-                // Display buttons
+                canvas.drawText(text,  width / 10, 9 * height / 12, paint);
             }
 
 
 
-            if(mstage>1) {
+            if(mstage ==2) {
+                mLevel.draw(canvas);
                 text = getContext().getString(R.string.Tut3);
-                canvas.drawText(text, width/10, 5*width/30, paint);
-            }
-            if(mstage==2){
-                //Display correct combination
+                canvas.drawText(text, width/10, 9 * height / 12, paint);
             }
 
 
