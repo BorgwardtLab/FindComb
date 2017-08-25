@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -71,24 +72,84 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         String name = intent.getExtras().getString("name");
         int score = intent.getExtras().getInt("score");
         int position = intent.getExtras().getInt("position");
+        int global = intent.getExtras().getInt("global");
 
         header.setText("Leaderboard:");
 
-        if(position > 10){
-            textView11.setText(position + ". " + name + " : \t" + score);
-            textView11.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
-        } else {
-            header.setPadding(0,75,0, 50);
-            Scores.get(position-1).setTextColor(Color.parseColor("#2F36A9"));
+        if(global == 1) {
+            if(position > 10){
+                textView11.setText(position + ". " + name + " : \t" + score);
+                textView11.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
+            } else {
+                header.setPadding(0,75,0, 50);
+                Scores.get(position-1).setTextColor(Color.parseColor("#2F36A9"));
+            }
+            Api Communication = new Api(this);
+            // Retrieve top 10
+            try {
+                Api.get_top_n(10, null);
+                System.out.println("First call ok");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        else{
+            //Local leaderboard
+            sharedPreferences = getSharedPreferences("SavedGame", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            boolean posted = false;
+            int i = 0;
+            String temp_name;
+            int temp_score;
+            String temp_name_ = "XXX";
+            int temp_score_ = 0;
+            while(i < 11){
+                String lbString = String.valueOf(i+1) + ". ";
 
-        Api Communication = new Api(this);
-        // Retrieve top 10
-        try {
-            Api.get_top_n(10, null);
-            System.out.println("First call ok");
-        }catch(Exception e){
-            e.printStackTrace();
+                temp_name = sharedPreferences.getString("name" + String.valueOf(i), "XXX");
+                temp_score = sharedPreferences.getInt("score" + String.valueOf(i), 0);
+
+                if(temp_score_ != 0) {
+                    editor.putInt("score" + String.valueOf(i), temp_score_);
+                    editor.putString("name" + String.valueOf(i), temp_name_);
+                    editor.commit();
+                }
+
+
+
+                if(score >= temp_score){
+                    if(posted == false) {
+                        temp_name_ = temp_name;
+                        temp_score_ = temp_score;
+                        lbString += name + " : \t" + String.valueOf(score);
+                        Scores.get(i).setTextColor(Color.parseColor("#2F36A9"));
+                        editor.putInt("score" + String.valueOf(i), score);
+                        editor.putString("name" + String.valueOf(i), name);
+                        editor.commit();
+                        posted = true;
+                    }
+                    else{
+                        lbString += temp_name_ + " : \t" + String.valueOf(temp_score_);
+                        temp_name_ = temp_name;
+                        temp_score_ = temp_score;
+
+                    }
+                }
+                else{
+                    lbString += temp_name + " : \t" + String.valueOf(temp_score);
+                }
+
+                if(i < 10) {
+                    Scores.get(i).setText(lbString);
+                }
+
+                i++;
+            }
+            if(posted == false){
+                textView11.setText(". " + name + " : \t" + score);
+                textView11.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
+            }
+
         }
 
     }

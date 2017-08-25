@@ -3,6 +3,7 @@ package ch.ethz.tgumbschbsse.findcomb;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_CODE = 1;
     public final static int REQUEST = 2;
     private Intent intent;
+    private static int LGLOBAL = 0;
 
 
 
@@ -88,12 +90,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     intent =  new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", score);
-                    Api postApi = new Api(this);
-                    try {
-                        Api.post(params);
-                        System.out.println("Post ok");
-                    }catch(Exception e){
-                        e.printStackTrace();
+                    intent.putExtra("global", LGLOBAL);
+                    if(LGLOBAL == 1) {
+                        Api postApi = new Api(this);
+                        try {
+                            Api.post(params);
+                            System.out.println("Post ok");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        intent.putExtra("position", 15);
+                        this.startActivity(intent);
+                        //Post to local leaderboard
                     }
                     break;
             case REQUEST:
