@@ -23,6 +23,7 @@ public class Level implements  GameObject{
     private boolean[] msick3;
     private Picture h1;
     public int Tut;
+    public int logp;
 
     //private Picture hh1,hh2,hh3,hs1,hs2,hs3;
 

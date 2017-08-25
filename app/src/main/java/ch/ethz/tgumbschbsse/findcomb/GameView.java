@@ -180,8 +180,8 @@ public class GameView extends SurfaceView implements Runnable {
                 boolean[] rbgpyPlayer = mLevel.getClicked();
                 if (mLevelIndicator <= mLevelsNumber) {
                     if (Arrays.equals(rbgpy, rbgpyPlayer)) {
-                        mScore = mScore + 10;
-                        deviation = 10;
+                        mScore = mScore + mLevel.logp*10;
+                        deviation = mLevel.logp*10;
                         mpm = System.currentTimeMillis();
                         if(mLevelIndicator < mLevelsNumber) {
                             soundright.start();
@@ -313,6 +313,8 @@ public class GameView extends SurfaceView implements Runnable {
     // The level architecture
 
     public void LevelInit() {
+
+        StatTests Fisher;
         switch (mLevelIndicator) {
             case 1:
                 Introduction();
@@ -335,6 +337,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, false, false, false, false},
                         new boolean[]{true, true, false, false, false});
                 rbgpy = new boolean[]{true, false, false, false, false};
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
             case 2:
                 rbgpy = new boolean[]{true, false, false, false, false};
@@ -346,6 +350,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, false, false, false},
                         new boolean[]{true, true, true, false, false});
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
             case 3:
                 Combination();
@@ -358,6 +364,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, true, false, false});
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
 
                 break;
             case 4:
@@ -370,6 +378,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, false, true, false, false},
                         new boolean[]{true, true, true, false, false},
                         new boolean[]{true, true, true, false, false});
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
             case 5:
                 mLevel = new Level(mContext, width, height,
@@ -381,6 +391,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true},
                         new boolean[]{true, true, true, false, true});
                 rbgpy = new boolean[]{true, false, true, false, false};
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
             case 6:
                 mLevel = new Level(mContext, width, height,
@@ -392,6 +404,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true},
                         new boolean[]{true, true, true, false, true});
                 rbgpy = new boolean[]{false, false, true, false, true};
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
             case 7:
                 Logic();
@@ -404,6 +418,8 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, false, false, true, true},
                         new boolean[]{true, true, true, true, true});
                 rbgpy = new boolean[]{true, false, true, true, false};
+                Fisher = new StatTests(3,0,0,3);
+                mLevel.logp = (int) Fisher.logp;
                 break;
 
         }

@@ -140,7 +140,9 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
                 }
 
                 if(i < 10) {
-                    Scores.get(i).setText(lbString);
+                    if(temp_score > 0 || i == 0) {
+                        Scores.get(i).setText(lbString);
+                    }
                 }
 
                 i++;

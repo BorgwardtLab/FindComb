@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_CODE = 1;
     public final static int REQUEST = 2;
     private Intent intent;
-    private static int LGLOBAL = 0;
+    private static int LGLOBAL = 1;
 
 
 
