@@ -8,7 +8,10 @@ public class StatTests {
     StatTests(int n11, int n12, int n21, int n22){
         p = factorial(n11+n12) * factorial(n21 + n22) / (factorial(n11)*factorial(n12));
         p *= factorial(n11+n21) * factorial(n12+n22) / (factorial(n21)*factorial(n22));
-        logp = Math.log(p);
+        p /= factorial(n11+n12+n21+n22);
+
+        //System.out.println(String.valueOf(p));
+        logp = -1*Math.log(p);
 
     }
 
