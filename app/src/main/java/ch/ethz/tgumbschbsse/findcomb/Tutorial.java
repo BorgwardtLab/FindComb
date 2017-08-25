@@ -95,16 +95,20 @@ public class Tutorial extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mstage++;
-        if(mstage == 2){
-            mLevel.mRed.clicked = true;
-        }
-        if(mstage>2) {
-            playing = false;
-        }
 
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mstage++;
+                if (mstage == 2) {
+                    mLevel.mRed.clicked = true;
+                }
+                if (mstage > 2) {
+                    playing = false;
+                }
+
+            //return super.onTouchEvent(event);
+        }
         return true;
-        //return super.onTouchEvent(event);
     }
 
 
