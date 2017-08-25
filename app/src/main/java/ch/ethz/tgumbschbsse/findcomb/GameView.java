@@ -391,7 +391,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, true, false, true},
                         new boolean[]{true, true, true, false, true});
                 rbgpy = new boolean[]{true, false, true, false, false};
-                Fisher = new StatTests(3,0,0,3);
+                Fisher = new StatTests(2,1,0,3);
                 mLevel.logp = (int) Fisher.logp;
                 break;
             case 6:
