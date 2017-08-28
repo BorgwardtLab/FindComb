@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.text.TextWatcher;
+import android.text.Editable;
 
 import com.loopj.android.http.RequestParams;
 
@@ -48,6 +51,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
+        mNameEntry.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().trim().length()==0){
+                    mEasy.setEnabled(false);
+                    mEasy.setTextColor(Color.parseColor("#FF999A9A"));
+                    mEasy.setBackgroundColor(Color.parseColor("#FFCECFCF"));
+
+                } else {
+                    mEasy.setEnabled(true);
+                    mEasy.setTextColor(Color.parseColor("white"));
+                    mEasy.setBackgroundColor(Color.parseColor("#FF373FAC"));
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
         //mImageView = (ImageView) findViewById(R.id.Logo);
         //Bitmap ethlogo = BitmapFactory.decodeResource(getResources(), R.drawable.eth);
         //ethlogo = getResizedBitmap(ethlogo,800,200);
