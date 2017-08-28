@@ -25,6 +25,14 @@
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".TutorialCombActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TutorialMasterActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />

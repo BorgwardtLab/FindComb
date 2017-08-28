@@ -3,7 +3,16 @@
     <string name="Toast_One">Wähle die unterscheidende Eigenschaft der Patientengruppen.</string>
     <string name="Toast_Two">Vielleicht sind auch Interaktionen unterscheidend.</string>
     <string name="Toast_Three">Unterschiedliche Eigenschaften koennen den gleichen Effekt haben.</string>
+
     <string name="Tut1">Es gibt Patienten: Gesunde und Kranke.</string>
     <string name="Tut2">Jeder Patient traegt Eigenschaften verschieder Farben.</string>
     <string name="Tut3">Finde die Merkmale, welche mit der Krankheit korrelieren.</string>
+
+    <string name="Tut21">Mehrere Eigenschaften koennen wechselwirken.</string>
+    <string name="Tut22">Entweder korreliert der kombinierte Effekt mit der Krankkeit...</string>
+    <string name="Tut23">... oder zwei Eigenschaften haben den gleichen Effekt.</string>
+
+
+    <string name="Tut31">Komplzierte Regeln sind auch denkbar.</string>
+    <string name="Tut32">Hier: Rot UND (gruen ODER gelb)</string>
 </resources>

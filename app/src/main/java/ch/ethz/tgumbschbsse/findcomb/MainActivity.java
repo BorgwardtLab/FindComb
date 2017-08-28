@@ -37,7 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //private Button mHard;
 
     public final static int REQUEST_CODE = 1;
-    public final static int REQUEST = 2;
+    public final static int REQUEST_ONE = 5;
+    public final static int REQUEST_TWO = 6;
+    public final static int REQUEST_THREE = 7;
+    public final static int REQUEST_FOUR = 8;
+    public final static int REQUEST_FIVE = 9;
+
     private Intent intent;
     private static int LGLOBAL = 1;
 
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mEasy) {
             //starting game activity
-            startActivityForResult(new Intent(this,TutorialActivity.class), REQUEST);
+            startActivityForResult(new Intent(this,TutorialActivity.class), REQUEST_ONE);
         }
         //if(v == mHard){
         //    startActivity(new Intent(MainActivity.this, HighScore.class));
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //Post to local leaderboard
                     }
                     break;
-            case REQUEST:
+            case REQUEST_ONE:
                 startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
 
 //                }
