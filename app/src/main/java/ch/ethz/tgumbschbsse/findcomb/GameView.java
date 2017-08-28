@@ -16,6 +16,7 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v4.app.ShareCompat;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -99,6 +100,7 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     }
+
 
 
     @Override
@@ -198,7 +200,24 @@ public class GameView extends SurfaceView implements Runnable {
                         deviation = -10;
                         soundwrong.start();
                         mLevel.reset();
+
                     }
+
+                    /*
+                    mLevel.eval(rbgpyPlayer);
+                    mScore += mLevel.logp;
+                    deviation = mLevel.logp;
+                    mpm = System.currentTimeMillis();
+                    if(mLevelIndicator < mLevelsNumber) {
+                        soundright.start();
+                    }
+                    else{
+                        soundfinal.start();
+                    }
+                    mLevelIndicator++;
+                    LevelInit();
+                    */
+
                 }
 
                 //What happens next?

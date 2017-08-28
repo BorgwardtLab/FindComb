@@ -2,7 +2,6 @@ package ch.ethz.tgumbschbsse.findcomb;
 
 
 public class StatTests {
-    private int n11, n12, n21, n22;
     public double p, logp;
 
     StatTests(int n11, int n12, int n21, int n22){

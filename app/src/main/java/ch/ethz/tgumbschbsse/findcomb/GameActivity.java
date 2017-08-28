@@ -23,7 +23,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -37,6 +36,10 @@ public class GameActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void onBackPressed(){
+        // finish(); //This makes the app crash!
     }
 
     //pausing the game when activity is paused

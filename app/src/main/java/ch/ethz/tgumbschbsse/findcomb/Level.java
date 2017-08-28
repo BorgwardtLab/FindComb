@@ -10,6 +10,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
 
+import java.util.Random;
+
 /**
  * Created by tgumbsch on 8/14/17.
  */
@@ -21,11 +23,15 @@ public class Level implements  GameObject{
     private boolean[] msick1;
     private boolean[] msick2;
     private boolean[] msick3;
+    private boolean[] mcolors;
     private Picture h1;
     public int Tut;
     public int logp;
 
+    private Random mrand;
+
     //private Picture hh1,hh2,hh3,hs1,hs2,hs3;
+
 
 
 
@@ -45,6 +51,10 @@ public class Level implements  GameObject{
 
     public boolean clicked;
 
+
+
+
+
     public Level(Context context, int width, int height, boolean[] healthy1, boolean[] healthy2, boolean[] healthy3, boolean[] sick1, boolean[] sick2, boolean[] sick3, boolean[] colors){
         mhealthy1 = healthy1;
         mhealthy2 = healthy2;
@@ -54,12 +64,15 @@ public class Level implements  GameObject{
         msick3 = sick3;
         mwidth = width;
         mheight = height;
+        mcolors = colors;
         clicked = false;
         Tut = 0;
-
         h1 = new Picture(R.drawable.leftside, context,0,0,3*mheight/7,2*mheight/3);
 
 
+
+        mrand = new Random();
+        mrand.setSeed(42);
 
 
 
@@ -341,4 +354,251 @@ public class Level implements  GameObject{
 
         return solution;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int[] AND(int[] checkeda, int[] checkedb){
+        int[] result = {0,0,0,0,0,0};
+        for(int i = 0; i < 6; i++){
+            result[i] = (int) ((checkeda[i] + checkedb[i])/2.);
+        }
+        return result;
+    }
+
+
+    public int[] NAND(int[] checkeda, int[] checkedb){
+        int[] result = {1,1,1,1,1,1};
+        for(int i = 0; i < 6; i++){
+            if(checkeda[i] == 0 || checkedb[i] == 0){
+                if(checkeda[i] != checkedb[i]) {
+                    result[i] = 0;
+                }
+            }
+        }
+        return result;
+    }
+
+    public int[] OR(int[] checkeda, int[] checkedb){
+        int[] result = {0,0,0,0,0,0};
+        for(int i = 0; i < 6; i++){
+            if(checkeda[i] == 1 || checkedb[i] == 1){
+                result[i] = 1;
+            }
+        }
+        return result;
+    }
+
+    public int[] XOR(int[] checkeda, int[] checkedb){
+        int[] result = {0,0,0,0,0,0};
+        for(int i = 0; i < 6; i++){
+            if(checkeda[i] == 1 || checkedb[i] == 1){
+                if(checkeda[i] != checkedb[i]) {
+                    result[i] = 1;
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+    public int computecomb(int[] checked){
+        int n11 = checked[0]+checked[1]+checked[2];
+        int n12 = 3-n11;
+        int n21 = checked[3]+checked[4]+checked[5];
+        int n22 =  3- n21;
+
+
+        StatTests Fisher = new StatTests(n11, n12, n21, n22);
+        return (int) (10* Fisher.logp);
+    }
+
+    public void eval(boolean[] cchecked){
+        int[] checked = {0,0,0,0,0};
+        for(int i = 0; i < 5; i++){
+            if(cchecked[i] == true){
+                checked[i] = 1;
+            }
+        }
+        if(checked.length == 0){
+            logp = 1;
+        }
+        else if(checked.length == 1) {
+            logp = computecomb(CAND(checked));
+        }
+        else if(checked.length == 2){
+            int templogpa = computecomb(CAND(checked));
+            int templogpb = computecomb(COR(checked));
+            int templogpc = computecomb(XOR(CAND(new int[] {checked[0]}),CAND(new int[] {checked[1]})));
+            int templogpd = computecomb(NAND(CAND(new int[] {checked[0]}),CAND(new int[] {checked[1]})));
+
+            logp = Math.max(Math.max(Math.max(templogpa,templogpb),templogpc),templogpd);
+        }
+        else if(checked.length == 3){
+            logp = computecomb(CAND(checked));
+        }
+    }
+
+
+    public int[] COR(int[] checked){
+        //int n11 = 0;
+        //int n12 = 0;
+        //int n21 = 0;
+        //int n22 = 0;
+
+        int ch1 = 0;
+        int ch2 = 0;
+        int ch3 = 0;
+        int cs1 = 0;
+        int cs2 = 0;
+        int cs3 = 0;
+
+        for(int i:checked){
+            if(mhealthy1[i] == true){
+                ch1 = 1;
+            }
+            if(mhealthy2[i] == true){
+                ch2 = 1;
+            }
+            if(mhealthy3[i] == true){
+                ch3 = 1;
+            }
+            if(msick1[i] == true){
+                cs1 = 1;
+            }
+            if(msick2[i] == true){
+                cs2 = 1;
+            }
+            if(msick3[i] == true){
+                cs3 = 1;
+            }
+        }
+
+        //n11 = ch1+ch2+ch3;
+        //n12 = 3- n11;
+        //n22 = cs1 + cs2 + cs3;
+        //n21 = 3-n22;
+
+        return new int[] {ch1, ch2, ch3, cs1, cs2, cs3};
+
+        //StatTests Fisher = new StatTests(n11, n12, n21, n22);
+        //logp = (int) (10* Fisher.logp);
+
+
+    }
+
+    public int[] CAND(int[] checked){
+        //int n11 = 0;
+        //int n12 = 0;
+        //int n21 = 0;
+        //int n22 = 0;
+
+        int ch1 = 1;
+        int ch2 = 1;
+        int ch3 = 1;
+        int cs1 = 1;
+        int cs2 = 1;
+        int cs3 = 1;
+
+        for(int i:checked){
+            if(mhealthy1[i] != true){
+                ch1 = 0;
+            }
+            if(mhealthy2[i] != true){
+                ch2 = 0;
+            }
+            if(mhealthy3[i] != true){
+                ch3 = 0;
+            }
+            if(msick1[i] != true){
+                cs1 = 0;
+            }
+            if(msick2[i] != true){
+                cs2 = 0;
+            }
+            if(msick3[i] != true){
+                cs3 = 0;
+            }
+        }
+
+        return new int[] {ch1, ch2, ch3, cs1, cs2, cs3};
+
+        //n11 = ch1+ch2+ch3;
+        //n12 = 3- n11;
+        //n22 = cs1 + cs2 + cs3;
+        //n21 = 3-n22;
+
+        //StatTests Fisher = new StatTests(n11, n12, n21, n22);
+        //logp = (int) (10* Fisher.logp);
+
+
+    }
+
+
+
+    public void randomize(int num){
+        for(int i = 0; i < 5;i++){
+            if(i < num){
+                mcolors[i] = true;
+                mhealthy1[i] = mrand.nextBoolean();
+                mhealthy2[i] = mrand.nextBoolean();
+                mhealthy3[i] = mrand.nextBoolean();
+                msick1[i] = mrand.nextBoolean();
+                msick2[i] = mrand.nextBoolean();
+                msick3[i] = mrand.nextBoolean();
+            }
+            else{
+                mcolors[i] = false;
+                mhealthy1[i] = false;
+                mhealthy2[i] = false;
+                mhealthy3[i] = false;
+                msick1[i] = false;
+                msick2[i] = false;
+                msick3[i] = false;
+            }
+        }
+
+    }
+
+    public void inject(int[] patient, int[] feature, boolean[] presence){
+        int i = 0;
+        while(i < patient.length){
+            if(patient[i] == 0){
+                mhealthy1[feature[i]] = presence[i];
+            }
+            else if(patient[i] == 1){
+                mhealthy2[feature[i]] = presence[i];
+            }
+            else if(patient[i] == 2){
+                mhealthy3[feature[i]] = presence[i];
+            }
+            else if(patient[i] == 3){
+                msick1[feature[i]] = presence[i];
+            }
+            else if(patient[i] == 4){
+                msick2[feature[i]] = presence[i];
+            }
+            else if(patient[i] == 5){
+                msick3[feature[i]] = presence[i];
+            }
+
+            i++;
+        }
+    }
+
 }
