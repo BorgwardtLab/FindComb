@@ -100,7 +100,9 @@ public class Tutorial extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
                 mstage++;
                 if (mstage == 2) {
-                    mLevel.mRed.clicked = true;
+                    mLevel.cs11.clicked = true;
+                    mLevel.cs21.clicked = true;
+                    mLevel.cs31.clicked = true;
                 }
                 if (mstage > 2) {
                     playing = false;

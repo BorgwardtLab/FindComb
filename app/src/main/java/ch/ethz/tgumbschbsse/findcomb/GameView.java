@@ -166,6 +166,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        mLevel.update();
         if (mScore > 0) {
 
             if ((System.currentTimeMillis() - mTimestamp) > 1000 && mLevelIndicator <= mLevelsNumber) {
@@ -337,7 +338,7 @@ public class GameView extends SurfaceView implements Runnable {
         switch (mLevelIndicator) {
             case 1:
                 Introduction();
-                // Binary indicator of colors in columns: {red, blue, green, pruple, yellow}
+                // Binary indicator of colors in columns: {red, blue, green, yellow, purple}
                 // mLevel = new Level(mContext, width, height,
                 // the first column healthy        new boolean[]{false, true, false, false, false},
                 // the second column healthy       new boolean[]{false, true, false, false, false},
