@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //adding a click listener
         mEasy.setOnClickListener(this);
         //mHard.setOnClickListener(this);
+
     }
 
     @Override
