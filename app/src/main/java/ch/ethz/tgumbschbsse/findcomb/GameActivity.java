@@ -36,26 +36,23 @@ public class GameActivity extends AppCompatActivity {
         //Initializing game view object
         Intent intent = getIntent();
         Level = intent.getIntExtra("Level",1);
+        gameView = new GameView(this, GameActivity.this);
+        gameView.mScore = intent.getIntExtra("score",120);
         if(Level == 1) {
-            gameView = new GameView(this, GameActivity.this);
             setContentView(gameView);
         }
         else if(Level==2){
-            gameView = new GameView(this, GameActivity.this);
-            gameView.mScore = intent.getIntExtra("score",120);
             gameView.mLevelIndicator = 3;
             gameView.mLevelsNumber = 6;
             gameView.LevelInit();
             setContentView(gameView);
         }
         else{
-            gameView = new GameView(this, GameActivity.this);
-            gameView.mScore = intent.getIntExtra("score",120);
             gameView.mLevelIndicator = 7;
             gameView.mLevelsNumber = 7;
             gameView.LevelInit();
-            setContentView(gameView);
         }
+        setContentView(gameView);
 
 
     }

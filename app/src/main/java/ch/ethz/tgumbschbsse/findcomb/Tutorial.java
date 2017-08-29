@@ -146,14 +146,10 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.ch21.clicked = true;
                     }
                     else if(Level==3){
-                        mLevel.cs11.clicked = true;
                         mLevel.cs13.clicked = true;
-                        mLevel.cs21.clicked = true;
                         mLevel.cs24.clicked = true;
-                        mLevel.cs31.clicked = true;
                         mLevel.cs34.clicked = true;
                         mLevel.ch13.clicked = true;
-                        mLevel.ch21.clicked = true;
                         mLevel.ch34.clicked = true;
                     }
                 }
@@ -183,6 +179,10 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.ch21.clicked = true;
                     }
                     else{
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs31.clicked = true;
+                        mLevel.ch21.clicked = true;
 
                     }
                 }

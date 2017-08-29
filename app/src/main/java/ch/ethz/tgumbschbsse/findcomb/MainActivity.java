@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUEST_CODE: //Move to High score and finish
                 int temp_score_lvl3 = data.getExtras().getInt("score");
                 if (temp_score_lvl3 > 0) {
-                    mScore += temp_score_lvl3;
+                    mScore = temp_score_lvl3;
                 }
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUEST_TWO:
                 int temp_score_lvl1 = data.getExtras().getInt("score");
                 if (temp_score_lvl1 > 0){//Level1 successful
-                    mScore += temp_score_lvl1;
+                    mScore = temp_score_lvl1;
                     intent = new Intent(this,TutorialActivity.class);
                     intent.putExtra("Level", 2);
                     startActivityForResult(intent,REQUEST_THREE);
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUEST_FOUR:
                 int temp_score_lvl2 = data.getExtras().getInt("score");
                 if (temp_score_lvl2 > 0){//Level2 successful
-                    mScore += temp_score_lvl2;
+                    mScore = temp_score_lvl2;
                     intent = new Intent(this,TutorialActivity.class);
                     intent.putExtra("Level", 3);
                     startActivityForResult(intent,REQUEST_FIVE);
