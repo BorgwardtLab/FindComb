@@ -522,21 +522,21 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{false, false, true, true, false},
                         new boolean[]{true, true, false, false, false},
                         new boolean[]{false, false, true, true, false},
-                        new boolean[]{true, false, true, false, false},
+                        new boolean[]{true, true, true, false, false},
                         new boolean[]{false, true, false, true, false},
-                        new boolean[]{true, false, true, false, false},
+                        new boolean[]{true, false, true, true, false},
                         new boolean[]{true, true, true, true, false});
-                rbgpy = new boolean[]{true, true, true, true, false}; //(1and3)or(2and4)
+                rbgpy = new boolean[]{true, true, false, false, false}; //(1and3)or(2and4)
                 Fisher = new StatTests(3,0,0,3);
                 mLevel.logp = (int) Fisher.logp;
                 break;
             case 13:
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{true, false, false, true, false},
-                        new boolean[]{false, true, true, false, false},
+                        new boolean[]{false, true, true, false, true},
                         new boolean[]{true, false, false, false, false},
-                        new boolean[]{false, false, false, true, true},
-                        new boolean[]{false, false, true, false, true},
+                        new boolean[]{false, true, false, true, true},
+                        new boolean[]{true, false, true, false, true},
                         new boolean[]{true, true, false, true, false},
                         new boolean[]{true, true, true, true, true});
                 rbgpy = new boolean[]{true, true, false, false, true}; //(1and2)or5
