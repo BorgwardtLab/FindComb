@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
             gameView.reset(6,10,intent.getIntExtra("score",120));
         }
         else if(Level==3){
-            gameView.reset(11,11,intent.getIntExtra("score",120));
+            gameView.reset(11,15,intent.getIntExtra("score",120));
         }
         setContentView(gameView);
 
