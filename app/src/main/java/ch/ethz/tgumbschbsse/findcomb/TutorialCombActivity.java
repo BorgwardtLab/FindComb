@@ -20,6 +20,12 @@ public class TutorialCombActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+
+
         gameView2 = new TutorialComb(this, TutorialCombActivity.this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
