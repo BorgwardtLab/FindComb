@@ -45,7 +45,7 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
     public ArrayList<TextView> Scores;
 
     SharedPreferences sharedPreferences;
-
+    //TODO(521): Display only as many highscores as tehre is space
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

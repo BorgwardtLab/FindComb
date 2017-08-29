@@ -292,6 +292,7 @@ public class GameView extends SurfaceView implements Runnable {
                 //Unlocking the canvas
 
             } else {
+                paint.setTextSize(width/20);
                 if (mScore < 0) {
                     canvas.drawText("Game Over", width / 3, height / 3, paint);
                     soundwrong.start();
@@ -526,7 +527,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{false, true, false, true, false},
                         new boolean[]{true, false, true, true, false},
                         new boolean[]{true, true, true, true, false});
-                rbgpy = new boolean[]{true, true, false, false, false}; //(1and3)or(2and4)
+                rbgpy = new boolean[]{true, true, true, true, false}; //(1and3)or(2and4)
                 Fisher = new StatTests(3,0,0,3);
                 mLevel.logp = (int) Fisher.logp;
                 break;
@@ -561,7 +562,7 @@ public class GameView extends SurfaceView implements Runnable {
                         new boolean[]{true, true, false, false, true},
                         new boolean[]{false, false, false, false, true},
                         new boolean[]{false, false, true, true, true},
-                        new boolean[]{false, true, false, false, true},
+                        new boolean[]{false, true, false, true, true},
                         new boolean[]{false, false, false, false, true},
                         new boolean[]{true, false, false, true, true},
                         new boolean[]{true, true, true, true, true});
