@@ -14,5 +14,6 @@
 
 
     <string name="Tut31">Komplzierte Regeln sind auch denkbar.</string>
-    <string name="Tut32">Hier: Rot UND (gruen ODER gelb)</string>
+    <string name="Tut32">Gruen und gelb haben den gleichen Effekt...</string>
+    <string name="Tut33">...und korrelieren in Kombination mit rot mit der Krankheit.</string>
 </resources>

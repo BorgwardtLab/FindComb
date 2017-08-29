@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.mipmap.icon_mlcb);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         mNameEntry = (EditText) findViewById(R.id.et_name);
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v == mEasy) {
             //starting game activity
             intent = new Intent(this,TutorialActivity.class);
+            intent.putExtra("Level", 1);
             startActivityForResult(intent, REQUEST_ONE);
         }
         //if(v == mHard){
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl1 = data.getExtras().getInt("score");
                 if (temp_score_lvl1 > 0){//Level1 successful
                     mScore += temp_score_lvl1;
-                    intent = new Intent(this,TutorialCombActivity.class);
+                    intent = new Intent(this,TutorialActivity.class);
+                    intent.putExtra("Level", 2);
                     startActivityForResult(intent,REQUEST_THREE);
                 }
                 else{
@@ -192,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl2 = data.getExtras().getInt("score");
                 if (temp_score_lvl2 > 0){//Level2 successful
                     mScore += temp_score_lvl2;
-                    intent = new Intent(this,TutorialMasterActivity.class);
+                    intent = new Intent(this,TutorialActivity.class);
+                    intent.putExtra("Level", 3);
                     startActivityForResult(intent,REQUEST_FIVE);
                 }
                 else{

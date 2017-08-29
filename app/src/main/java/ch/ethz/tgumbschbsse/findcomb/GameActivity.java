@@ -27,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.mipmap.icon_mlcb);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

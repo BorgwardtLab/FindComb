@@ -39,7 +39,8 @@ public class Tutorial extends SurfaceView implements Runnable {
     private Thread gameThread = null;
     Activity mact;
 
-    private Level mLevel;
+    public Level mLevel;
+    public int Level;
     private Picture h1;
 
     // In case moving is an option
@@ -83,7 +84,7 @@ public class Tutorial extends SurfaceView implements Runnable {
                 new boolean[]{true, false, false, false, false},
                 new boolean[]{true, true, false, false, false});
         mLevel.Tut = 1;
-
+        Level = 1;
 
         //Stuff that we might need later
         mPlayer = new Point(1500, 300);
@@ -99,12 +100,93 @@ public class Tutorial extends SurfaceView implements Runnable {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mstage++;
-                if (mstage == 2) {
-                    mLevel.cs11.clicked = true;
-                    mLevel.cs21.clicked = true;
-                    mLevel.cs31.clicked = true;
+                if(mstage == 1) {
+                    if(Level == 1) {
+                        mLevel = new Level(mContext, width, height,
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{true, false, false, false, false},
+                                new boolean[]{true, true, false, false, false},
+                                new boolean[]{true, false, false, false, false},
+                                new boolean[]{true, true, false, false, false});
+                    }
+                    else if(Level == 2){
+                        mLevel = new Level(mContext, width, height,
+                                new boolean[]{false, true, true, false, false},
+                                new boolean[]{true, true, false, false, false},
+                                new boolean[]{false, true, true, false, false},
+                                new boolean[]{true, false, true, false, false},
+                                new boolean[]{true, true, true, false, false},
+                                new boolean[]{true, false, true, false, false},
+                                new boolean[]{true, true, true, false, false});
+                    }
+                    else{
+                        mLevel = new Level(mContext, width, height,
+                                new boolean[]{false, false, true, false, true},
+                                new boolean[]{true, true, false, false, true},
+                                new boolean[]{false, true, false, true, false},
+                                new boolean[]{true, false, true, false, true},
+                                new boolean[]{true, true, false, true, false},
+                                new boolean[]{true, false, false, true, true},
+                                new boolean[]{true, true, true, true, true});
+                    }
+                    mLevel.Tut = 1;
                 }
-                if (mstage > 2) {
+                else if (mstage == 2){
+                    if(Level==2){
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs13.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs23.clicked = true;
+                        mLevel.cs31.clicked = true;
+                        mLevel.cs33.clicked = true;
+                        mLevel.ch13.clicked = true;
+                        mLevel.ch33.clicked = true;
+                        mLevel.ch21.clicked = true;
+                    }
+                    else if(Level==3){
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs13.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs24.clicked = true;
+                        mLevel.cs31.clicked = true;
+                        mLevel.cs34.clicked = true;
+                        mLevel.ch13.clicked = true;
+                        mLevel.ch21.clicked = true;
+                        mLevel.ch34.clicked = true;
+                    }
+                }
+                else if (mstage == 3) {
+                    if(Level==1) {
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs31.clicked = true;
+                    }
+                    else if(Level==2){
+                        mLevel = new Level(mContext, width, height,
+                                    new boolean[]{false, true, false, false, false},
+                                    new boolean[]{false, true, false, false, false},
+                                    new boolean[]{false, true, false, false, false},
+                                    new boolean[]{true, false, false, false, false},
+                                    new boolean[]{false, true, true, false, false},
+                                    new boolean[]{true, false, false, false, false},
+                                    new boolean[]{true, true, true, false, false});
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs13.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs23.clicked = true;
+                        mLevel.cs31.clicked = true;
+                        mLevel.cs33.clicked = true;
+                        mLevel.ch13.clicked = true;
+                        mLevel.ch33.clicked = true;
+                        mLevel.ch21.clicked = true;
+                    }
+                    else{
+
+                    }
+                }
+                if (mstage > 3) {
                     playing = false;
                 }
 
@@ -133,25 +215,70 @@ public class Tutorial extends SurfaceView implements Runnable {
 
             String text;
 
+            if(mstage==0){
+                if(Level==1) {
+                    text = "Level 1";
+                }
+                else if(Level ==2){
+                    text = "Level 2";
+                }
+                else{
+                    text = "Level 3";
+                }
+                paint.setTextSize(width/20);
+                canvas.drawText(text, width / 3, height / 3, paint);
 
-            if(mstage==0) {
-                h1.draw(canvas);
-                text = getContext().getString(R.string.Tut1);
-                canvas.drawText(text, width / 10, 9 * height / 12, paint);
             }
-
-            if(mstage == 1) {
-                mLevel.draw(canvas);
-                text = getContext().getString(R.string.Tut2);
-                canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+            else if(mstage==1) {
+                if(Level==1) {
+                    h1.draw(canvas);
+                    text = getContext().getString(R.string.Tut1);
+                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                }
+                else if(Level ==2){
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut21);
+                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                }
+                else{
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut31);
+                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                }
             }
-
-
-
-            if(mstage ==2) {
-                mLevel.draw(canvas);
-                text = getContext().getString(R.string.Tut3);
-                canvas.drawText(text, width/10, 9 * height / 12, paint);
+            else if(mstage == 2) {
+                if(Level==1) {
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut2);
+                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                }
+                else if(Level ==2){
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut22);
+                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                }
+                else{
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut32);
+                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                }
+            }
+            else if(mstage ==3) {
+                if(Level==1) {
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut3);
+                    canvas.drawText(text, width/10, 9 * height / 12, paint);
+                }
+                else if(Level ==2){
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut23);
+                    canvas.drawText(text, width/10, 9 * height / 12, paint);
+                }
+                else{
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut33);
+                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                }
             }
 
 

@@ -380,7 +380,6 @@ public class GameView extends SurfaceView implements Runnable {
                 mLevel.logp = (int) Fisher.logp;
                 break;
             case 3:
-                Combination();
                 rbgpy = new boolean[]{true, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, true, true, false, false},
@@ -434,7 +433,6 @@ public class GameView extends SurfaceView implements Runnable {
                 mLevel.logp = (int) Fisher.logp;
                 break;
             case 7:
-                Logic();
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{false, false, true, false, true},
                         new boolean[]{true, true, false, false, true},

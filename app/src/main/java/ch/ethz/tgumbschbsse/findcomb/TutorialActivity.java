@@ -18,6 +18,7 @@ public class TutorialActivity extends AppCompatActivity {
     //declaring gameview
 
     private Tutorial gameView;
+    private int Level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +26,18 @@ public class TutorialActivity extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.mipmap.icon_mlcb);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
-        gameView = new Tutorial(this, TutorialActivity.this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        Intent intent = getIntent();
+        Level = intent.getIntExtra("Level",1);
+        gameView = new Tutorial(this, TutorialActivity.this);
+        gameView.Level = Level;
+        setContentView(gameView);
 
         //adding it to contentview
         setContentView(gameView);

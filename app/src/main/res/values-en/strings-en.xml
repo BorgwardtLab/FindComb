@@ -3,6 +3,8 @@
     <string name="Toast_One">Choose the discriminative feature.</string>
     <string name="Toast_Two">Maybe, interactions are discriminative.</string>
     <string name="Toast_Three">Different features may have the same effect.</string>
+
+
     <string name="Tut1">There are healthy and sick patients.</string>
     <string name="Tut2">Every patient possesses features in different colors.</string>
     <string name="Tut3">Choose the features that correlate with the illness.</string>
