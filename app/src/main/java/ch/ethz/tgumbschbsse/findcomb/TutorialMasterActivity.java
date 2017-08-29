@@ -20,6 +20,11 @@ public class TutorialMasterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         gameView2 = new TutorialMaster(this, TutorialMasterActivity.this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

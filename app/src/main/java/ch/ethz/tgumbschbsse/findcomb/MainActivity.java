@@ -12,6 +12,7 @@ import android.graphics.Matrix;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,14 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-//public class MainActivity extends Activity {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnApiRequestCompleted {
 
     private EditText mNameEntry;
-    private ImageView mImageView;
-    //private EditText mEmail;
     private Button mEasy;
-    //private Button mHard;
+    private int mScore;
 
     public final static int REQUEST_CODE = 1;
     public final static int REQUEST_ONE = 5;
@@ -53,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
@@ -64,12 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(s.toString().trim().length()==0){
                     mEasy.setEnabled(false);
                     mEasy.setTextColor(Color.parseColor("#FF999A9A"));
-                    mEasy.setBackgroundColor(Color.parseColor("#FFCECFCF"));
+                    mEasy.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
 
                 } else {
                     mEasy.setEnabled(true);
                     mEasy.setTextColor(Color.parseColor("white"));
-                    mEasy.setBackgroundColor(Color.parseColor("#FF373FAC"));
+                    mEasy.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
             }
             @Override
@@ -88,18 +90,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //setting the orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        mScore = 0;
 
 
         //adding a click listener
         mEasy.setOnClickListener(this);
         //mHard.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         if(v == mEasy) {
             //starting game activity
-            startActivityForResult(new Intent(this,TutorialActivity.class), REQUEST_ONE);
+            intent = new Intent(this,TutorialActivity.class);
+            startActivityForResult(intent, REQUEST_ONE);
         }
         //if(v == mHard){
         //    startActivity(new Intent(MainActivity.this, HighScore.class));
@@ -109,39 +114,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
             case REQUEST_CODE:
-                int score = data.getExtras().getInt("score");
-//                if(score > 0) {
-                    String name = mNameEntry.getText().toString();
-                    //String email = mEmail.getText().toString();
-                    // post score
-                    RequestParams params = new RequestParams();
-                    params.put("username", "admin");
-                    params.put("password", "mlcb2017");
-                    params.put("user", name);
-                    params.put("score", score);
-                    intent =  new Intent(this, HighScore.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("score", score);
-                    intent.putExtra("global", LGLOBAL);
-                    if(LGLOBAL == 1) {
-                        Api postApi = new Api(this);
-                        try {
-                            Api.post(params);
-                            System.out.println("Post ok");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                mScore += data.getExtras().getInt("score");
+                String name = mNameEntry.getText().toString();
+                RequestParams params = new RequestParams();
+                params.put("username", "admin");
+                params.put("password", "mlcb2017");
+                params.put("user", name);
+                params.put("score", mScore);
+                intent =  new Intent(this, HighScore.class);
+                intent.putExtra("name", name);
+                intent.putExtra("score", mScore);
+                intent.putExtra("global", LGLOBAL);
+                if(LGLOBAL == 1) {
+                    Api postApi = new Api(this);
+                    try {
+                        Api.post(params);
+                        System.out.println("Post ok");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    else{
-                        intent.putExtra("position", 15);
-                        this.startActivity(intent);
-                        //Post to local leaderboard
-                    }
-                    break;
+                }
+                else{
+                    intent.putExtra("position", 15);
+                    this.startActivity(intent);
+                }
+                break;
             case REQUEST_ONE:
-                startActivityForResult(new Intent(this, GameActivity.class),REQUEST_CODE);
+                intent = new Intent(this,GameActivity.class);
+                intent.putExtra("Level", 1);
+                startActivityForResult(intent,REQUEST_CODE);
+                break;
 
-//                }
         }
     }
     @Override
