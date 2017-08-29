@@ -4,12 +4,12 @@
     <string name="Toast_Two">Vielleicht sind auch Interaktionen unterscheidend.</string>
     <string name="Toast_Three">Unterschiedliche Eigenschaften koennen den gleichen Effekt haben.</string>
 
-    <string name="Tut1">Es gibt Patienten: Gesunde und Kranke.</string>
-    <string name="Tut2">Jeder Patient traegt Eigenschaften verschieder Farben.</string>
-    <string name="Tut3">Finde die Merkmale, welche mit der Krankheit korrelieren.</string>
+    <string name="Tut1">Es gibt gesunde und kranke Individuen.</string>
+    <string name="Tut2">Jedes Individuum trägt Eigenschaften dargestellt durch verschiedene Farben.</string>
+    <string name="Tut3">Finde die Eigenschaft, welche am stärksten mit der Krankheit korreliert.</string>
 
     <string name="Tut21">Mehrere Eigenschaften können wechselwirken.</string>
-    <string name="Tut22">Entweder korreliert der kombinierte Effekt mit der Krankheit...</string>
+    <string name="Tut22">Entweder korreliert die Kombination mit der Krankheit...</string>
     <string name="Tut23">... oder zwei Eigenschaften haben den gleichen Effekt.</string>
 
 

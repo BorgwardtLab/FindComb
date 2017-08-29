@@ -46,10 +46,13 @@ public class GameView extends SurfaceView implements Runnable {
     // Mechanics
     private boolean[] rbgpy;
     public int mLevelIndicator;
+    public int mStartLevel;
     public int mScore;
     private long mTimestamp;
     private long mpm;
     private int deviation;
+
+    private Progress mProgressBar;
 
 
 
@@ -85,6 +88,9 @@ public class GameView extends SurfaceView implements Runnable {
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
         mLevelsNumber = 2;
+        mStartLevel = mLevelIndicator;
+
+        mProgressBar = new Progress(mLevelsNumber, width,height);
 
 
         //initializing drawing objects
@@ -99,6 +105,16 @@ public class GameView extends SurfaceView implements Runnable {
         playing = true;
 
 
+    }
+
+    public void reset(int start, int end, int score){
+        mScore = score; //The player has two minutes
+        mLevelIndicator = start;
+        mTimestamp = System.currentTimeMillis();
+        mLevelsNumber = end;
+        mStartLevel = mLevelIndicator;
+        playing = true;
+        LevelInit();
     }
 
 
@@ -250,6 +266,7 @@ public class GameView extends SurfaceView implements Runnable {
             paint.setColor(Color.BLACK);
             if (mScore > 0 && mLevelIndicator <= mLevelsNumber) {
                 mLevel.draw(canvas);
+                mProgressBar.draw(canvas);
 
                 Paint paintb = new Paint();
                 paintb.setColor(Color.parseColor("#0099cc"));
@@ -341,9 +358,9 @@ public class GameView extends SurfaceView implements Runnable {
     public void LevelInit() {
 
         StatTests Fisher;
+        mProgressBar.set(mLevelIndicator-mStartLevel+1, mLevelsNumber-mStartLevel+1);
         switch (mLevelIndicator) {
             case 1:
-                Introduction();
                 // Binary indicator of colors in columns: {red, blue, green, yellow, purple}
                 // mLevel = new Level(mContext, width, height,
                 // the first column healthy        new boolean[]{false, true, false, false, false},
