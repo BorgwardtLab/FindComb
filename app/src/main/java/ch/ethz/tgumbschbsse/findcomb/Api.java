@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class Api {
-    private static final String BASE_URL = "http://10.2.176.249:8000/api/scores/"; // TODO: add final server port URL, this one is for temporary development, bs-borgwrdt01 is 195.176.122.97:8000/api/scores/, local is 10.0.2.2, matteo computer on eth5 is 10.2.176.249:8000, matteo laptop (scientifica computer) is 129.132.229.183:8000
+    private static final String BASE_URL = "http://10.2.182.74:8000/api/scores/"; // TODO: add final server port URL, this one is for temporary development, bs-borgwrdt01 is 195.176.122.97:8000/api/scores/, local is 10.0.2.2, scientifica computer is 10.2.182.74:8000
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static OnApiRequestCompleted apiListener;
 
