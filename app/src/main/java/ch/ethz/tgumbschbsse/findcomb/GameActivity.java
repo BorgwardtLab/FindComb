@@ -18,6 +18,7 @@ public class GameActivity extends AppCompatActivity {
 
     //declaring gameview
     private GameView gameView;
+    private int Level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +34,28 @@ public class GameActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //Initializing game view object
-        gameView = new GameView(this,GameActivity.this);
-
-
-
-        //adding it to contentview
-        setContentView(gameView);
-
+        Intent intent = getIntent();
+        Level = intent.getIntExtra("Level",1);
+        if(Level == 1) {
+            gameView = new GameView(this, GameActivity.this);
+            setContentView(gameView);
+        }
+        else if(Level==2){
+            gameView = new GameView(this, GameActivity.this);
+            gameView.mScore = intent.getIntExtra("score",120);
+            gameView.mLevelIndicator = 3;
+            gameView.mLevelsNumber = 6;
+            gameView.LevelInit();
+            setContentView(gameView);
+        }
+        else{
+            gameView = new GameView(this, GameActivity.this);
+            gameView.mScore = intent.getIntExtra("score",120);
+            gameView.mLevelIndicator = 7;
+            gameView.mLevelsNumber = 7;
+            gameView.LevelInit();
+            setContentView(gameView);
+        }
 
 
     }

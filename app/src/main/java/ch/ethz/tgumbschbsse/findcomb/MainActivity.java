@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Intent intent;
     private static int LGLOBAL = 1;
-
+    String name;
+    RequestParams params;
 
 
     @Override
@@ -113,10 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
-            case REQUEST_CODE:
-                mScore += data.getExtras().getInt("score");
-                String name = mNameEntry.getText().toString();
-                RequestParams params = new RequestParams();
+            case REQUEST_CODE: //Move to High score and finish
+                int temp_score_lvl3 = data.getExtras().getInt("score");
+                if (temp_score_lvl3 > 0) {
+                    mScore += temp_score_lvl3;
+                }
+                name = mNameEntry.getText().toString();
+                params = new RequestParams();
                 params.put("username", "admin");
                 params.put("password", "mlcb2017");
                 params.put("user", name);
@@ -140,8 +144,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case REQUEST_ONE:
+                //Level1
                 intent = new Intent(this,GameActivity.class);
                 intent.putExtra("Level", 1);
+                startActivityForResult(intent,REQUEST_TWO);
+                break;
+            case REQUEST_TWO:
+                int temp_score_lvl1 = data.getExtras().getInt("score");
+                if (temp_score_lvl1 > 0){//Level1 successful
+                    mScore += temp_score_lvl1;
+                    intent = new Intent(this,TutorialCombActivity.class);
+                    startActivityForResult(intent,REQUEST_THREE);
+                }
+                else{
+                    name = mNameEntry.getText().toString();
+                    params = new RequestParams();
+                    params.put("username", "admin");
+                    params.put("password", "mlcb2017");
+                    params.put("user", name);
+                    params.put("score", mScore);
+                    intent =  new Intent(this, HighScore.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("score", mScore);
+                    intent.putExtra("global", LGLOBAL);
+                    if(LGLOBAL == 1) {
+                        Api postApi = new Api(this);
+                        try {
+                            Api.post(params);
+                            System.out.println("Post ok");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        intent.putExtra("position", 15);
+                        this.startActivity(intent);
+                    }
+                }
+                break;
+            case REQUEST_THREE:
+                intent = new Intent(this,GameActivity.class);
+                intent.putExtra("Level", 2);
+                intent.putExtra("score", mScore);
+                startActivityForResult(intent,REQUEST_FOUR);
+                break;
+            case REQUEST_FOUR:
+                int temp_score_lvl2 = data.getExtras().getInt("score");
+                if (temp_score_lvl2 > 0){//Level2 successful
+                    mScore += temp_score_lvl2;
+                    intent = new Intent(this,TutorialMasterActivity.class);
+                    startActivityForResult(intent,REQUEST_FIVE);
+                }
+                else{
+                    name = mNameEntry.getText().toString();
+                    params = new RequestParams();
+                    params.put("username", "admin");
+                    params.put("password", "mlcb2017");
+                    params.put("user", name);
+                    params.put("score", mScore);
+                    intent =  new Intent(this, HighScore.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("score", mScore);
+                    intent.putExtra("global", LGLOBAL);
+                    if(LGLOBAL == 1) {
+                        Api postApi = new Api(this);
+                        try {
+                            Api.post(params);
+                            System.out.println("Post ok");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else{
+                        intent.putExtra("position", 15);
+                        this.startActivity(intent);
+                    }
+                }
+                break;
+            case REQUEST_FIVE://Level3
+                intent = new Intent(this,GameActivity.class);
+                intent.putExtra("score", mScore);
+                intent.putExtra("Level", 3);
                 startActivityForResult(intent,REQUEST_CODE);
                 break;
 

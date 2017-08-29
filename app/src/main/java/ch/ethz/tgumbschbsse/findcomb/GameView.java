@@ -39,14 +39,14 @@ public class GameView extends SurfaceView implements Runnable {
 
     // In case moving is an option
     private Point mPlayer;
-    private int mLevelsNumber;
+    public int mLevelsNumber;
 
     private Level mLevel;
 
     // Mechanics
     private boolean[] rbgpy;
-    private int mLevelIndicator;
-    private int mScore;
+    public int mLevelIndicator;
+    public int mScore;
     private long mTimestamp;
     private long mpm;
     private int deviation;
@@ -84,7 +84,7 @@ public class GameView extends SurfaceView implements Runnable {
         mScore = 120; //The player has two minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
-        mLevelsNumber = 7;
+        mLevelsNumber = 2;
 
 
         //initializing drawing objects
@@ -115,6 +115,11 @@ public class GameView extends SurfaceView implements Runnable {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     playing = false;
+                    System.out.println(String.valueOf(mScore));
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("score", mScore);
+                    ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
+                    ((Activity) mContext).finish();
             }
 
         }
@@ -302,13 +307,14 @@ public class GameView extends SurfaceView implements Runnable {
 
         //System.out.println(String.valueOf(playing));
 
-        if (playing != true) {
-
+        if(playing==false){
+            System.out.println(String.valueOf(mScore));
             Intent resultIntent = new Intent();
             resultIntent.putExtra("score", mScore);
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
         }
+
     }
 
     public void pause() {
