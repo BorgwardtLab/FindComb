@@ -111,9 +111,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void make_continous(){
         mLevel.Continous=true;
-        mLevelIndicator = -1; //this is the new score which is returned
+        mLevelIndicator = 0; //this is the new score which is returned
         mTimestamp = System.currentTimeMillis();
-        mScore = 120; //this is just the timer
+        mScore = 10; //this is just the timer
         playing = true;
         LevelInit();
 
@@ -159,6 +159,11 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         mLevel.update();
+
+        if (mScore < 0) {
+            playing = false;
+        }
+
         if (mScore > 0) {
 
             if ((System.currentTimeMillis() - mTimestamp) > 1000 && mLevelIndicator <= mLevelsNumber) {
@@ -166,9 +171,6 @@ public class GameView extends SurfaceView implements Runnable {
                 mTimestamp = System.currentTimeMillis();
             }
 
-            if (mScore < 0) {
-                playing = false;
-            }
 
             if (mLevel.clicked == true) {
                 //Evaluate configuration
@@ -249,20 +251,12 @@ public class GameView extends SurfaceView implements Runnable {
             } else {
                 paint.setTextSize(width/20);
                 if (mScore < 0) {
-                    if(mLevel.Continous == false) {
-                        canvas.drawText("Game Over", width / 3, height / 3, paint);
-                        soundwrong.start();
-                    }
-                    else{
-                        canvas.drawText("Score: " + String.valueOf(-mLevelIndicator), width / 3, height / 3, paint);
-                    }
+                    canvas.drawText("Game Over", width / 3, height / 3, paint);
+                    soundwrong.start();
                 } else {
                     canvas.drawText("Score: " + String.valueOf(mScore), width / 3, height / 3, paint);
                 }
 
-            }
-            if(mLevel.Continous==true){
-                canvas.drawText(String.valueOf(- mLevelIndicator), 3*width/4, 17*height/20,paint);
             }
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
@@ -289,14 +283,10 @@ public class GameView extends SurfaceView implements Runnable {
         //System.out.println(String.valueOf(playing));
 
         if(playing==false){
-            System.out.println(String.valueOf(mScore));
+            System.out.println(String.valueOf(mLevelIndicator));
             Intent resultIntent = new Intent();
-            if(mLevel.Continous==false) {
-                resultIntent.putExtra("score", mScore);
-            }
-            else{
-                resultIntent.putExtra("score", -1*mLevelIndicator);
-            }
+            resultIntent.putExtra("score", mScore);
+            resultIntent.putExtra("inf_score", -mLevelIndicator);
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
         }
@@ -317,16 +307,12 @@ public class GameView extends SurfaceView implements Runnable {
         gameThread.start();
     }
 
-    public int getScore() {
-        return mScore;
-    }
-
 
     // The level architecture
 
     public void LevelInit() {
 
-        if (mLevelIndicator < 0) {
+        if (mLevelIndicator <= 0) {
             mLevelIndicator--;
             mProgressBar.set(Math.min(-1-mLevelIndicator,10), 10);
             mLevel.random_new();

@@ -279,8 +279,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
                 break;
             case REQUEST_INFINITY_LEADERBOARD:
-                mScore = data.getExtras().getInt("score");
-                scoreLevel = 4; //TODO @tgumbsch: need to correct the returned score, now always passes -1 to server (although displayed score is different...)
+                mScore = data.getExtras().getInt("inf_score");
+                
+                scoreLevel = 4;
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
                 params.put("user", name);
