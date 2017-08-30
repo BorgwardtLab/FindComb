@@ -59,7 +59,7 @@
             android:visibility="invisible"
             android:paddingLeft="40sp"
             android:padding="20dp"
-            android:text="EXTEME"
+            android:text="EXTREME"
             android:textSize="40sp" />
 
 
