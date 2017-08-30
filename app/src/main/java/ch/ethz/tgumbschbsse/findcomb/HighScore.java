@@ -73,8 +73,9 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         int score = intent.getExtras().getInt("score");
         int position = intent.getExtras().getInt("position");
         int global = intent.getExtras().getInt("global");
+        int level = intent.getExtras().getInt("level");
 
-        header.setText("Leaderboard:");
+        header.setText("Leaderboard level "+ level + ":");
 
         if(global == 1) {
             if(position > 10){
@@ -87,7 +88,7 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
             Api Communication = new Api(this);
             // Retrieve top 10
             try {
-                Api.get_top_n(10, null);
+                Api.get_top_n(10,level, null);
                 System.out.println("First call ok");
             } catch (Exception e) {
                 e.printStackTrace();

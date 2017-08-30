@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 
 public class Api {
-    private static final String BASE_URL = "http://10.2.182.74:8000/api/scores/"; // TODO: add final server port URL, this one is for temporary development, bs-borgwrdt01 is 195.176.122.97:8000/api/scores/, local is 10.0.2.2, scientifica computer is 10.2.182.74:8000
+    private static final String BASE_URL = "http://10.0.2.2:8000/api/scores/"; // TODO: add final server port URL, this one is for temporary development, bs-borgwrdt01 is 195.176.122.97:8000/api/scores/, local is 10.0.2.2, scientifica computer is 10.2.182.74:8000
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static OnApiRequestCompleted apiListener;
 
@@ -30,8 +30,8 @@ public class Api {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void get_top_n(Integer n, RequestParams params) {
-        client.get(getAbsoluteUrl("top_n/?n="+n.toString()), params, new JsonHttpResponseHandler() {
+    public static void get_top_n(Integer n, Integer level, RequestParams params) {
+        client.get(getAbsoluteUrl("top_n/?n="+n.toString()+"&level="+level.toString()), params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 apiListener.taskCompleted(response);

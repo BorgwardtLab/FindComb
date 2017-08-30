@@ -41,12 +41,15 @@ class ScoreViewSet(viewsets.ModelViewSet):
         return queryset
 
     def create(self, request, *args, **kwargs):
+        level = int(request.data['level'])
+        if not level in {1,2,3}:
+            raise ValueError('level must be 1, 2 or 3')
         serializer = ScoreSerializer(data=request.data)
         if serializer.is_valid():
             score = request.data['score']
             saved = serializer.save()
             id = saved.pk
-            index = Score.objects.filter(
+            index = Score.objects.filter(level=level).filter(
                         Q(score__gt=score) |
                         Q(score=score, pk__lt=id)
                     ).count() + 1
@@ -78,7 +81,6 @@ class ScoreViewSet(viewsets.ModelViewSet):
     @list_route(methods=['GET'], url_path='top_n')
     def top(self, request):
         N = request.query_params.get('n')
-        print(N)
         if N != None and N != '':
             try:
                 N = int(N)
@@ -87,7 +89,11 @@ class ScoreViewSet(viewsets.ModelViewSet):
                 N=10
         else:
             N=10
+        level = int(request.query_params.get('level'))
+        if not level in {1,2,3}:
+            level = 3
         queryset = self.get_queryset()
+        queryset = queryset.filter(level=level)
         serializer = ScoreSerializer(queryset[:N],many=True)
         return Response(serializer.data)
 
