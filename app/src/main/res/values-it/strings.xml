@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FindComb</string>
-    <string name="Toast_One">Scegli il tratto discriminante.</string>
-    <string name="Toast_Three">Tratti diversi possono avere lo stesso effetto</string>
+    <string name="Toast_One">Scegli la caratteristica discriminante.</string>
+    <string name="Toast_Three">Caratteristiche diverse possono avere lo stesso effetto.</string>
     <string name="Toast_Two">Magari le interazioni tra tratti sono anch\'esse discriminanti.</string>
-    <string name="Tut1">Ci sono pazienti in buona salute e malati.</string>
-    <string name="Tut2">Ogni paziente ha tratti di colori diversi.</string>
-    <string name="Tut3">Scegli il tratto che causa la malattia.</string>
+    <string name="Tut1">Ci sono individui in buona salute e malati.</string>
+    <string name="Tut2">Ogni individuo ha caratteristiche di colori diversi.</string>
+    <string name="Tut3">Scegli la caratteristica che è associata alla malattia.</string>
+    <string name="Tut21">Possono esistere interazioni tra le caratteristiche.</string>
+    <string name="Tut22">Combinazioni di caratteristiche possono essere associate alla malattia...</string>
+    <string name="Tut23">... oppure caratteristiche diverse possono avere lo stesso effetto.</string>
+    <string name="Tut31">Regole più complesse sono possibili.</string>
+    <string name="Tut32">Verde e giallo hanno lo stesso effetto ...</string>
+    <string name="Tut33">... e, se combinate con il rosso, sono associate alla malattia.</string>
 </resources>

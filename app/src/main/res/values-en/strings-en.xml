@@ -6,8 +6,8 @@
 
 
     <string name="Tut1">There are healthy and sick individuals.</string>
-    <string name="Tut2">Every individual possesses features, represented by colors.</string>
-    <string name="Tut3">Choose the feature that correlates the most with the disease.</string>
+    <string name="Tut2">Every individual has features, represented by colors.</string>
+    <string name="Tut3">Choose the feature that is associated the most with the disease.</string>
 
 
     <string name="Tut21">Features may interact.</string>
@@ -17,5 +17,5 @@
 
     <string name="Tut31">Complicated rules are allowed.</string>
     <string name="Tut32">Green and yellow have the same effect...</string>
-    <string name="Tut33">...and, in combination with red, correlate with the disease.</string>
+    <string name="Tut33">...and, in combination with red, are associated with the disease.</string>
 </resources>
