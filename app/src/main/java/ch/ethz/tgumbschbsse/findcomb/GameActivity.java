@@ -37,10 +37,10 @@ public class GameActivity extends AppCompatActivity {
         gameView = new GameView(this, GameActivity.this);
         System.out.println("Here");
         if(Level==1){
-            gameView.reset(1,5,120);
+            gameView.reset(1,5,60);
         }
         else if(Level==2){
-            gameView.reset(6,10,intent.getIntExtra("score",120));
+            gameView.reset(6,10,intent.getIntExtra("score",60));
         }
         else if(Level==3){
             gameView.reset(11,15,intent.getIntExtra("score",120));

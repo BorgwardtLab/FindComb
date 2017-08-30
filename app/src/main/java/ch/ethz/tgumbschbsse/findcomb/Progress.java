@@ -84,7 +84,7 @@ public class Progress implements GameObject {
         RBar = new Rectangle(new Rect(mspacing,mhorizontal-msize,mState*msize,mhorizontal+msize),topblue);
     }
 
-    public void set(int State, int Level){
+    public void set(int State, int Level, int Continous){
         mState = State+1;
         mLevels = Level;
         mspacing = (int) (mwidth/(mLevels + 1.5));
@@ -105,9 +105,16 @@ public class Progress implements GameObject {
         R11 = new Rectangle(new Rect(11*mspacing-2, mhorizontal-msize, 11*mspacing+2, mhorizontal+msize), black);
 
 
-        CBegin = new Circle(mspacing,mhorizontal,msize,topblue,true);
-        CEnd = new Circle(mState*mspacing,mhorizontal,msize,topblue,true);
-        RBar = new Rectangle(new Rect(mspacing,mhorizontal-msize,mState*mspacing,mhorizontal+msize),topblue);
+        if(Continous==-1) {
+            CBegin = new Circle(mspacing,mhorizontal,msize,topblue,true);
+            CEnd = new Circle(mState*mspacing,mhorizontal,msize,topblue,true);
+            RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, mState * mspacing, mhorizontal + msize), topblue);
+        }
+        else{
+            CBegin = new Circle(mspacing,mhorizontal,msize,topblue,true);
+            CEnd = new Circle(Math.min(mspacing+Continous,mspacing*mLevels),mhorizontal,msize,topblue,true);
+            RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, Math.min(mspacing+Continous,mspacing*mLevels), mhorizontal + msize), topblue);
+        }
     }
 
 

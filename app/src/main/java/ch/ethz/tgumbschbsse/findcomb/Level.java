@@ -952,11 +952,12 @@ public class Level implements  GameObject{
             }
 
             int dimensionality_penalty = checked.length; //should be <=3
-            int false_classification_penalty = Math.min(false_neg, false_pos); //should be <= 3
+            int false_classification_penalty = (Math.min(false_neg, false_pos))-1; //should be <= 3
 
-            StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
-            int base_score = (int) (Fisher.logp + 1.0);
-            logp = base_score - (dimensionality_penalty + false_classification_penalty);
+            // The scoring is in a way that the game mechanics are satisfying
+            //StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
+            int base_score = 4;//(int) (Fisher.logp + 1.0);
+            logp = 5*(base_score - (dimensionality_penalty + 2*false_classification_penalty));
         }
         else{
             boolean check = true;
@@ -966,10 +967,10 @@ public class Level implements  GameObject{
                 }
             }
             if(check){
-                logp = 30;
+                logp = 5;
             }
             else{
-                logp = -10;
+                logp = -5;
             }
         }
 

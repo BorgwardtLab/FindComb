@@ -28,6 +28,10 @@ import java.util.Objects;
 
 /**
  * Created by tgumbsch on 8/10/17.
+ * Congratulations, you found the most important file
+ * GameView takes care of the game mechanics.
+ * its most important objects are: One Level (Layout) and one progress bar
+ * Game view has two modes depending on the Continous contidtion of the Level
  */
 
 
@@ -159,6 +163,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         mLevel.update();
+        if(mLevel.Continous==true) {
+            mProgressBar.set(10, 10, (mScore) * (1000 / (width / 12)));
+        }
 
         if (mScore < 0) {
             playing = false;
@@ -234,7 +241,12 @@ public class GameView extends SurfaceView implements Runnable {
                 paintb.setTextSize(100);
                 canvas.drawText("Go!",16*width/20, 8*height/20,paintb);
 
-                canvas.drawText(String.valueOf(mScore), 27 * width / 30, height / 10, paint);
+                if(mLevel.Continous == false) {
+                    canvas.drawText(String.valueOf(mScore), 27 * width / 30, height / 10, paint);
+                }
+                else{
+                    canvas.drawText(String.valueOf(-mLevelIndicator), 27 * width / 30, height / 10, paint);
+                }
 
 
                 if(System.currentTimeMillis() - mpm < 1000){
@@ -314,11 +326,11 @@ public class GameView extends SurfaceView implements Runnable {
 
         if (mLevelIndicator <= 0) {
             mLevelIndicator--;
-            mProgressBar.set(Math.min(-1-mLevelIndicator,10), 10);
+            mProgressBar.set(10, 10, (mScore)*(100/(width/12)));
             mLevel.random_new();
         }
         else {
-            mProgressBar.set(mLevelIndicator - mStartLevel + 1, mLevelsNumber - mStartLevel + 1);
+            mProgressBar.set(mLevelIndicator - mStartLevel + 1, mLevelsNumber - mStartLevel + 1,-1);
             switch (mLevelIndicator) {
                 case 1:
                     // Binary indicator of colors in columns: {red, blue, green, yellow, purple}
