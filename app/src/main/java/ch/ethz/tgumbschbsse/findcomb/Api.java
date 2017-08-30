@@ -30,8 +30,8 @@ public class Api {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void get_top_n(Integer n, RequestParams params) {
-        client.get(getAbsoluteUrl("top_n/?n="+n.toString()), params, new JsonHttpResponseHandler() {
+    public static void get_top_n(Integer n, Integer level, RequestParams params) {
+        client.get(getAbsoluteUrl("top_n/?n="+n.toString()+"&level="+level.toString()), params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 apiListener.taskCompleted(response);

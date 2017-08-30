@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mNameEntry;
     private Button mEasy;
     private int mScore;
+    private int scoreLevel;
 
     public final static int REQUEST_CODE = 1;
     public final static int REQUEST_ONE = 5;
@@ -119,22 +120,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl3 = data.getExtras().getInt("score");
                 if (temp_score_lvl3 > 0) {
                     mScore = temp_score_lvl3;
+                    scoreLevel = 3;
                 }
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
-                params.put("username", "admin");
-                params.put("password", "mlcb2017");
+//                params.put("username", "admin");
+//                params.put("password", "mlcb2017");
                 params.put("user", name);
                 params.put("score", mScore);
+                params.put("level", scoreLevel);
                 intent =  new Intent(this, HighScore.class);
                 intent.putExtra("name", name);
                 intent.putExtra("score", mScore);
+                intent.putExtra("level", scoreLevel);
                 intent.putExtra("global", LGLOBAL);
                 if(LGLOBAL == 1) {
                     Api postApi = new Api(this);
                     try {
                         Api.post(params);
-                        System.out.println("Post ok");
+                        System.out.println("Post level 3 ok");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -148,12 +152,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Level1
                 intent = new Intent(this,GameActivity.class);
                 intent.putExtra("Level", 1);
+                scoreLevel = 1;
                 startActivityForResult(intent,REQUEST_TWO);
                 break;
             case REQUEST_TWO:
                 int temp_score_lvl1 = data.getExtras().getInt("score");
                 if (temp_score_lvl1 > 0){//Level1 successful
                     mScore = temp_score_lvl1;
+                    scoreLevel = 1;
                     intent = new Intent(this,TutorialActivity.class);
                     intent.putExtra("Level", 2);
                     startActivityForResult(intent,REQUEST_THREE);
@@ -161,13 +167,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
-                    params.put("username", "admin");
-                    params.put("password", "mlcb2017");
+//                    params.put("username", "admin");
+//                    params.put("password", "mlcb2017");
                     params.put("user", name);
                     params.put("score", mScore);
+                    params.put("level", scoreLevel);
                     intent =  new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", mScore);
+                    intent.putExtra("level", scoreLevel);
                     intent.putExtra("global", LGLOBAL);
                     if(LGLOBAL == 1) {
                         Api postApi = new Api(this);
@@ -194,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl2 = data.getExtras().getInt("score");
                 if (temp_score_lvl2 > 0){//Level2 successful
                     mScore = temp_score_lvl2;
+                    scoreLevel = 2;
                     intent = new Intent(this,TutorialActivity.class);
                     intent.putExtra("Level", 3);
                     startActivityForResult(intent,REQUEST_FIVE);
@@ -201,19 +210,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
-                    params.put("username", "admin");
-                    params.put("password", "mlcb2017");
+//                    params.put("username", "admin");
+//                    params.put("password", "mlcb2017");
                     params.put("user", name);
                     params.put("score", mScore);
+                    params.put("level", scoreLevel);
                     intent =  new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", mScore);
+                    intent.putExtra("level", scoreLevel);
                     intent.putExtra("global", LGLOBAL);
                     if(LGLOBAL == 1) {
                         Api postApi = new Api(this);
                         try {
                             Api.post(params);
-                            System.out.println("Post ok");
+                            System.out.println("Post level 1 ok");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
