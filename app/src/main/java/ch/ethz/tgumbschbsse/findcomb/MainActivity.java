@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_FOUR = 8;
     public final static int REQUEST_FIVE = 9;
     public final static int REQUEST_INFINITY = 1000;
+    public final static int REQUEST_INFINITY_LEADERBOARD = 1001;
 
     private Intent intent;
     private static int LGLOBAL = 1;
@@ -141,13 +142,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         else if(v==mCont){
-
-            System.out.println("Move to infinity");
             mHardClicks = 0;
-            mScore = 320;
-            intent = new Intent(this,GameActivity.class);
-            intent.putExtra("Level", 100);
+            intent = new Intent(this,TutorialActivity.class);
+            intent.putExtra("Level", 4);
             startActivityForResult(intent,REQUEST_INFINITY);
+
 
         }
     }
@@ -274,6 +273,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,REQUEST_CODE);
                 break;
             case REQUEST_INFINITY:
+                System.out.println("Move to infinity");
+                intent = new Intent(this,GameActivity.class);
+                intent.putExtra("Level", 100);
+                startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
+                break;
+            case REQUEST_INFINITY_LEADERBOARD:
                 mScore = data.getExtras().getInt("score");
                 scoreLevel = 4; //TODO(1231): Change this to infinity high score leaderboard 4
                 name = mNameEntry.getText().toString();

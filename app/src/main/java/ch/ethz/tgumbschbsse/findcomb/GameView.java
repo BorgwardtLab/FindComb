@@ -261,6 +261,9 @@ public class GameView extends SurfaceView implements Runnable {
                 }
 
             }
+            if(mLevel.Continous==true){
+                canvas.drawText(String.valueOf(- mLevelIndicator), 3*width/4, 17*height/20,paint);
+            }
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -292,7 +295,7 @@ public class GameView extends SurfaceView implements Runnable {
                 resultIntent.putExtra("score", mScore);
             }
             else{
-                resultIntent.putExtra("score", -mLevelIndicator);
+                resultIntent.putExtra("score", -1*mLevelIndicator);
             }
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
@@ -325,7 +328,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         if (mLevelIndicator < 0) {
             mLevelIndicator--;
-            mProgressBar.set(Math.min(1-mLevelIndicator,10), 10);
+            mProgressBar.set(Math.min(-1-mLevelIndicator,10), 10);
             mLevel.random_new();
         }
         else {

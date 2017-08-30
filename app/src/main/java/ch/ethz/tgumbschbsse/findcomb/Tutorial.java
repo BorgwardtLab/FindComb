@@ -123,6 +123,17 @@ public class Tutorial extends SurfaceView implements Runnable {
                                 new boolean[]{true, true, true, false, false},
                                 new boolean[]{true, false, true, false, false});
                     }
+                    else if (Level == 3){
+                        mLevel = new Level(mContext, width, height,false,
+                                new boolean[]{false, false, true, false, true},
+                                new boolean[]{true, true, false, false, true},
+                                new boolean[]{false, true, false, true, false},
+                                new boolean[]{true, false, true, false, true},
+                                new boolean[]{true, true, false, true, false},
+                                new boolean[]{true, false, false, true, true},
+                                new boolean[]{true, true, true, true, true},
+                                new boolean[]{true, false, true, false, false});
+                    }
                     else{
                         mLevel = new Level(mContext, width, height,false,
                                 new boolean[]{false, false, true, false, true},
@@ -155,6 +166,13 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.ch13.clicked = true;
                         mLevel.ch34.clicked = true;
                     }
+                    else{
+                        mLevel.cs13.clicked = true;
+                        mLevel.cs24.clicked = true;
+                        mLevel.cs34.clicked = true;
+                        mLevel.ch13.clicked = true;
+                        mLevel.ch34.clicked = true;
+                    }
                 }
                 else if (mstage == 3) {
                     if(Level==1) {
@@ -162,16 +180,16 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.cs21.clicked = true;
                         mLevel.cs31.clicked = true;
                     }
-                    else if(Level==2){
-                        mLevel = new Level(mContext, width, height,false,
-                                    new boolean[]{false, true, false, false, false},
-                                    new boolean[]{false, true, false, false, false},
-                                    new boolean[]{false, true, false, false, false},
-                                    new boolean[]{true, false, false, false, false},
-                                    new boolean[]{false, true, true, false, false},
-                                    new boolean[]{true, false, false, false, false},
-                                    new boolean[]{true, true, true, false, false},
-                                    new boolean[]{true, false, true, false, false});
+                    else if(Level==2) {
+                        mLevel = new Level(mContext, width, height, false,
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{false, true, false, false, false},
+                                new boolean[]{true, false, false, false, false},
+                                new boolean[]{false, true, true, false, false},
+                                new boolean[]{true, false, false, false, false},
+                                new boolean[]{true, true, true, false, false},
+                                new boolean[]{true, false, true, false, false});
                         mLevel.cs11.clicked = true;
                         mLevel.cs13.clicked = true;
                         mLevel.cs21.clicked = true;
@@ -182,6 +200,13 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.ch33.clicked = true;
                         mLevel.ch21.clicked = true;
                     }
+                    else if(Level==3){
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs31.clicked = true;
+                        mLevel.ch21.clicked = true;
+
+                    }
                     else{
                         mLevel.cs11.clicked = true;
                         mLevel.cs21.clicked = true;
@@ -190,7 +215,11 @@ public class Tutorial extends SurfaceView implements Runnable {
 
                     }
                 }
-                if (mstage > 3) {
+                else if (mstage > 3 && Level <3) {
+                    playing = false;
+                }
+                else if(mstage>5){
+                    System.out.println(String.valueOf(playing));
                     playing = false;
                 }
 
@@ -284,6 +313,32 @@ public class Tutorial extends SurfaceView implements Runnable {
                     canvas.drawText(text,  width / 20, 9 * height / 12, paint);
                 }
             }
+            else if(mstage == 4){
+                if(Level==3) {
+                    mLevel.draw(canvas);
+                    text = getContext().getString(R.string.Tut314);
+                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
+                }
+                else{
+                    text = getContext().getString(R.string.Tut324);
+                    canvas.drawText(text, width / 20, 4 * height / 12, paint);
+
+                }
+            }
+            else if(mstage == 5){
+                if(Level==3) {
+                    text = getContext().getString(R.string.Tut315);
+                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
+                }
+                else{
+
+                    text = getContext().getString(R.string.Tut324);
+                    canvas.drawText(text, width / 20, 4 * height / 12, paint);
+
+                    text = getContext().getString(R.string.Tut325);
+                    canvas.drawText(text, width / 20, 6 * height / 12, paint);
+                }
+            }
 
 
             surfaceHolder.unlockCanvasAndPost(canvas);
@@ -312,6 +367,7 @@ public class Tutorial extends SurfaceView implements Runnable {
         //System.out.println(String.valueOf(playing));
 
         if (playing != true) {
+            System.out.println(String.valueOf(playing));
             Intent resultIntent = new Intent();
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
