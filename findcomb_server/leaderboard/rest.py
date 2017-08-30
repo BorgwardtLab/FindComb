@@ -42,7 +42,7 @@ class ScoreViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         level = int(request.data['level'])
-        if not level in {1,2,3}:
+        if not level in {1,2,3,4}:
             raise ValueError('level must be 1, 2 or 3')
         serializer = ScoreSerializer(data=request.data)
         if serializer.is_valid():
@@ -90,7 +90,7 @@ class ScoreViewSet(viewsets.ModelViewSet):
         else:
             N=10
         level = int(request.query_params.get('level'))
-        if not level in {1,2,3}:
+        if not level in {1,2,3,4}:
             level = 3
         queryset = self.get_queryset()
         queryset = queryset.filter(level=level)
