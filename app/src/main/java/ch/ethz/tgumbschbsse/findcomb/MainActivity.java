@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl2 = data.getExtras().getInt("score");
                 if (temp_score_lvl2 > 0){//Level2 successful
                     mScore = temp_score_lvl2;
-                //    scoreLevel = 2;
+                    scoreLevel = 2;
                 //    intent = new Intent(this,TutorialActivity.class);
                 //    intent.putExtra("Level", 3);
                 //    startActivityForResult(intent,REQUEST_FIVE);
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case REQUEST_INFINITY_LEADERBOARD:
                 mScore = data.getExtras().getInt("score");
-                scoreLevel = 4; //TODO(1231): Change this to infinity high score leaderboard 4
+                scoreLevel = 4; //TODO @tgumbsch: need to correct the returned score, now always passes -1 to server (although displayed score is different...)
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
                 params.put("user", name);

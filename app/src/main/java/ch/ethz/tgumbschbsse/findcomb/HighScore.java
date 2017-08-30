@@ -74,8 +74,17 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         int position = intent.getExtras().getInt("position");
         int global = intent.getExtras().getInt("global");
         int level = intent.getExtras().getInt("level");
+        String leaderboardText = "";
+        if(level == 3){
+            leaderboardText = "EXTREME";
+        } else if(level == 4){
+            leaderboardText = "INFINITY";
+        }else {
+            leaderboardText = String.valueOf(level);
+        }
 
-        header.setText("Leaderboard level "+ level + ":");
+
+        header.setText("Leaderboard level "+ leaderboardText + ":");
 
         if(global == 1) {
             if(position > 10){
