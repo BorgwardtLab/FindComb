@@ -31,7 +31,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnApiRequestCompleted {
 
     private EditText mNameEntry;
-    private Button mEasy, mHard;
+    private Button mEasy, mHard, mCont;
     private int mHardClicks;
     private int mScore;
     private int scoreLevel;
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_THREE = 7;
     public final static int REQUEST_FOUR = 8;
     public final static int REQUEST_FIVE = 9;
+    public final static int REQUEST_INFINITY = 1000;
 
     private Intent intent;
     private static int LGLOBAL = 1;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
         mHard = (Button) findViewById(R.id.b_hard);
+        mCont = (Button) findViewById(R.id.b_cont);
         mHardClicks = 0;
         mNameEntry.addTextChangedListener(new TextWatcher() {
 
@@ -70,19 +72,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(s.toString().trim().length()==0){
                     mEasy.setEnabled(false);
-                    mEasy.setTextColor(Color.parseColor("#FF999A9A"));
-                    mEasy.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+                    //mEasy.setTextColor(Color.parseColor("#FF999A9A"));
+                    //mEasy.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
                     mHard.setEnabled(false);
-                    mHard.setTextColor(Color.parseColor("#FF999A9A"));
-                    mHard.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+                    //mHard.setTextColor(Color.parseColor("#FF999A9A"));
+                    //mHard.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+                    mCont.setEnabled(false);
+                    //mCont.setTextColor(Color.parseColor("#FF999A9A"));
+                    //mCont.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
 
                 } else {
                     mEasy.setEnabled(true);
-                    mEasy.setTextColor(Color.parseColor("white"));
-                    mEasy.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    //mEasy.setTextColor(Color.parseColor("white"));
+                    //mEasy.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    mCont.setEnabled(true);
+                    //mCont.setTextColor(Color.parseColor("white"));
+                    //mCont.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     mHard.setEnabled(true);
-                    mHard.setTextColor(Color.parseColor("white"));
-                    mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    //mHard.setTextColor(Color.parseColor("white"));
+                    //mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 }
             }
             @Override
@@ -107,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //adding a click listener
         mEasy.setOnClickListener(this);
         mHard.setOnClickListener(this);
+        mCont.setOnClickListener(this);
 
     }
 
@@ -119,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("Level", 1);
             startActivityForResult(intent, REQUEST_ONE);
         }
-        if(v== mHard){
+        else if(v== mHard){
             mHardClicks++;
             if(mHardClicks == 2){
                 mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -130,6 +139,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("Level", 3);
                 startActivityForResult(intent,REQUEST_FIVE);
             }
+        }
+        else if(v==mCont){
+
+            System.out.println("Move to infinity");
+            mHardClicks = 0;
+            mScore = 320;
+            intent = new Intent(this,GameActivity.class);
+            intent.putExtra("Level", 100);
+            startActivityForResult(intent,REQUEST_INFINITY);
+
         }
     }
 
@@ -254,6 +273,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("Level", 3);
                 startActivityForResult(intent,REQUEST_CODE);
                 break;
+            case REQUEST_INFINITY:
+                mScore = data.getExtras().getInt("score");
+                scoreLevel = 4; //TODO(1231): Change this to infinity high score leaderboard 4
+                name = mNameEntry.getText().toString();
+                params = new RequestParams();
+                params.put("user", name);
+                params.put("score", mScore);
+                params.put("level", scoreLevel);
+                intent =  new Intent(this, HighScore.class);
+                intent.putExtra("name", name);
+                intent.putExtra("score", mScore);
+                intent.putExtra("level", scoreLevel);
+                intent.putExtra("global", LGLOBAL);
+                if(LGLOBAL == 1) {
+                    Api postApi = new Api(this);
+                    try {
+                        Api.post(params);
+                        System.out.println("Post level 4 ok");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    intent.putExtra("position", 15);
+                    this.startActivity(intent);
+                }
+                break;
+
 
         }
     }

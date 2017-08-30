@@ -37,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Level = intent.getIntExtra("Level",1);
         gameView = new GameView(this, GameActivity.this);
+        System.out.println("Here");
         if(Level==1){
             gameView.reset(1,5,120);
         }
@@ -45,6 +46,9 @@ public class GameActivity extends AppCompatActivity {
         }
         else if(Level==3){
             gameView.reset(11,15,intent.getIntExtra("score",120));
+        }
+        else if(Level==100){
+            gameView.make_continous();
         }
         setContentView(gameView);
 

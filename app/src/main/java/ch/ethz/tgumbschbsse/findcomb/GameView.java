@@ -109,6 +109,16 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    public void make_continous(){
+        mLevel.Continous=true;
+        mLevelIndicator = -1; //this is the new score which is returned
+        mTimestamp = System.currentTimeMillis();
+        mScore = 120; //this is just the timer
+        playing = true;
+        LevelInit();
+
+    }
+
     public void reset(int start, int end, int score){
         mScore = score; //The player has two minutes
         mLevelIndicator = start;
@@ -162,6 +172,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (mLevel.clicked == true) {
                 //Evaluate configuration
+                mLevel.clicked = false;
                 mLevel.compute_score();
                 deviation = mLevel.logp;
                 mpm = System.currentTimeMillis();
@@ -179,13 +190,16 @@ public class GameView extends SurfaceView implements Runnable {
                 else{
                     soundwrong.start();
                 }
-
-                if(deviation > 0 || mLevel.Continous == true){
-                    mLevelIndicator++;
+                if(mLevel.Continous == true){
                     LevelInit();
                 }
-                else{
-                    mLevel.reset();
+                else {
+                    if (deviation > 0) {
+                        mLevelIndicator++;
+                        LevelInit();
+                    } else {
+                        mLevel.reset();
+                    }
                 }
 
             }
@@ -235,8 +249,13 @@ public class GameView extends SurfaceView implements Runnable {
             } else {
                 paint.setTextSize(width/20);
                 if (mScore < 0) {
-                    canvas.drawText("Game Over", width / 3, height / 3, paint);
-                    soundwrong.start();
+                    if(mLevel.Continous == false) {
+                        canvas.drawText("Game Over", width / 3, height / 3, paint);
+                        soundwrong.start();
+                    }
+                    else{
+                        canvas.drawText("Score: " + String.valueOf(-mLevelIndicator), width / 3, height / 3, paint);
+                    }
                 } else {
                     canvas.drawText("Score: " + String.valueOf(mScore), width / 3, height / 3, paint);
                 }
@@ -269,7 +288,12 @@ public class GameView extends SurfaceView implements Runnable {
         if(playing==false){
             System.out.println(String.valueOf(mScore));
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("score", mScore);
+            if(mLevel.Continous==false) {
+                resultIntent.putExtra("score", mScore);
+            }
+            else{
+                resultIntent.putExtra("score", -mLevelIndicator);
+            }
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
         }
@@ -299,189 +323,194 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void LevelInit() {
 
-        StatTests Fisher;
-        mProgressBar.set(mLevelIndicator-mStartLevel+1, mLevelsNumber-mStartLevel+1);
-        switch (mLevelIndicator) {
-            case 1:
-                // Binary indicator of colors in columns: {red, blue, green, yellow, purple}
-                // mLevel = new Level(mContext, width, height,
-                // the first column healthy        new boolean[]{false, true, false, false, false},
-                // the second column healthy       new boolean[]{false, true, false, false, false},
-                //the third column thealthy        new boolean[]{false, true, false, false, false},
-                // the first column sick        new boolean[]{false, true, false, false, false},
-                // the second column sick       new boolean[]{false, true, false, false, false},
-                //the third column sick        new boolean[]{false, true, false, false, false},
-                // what colors to we use?        new boolean[]{true, true, false, false, false});
-                // The solution rbgpy = new boolean[]{true, false, false, false, false};
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{true, false, false, false, false});
-                break;
-            case 2:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{false, false, true, false, false},
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, false, false, false, false});
-                break;
-            case 3:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, true, false, true},
-                        new boolean[]{true, false, true, false, false},
-                        new boolean[]{false, true, true, false, true},
-                        new boolean[]{false, false, true, true, false},
-                        new boolean[]{false, true, true, true, true},
-                        new boolean[]{true, true, false, true, false},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{false, false, false, true, false});
-                break;
-            case 4:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{true, false, false/*one true here is not canonical*/, true, true},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{true, false, false, false, true},
-                        new boolean[]{true, false, true, false, false},
-                        new boolean[]{false, true, true, true, false},
-                        new boolean[]{true, false, true, false, false},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{false, false, true, false, false});
-                break;
-            case 5:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, false, false, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{false, false, false, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{false, true, false, false, false});
-                break;
+        if (mLevelIndicator < 0) {
+            mLevelIndicator--;
+            mProgressBar.set(Math.min(1-mLevelIndicator,10), 10);
+            mLevel.random_new();
+        }
+        else {
+            mProgressBar.set(mLevelIndicator - mStartLevel + 1, mLevelsNumber - mStartLevel + 1);
+            switch (mLevelIndicator) {
+                case 1:
+                    // Binary indicator of colors in columns: {red, blue, green, yellow, purple}
+                    // mLevel = new Level(mContext, width, height,
+                    // the first column healthy        new boolean[]{false, true, false, false, false},
+                    // the second column healthy       new boolean[]{false, true, false, false, false},
+                    //the third column thealthy        new boolean[]{false, true, false, false, false},
+                    // the first column sick        new boolean[]{false, true, false, false, false},
+                    // the second column sick       new boolean[]{false, true, false, false, false},
+                    //the third column sick        new boolean[]{false, true, false, false, false},
+                    // what colors to we use?        new boolean[]{true, true, false, false, false},
+                    // The solution rbgpy = new boolean[]{true, false, false, false, false});
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{true, false, false, false, false});
+                    break;
+                case 2:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{false, false, true, false, false},
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, false, false, false, false});
+                    break;
+                case 3:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, true, false, true},
+                            new boolean[]{true, false, true, false, false},
+                            new boolean[]{false, true, true, false, true},
+                            new boolean[]{false, false, true, true, false},
+                            new boolean[]{false, true, true, true, true},
+                            new boolean[]{true, true, false, true, false},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{false, false, false, true, false});
+                    break;
+                case 4:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{true, false, false/*one true here is not canonical*/, true, true},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{true, false, false, false, true},
+                            new boolean[]{true, false, true, false, false},
+                            new boolean[]{false, true, true, true, false},
+                            new boolean[]{true, false, true, false, false},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{false, false, true, false, false});
+                    break;
+                case 5:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, false, false, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{false, false, false, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{false, true, false, false, false});
+                    break;
 
 
+                case 6:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, false, true, false, false});
 
-            case 6:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, false, true, false, false});
+                    break;
+                case 7:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, false, true, false, false});
+                    break;
+                case 8:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, false, false, true},
+                            new boolean[]{false, true, true, false, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, false, true, false, false});
+                    break;
+                case 9:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, false, false, false, false},
+                            new boolean[]{false, false, false, false, true},
+                            new boolean[]{false, false, false, true, false},
+                            new boolean[]{false, false, true, false, false},
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, true, false, false});
+                    break;
+                case 10:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{true, true, true, true, false},
+                            new boolean[]{true, true, false, false, true},
+                            new boolean[]{false, true, true, true, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, false, true, false, true});
+                    break;
+                case 11:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, false, true, false, true},
+                            new boolean[]{true, true, false, false, true},
+                            new boolean[]{false, true, false, true, false},
+                            new boolean[]{true, false, true, false, true},
+                            new boolean[]{true, true, false, true, false},
+                            new boolean[]{true, false, false, true, true},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{true, false, true, true, false});
+                    break;
+                case 12:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, true, true, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{false, true, true, true, false},
+                            new boolean[]{true, true, true, false, false},
+                            new boolean[]{true, true, false, true, false},
+                            new boolean[]{true, false, true, true, false},
+                            new boolean[]{true, true, true, true, false},
+                            new boolean[]{true, true, true, true, false});//(1and3)or(2and4)
+                    break;
+                case 13:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{true, false, false, true, false},
+                            new boolean[]{false, true, true, false, false},
+                            new boolean[]{true, false, false, false, false},
+                            new boolean[]{false, true, false, true, true},
+                            new boolean[]{true, false, true, false, true},
+                            new boolean[]{true, true, false, true, false},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{true, true, false, false, true}); //(1and2)or5
+                    break;
+                case 14:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{false, true, false, false, false},
+                            new boolean[]{true, true, false, false, false},
+                            new boolean[]{false, true, false, false, true},
+                            new boolean[]{false, true, true, true, false},
+                            new boolean[]{false, false, true, false, true},
+                            new boolean[]{false, true, false, true, false},
+                            new boolean[]{true, true, true, true, false},
+                            new boolean[]{false, true, false, true, false}); //not(2)or4
+                    break;
+                case 15:
+                    mLevel = new Level(mContext, width, height, false,
+                            new boolean[]{true, true, false, false, true},
+                            new boolean[]{false, false, false, false, true},
+                            new boolean[]{false, false, true, true, true},
+                            new boolean[]{false, true, false, true, true},
+                            new boolean[]{false, false, false, false, true},
+                            new boolean[]{true, false, false, true, true},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{false, false, false, false, false});//no rule
+                    break;
 
-                break;
-            case 7:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, false, true, false, false});
-                break;
-            case 8:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, false, false, true},
-                        new boolean[]{false, true, true, false, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, false, true, false, false});
-                break;
-            case 9:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, false, false, false, false},
-                        new boolean[]{false, false, false, false, true},
-                        new boolean[]{false, false, false, true, false},
-                        new boolean[]{false, false, true, false, false},
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, true, false, false});
-                break;
-            case 10:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{true, true, true, true, false},
-                        new boolean[]{true, true, false, false, true},
-                        new boolean[]{false, true, true, true, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{true, true, true, false, true},
-                        new boolean[]{true, false, true, false, true});
-                break;
-            case 11:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, false, true, false, true},
-                        new boolean[]{true, true, false, false, true},
-                        new boolean[]{false, true, false, true, false},
-                        new boolean[]{true, false, true, false, true},
-                        new boolean[]{true, true, false, true, false},
-                        new boolean[]{true, false, false, true, true},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{true, false, true, true, false});
-                break;
-            case 12:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, true, true, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{false, true, true, true, false},
-                        new boolean[]{true, true, true, false, false},
-                        new boolean[]{true, true, false, true, false},
-                        new boolean[]{true, false, true, true, false},
-                        new boolean[]{true, true, true, true, false},
-                        new boolean[]{true, true, true, true, false});//(1and3)or(2and4)
-                break;
-            case 13:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{true, false, false, true, false},
-                        new boolean[]{false, true, true, false, false},
-                        new boolean[]{true, false, false, false, false},
-                        new boolean[]{false, true, false, true, true},
-                        new boolean[]{true, false, true, false, true},
-                        new boolean[]{true, true, false, true, false},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{true, true, false, false, true}); //(1and2)or5
-                break;
-            case 14:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{false, true, false, false, false},
-                        new boolean[]{true, true, false, false, false},
-                        new boolean[]{false, true, false, false, true},
-                        new boolean[]{false, true, true, true, false},
-                        new boolean[]{false, false, true, false, true},
-                        new boolean[]{false, true, false, true, false},
-                        new boolean[]{true, true, true, true, false},
-                        new boolean[]{false, true, false, true, false}); //not(2)or4
-                break;
-            case 15:
-                mLevel = new Level(mContext, width, height,false,
-                        new boolean[]{true, true, false, false, true},
-                        new boolean[]{false, false, false, false, true},
-                        new boolean[]{false, false, true, true, true},
-                        new boolean[]{false, true, false, true, true},
-                        new boolean[]{false, false, false, false, true},
-                        new boolean[]{true, false, false, true, true},
-                        new boolean[]{true, true, true, true, true},
-                        new boolean[]{false, false, false, false, false});//no rule
-                break;
-
+            }
         }
 
 

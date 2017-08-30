@@ -77,7 +77,8 @@ public class Level implements  GameObject{
         clicked = false;
         entered = new boolean[] {false,false,false,false,false};
         Tut = 0;
-        Continous = type;
+
+
         if(Continous == false){
             mrbgpy = rbgpy;
         }
@@ -85,6 +86,9 @@ public class Level implements  GameObject{
         h1 = new Picture(R.drawable.leftside, context,0,0,3*mheight/7,2*mheight/3);
 
 
+        Continous = type;
+        mrand = new Random();
+        mrand.setSeed(42);
 
 
         mrand = new Random();
@@ -622,6 +626,248 @@ public class Level implements  GameObject{
     }
 
 
+    public void random_new(){
+        for(int i = 0; i<5; i++){
+            mhealthy1[i] = mrand.nextBoolean();
+            mhealthy2[i] = mrand.nextBoolean();
+            mhealthy3[i] = mrand.nextBoolean();
+            msick1[i] = mrand.nextBoolean();
+            msick2[i] = mrand.nextBoolean();
+            msick3[i] = mrand.nextBoolean();
+        }
+
+
+        int radius = 22;
+
+
+        int xh1 = 0;
+        int xh2 = 0;
+        int xh3 = 0;
+        int xs1 = 0;
+        int xs2 = 0;
+        int xs3 = 0;
+
+
+        if(mhealthy1[0] == true){
+            ch11 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,red, true);
+        }
+        else{
+            ch11 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,red, false);
+        }
+        if(mhealthy2[0] == true){
+            ch21 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,red, true);
+        }
+        else{
+            ch21 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,red, false);
+        }
+        if(mhealthy3[0] == true){
+            ch31 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,red, true);
+        }
+        else{
+            ch31 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,red, false);
+        }
+        if(msick1[0] == true){
+            cs11 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,red, true);
+        }
+        else{
+            cs11 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,red, false);
+        }
+        if(msick2[0] == true){
+            cs21 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,red, true);
+        }
+        else{
+            cs21 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,red, false);
+        }
+        if(msick3[0] == true){
+            cs31 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,red, true);
+        }
+        else{
+            cs31 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,red, false);
+        }
+
+        xh1 += 1;
+        xh2 += 1;
+        xh3 += 1;
+        xs1 += 1;
+        xs2 += 1;
+        xs3 += 1;
+
+
+        if(mhealthy1[1] == true){
+            ch12 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            ch12 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,blue, false);
+        }
+        if(mhealthy2[1] == true){
+            ch22 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            ch22 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,blue, false);
+        }
+        if(mhealthy3[1] == true){
+            ch32 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            ch32 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,blue, false);
+        }
+        if(msick1[1] == true){
+            cs12 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            cs12 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,blue, false);
+        }
+        if(msick2[1] == true){
+            cs22 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            cs22 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,blue, false);
+        }
+        if(msick3[1] == true){
+            cs32 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,blue, true);
+        }
+        else{
+            cs32 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,blue, false);
+        }
+
+        xh1 += 1;
+        xh2 += 1;
+        xh3 += 1;
+        xs1 += 1;
+        xs2 += 1;
+        xs3 += 1;
+
+
+        if(mhealthy1[2] == true){
+            ch13 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,green, true);
+        }
+        else{
+            ch13 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,green, false);
+        }
+        if(mhealthy2[2] == true){
+            ch23 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,green, true);
+        }
+        else{
+            ch23 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,green, false);
+        }
+        if(mhealthy3[2] == true){
+            ch33 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,green, true);
+        }
+        else{
+            ch33 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,green, false);
+        }
+        if(msick1[2] == true){
+            cs13 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,green, true);
+        }
+        else{
+            cs13 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,green, false);
+        }
+        if(msick2[2] == true){
+            cs23 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,green, true);
+        }
+        else{
+            cs23 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,green, false);
+        }
+        if(msick3[2] == true){
+            cs33 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,green, true);
+        }
+        else{
+            cs33 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,green, false);
+        }
+
+        xh1 += 2;
+        xh2 += 2;
+        xh3 += 2;
+        xs1 += 2;
+        xs2 += 2;
+        xs3 += 2;
+
+
+        if(mhealthy1[3] == true){
+            ch14 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            ch14 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,yellow, false);
+        }
+        if(mhealthy2[3] == true){
+            ch24 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            ch24 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,yellow, false);
+        }
+        if(mhealthy3[3] == true){
+            ch34 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            ch34 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,yellow, false);
+        }
+        if(msick1[3] == true){
+            cs14 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            cs14 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,yellow, false);
+        }
+        if(msick2[3] == true){
+            cs24 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            cs24 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,yellow, false);
+        }
+        if(msick3[3] == true){
+            cs34 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,yellow, true);
+        }
+        else{
+            cs34 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,yellow, false);
+        }
+
+
+
+        xh1 -= 1;
+        xh2 -= 1;
+        xh3 -= 1;
+        xs1 -= 1;
+        xs2 -= 1;
+        xs3 -= 1;
+
+        if(mhealthy1[4] == true){
+            ch15 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            ch15 = new Circle((4+xh1)*mwidth/13,mheight/20,mheight/radius,purple, false);
+        }
+        if(mhealthy2[4] == true){
+            ch25 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            ch25 = new Circle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,purple, false);
+        }
+        if(mhealthy3[4] == true){
+            ch35 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            ch35 = new Circle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,purple, false);
+        }
+        if(msick1[4] == true){
+            cs15 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            cs15 = new Circle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,purple, false);
+        }
+        if(msick2[4] == true){
+            cs25 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            cs25 = new Circle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,purple, false);
+        }
+        if(msick3[4] == true){
+            cs35 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,purple, true);
+        }
+        else{
+            cs35 = new Circle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,purple, false);
+        }
+
+        reset();
+    }
 
 
 
