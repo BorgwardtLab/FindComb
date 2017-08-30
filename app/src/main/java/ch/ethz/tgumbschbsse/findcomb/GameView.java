@@ -413,7 +413,7 @@ public class GameView extends SurfaceView implements Runnable {
             case 4:
                 rbgpy = new boolean[]{false, false, true, false, false};
                 mLevel = new Level(mContext, width, height,
-                        new boolean[]{true, false, false, true, true},
+                        new boolean[]{true, false, true/*one true here is not canonical*/, true, true},
                         new boolean[]{false, true, false, false, false},
                         new boolean[]{true, false, false, false, true},
                         new boolean[]{true, false, true, false, false},
@@ -496,12 +496,12 @@ public class GameView extends SurfaceView implements Runnable {
                 mLevel = new Level(mContext, width, height,
                         new boolean[]{true, true, true, true, false},
                         new boolean[]{true, true, false, false, true},
-                        new boolean[]{false, true, true, true, false},
-                        new boolean[]{true, true, true, false, true},
                         new boolean[]{false, true, true, true, true},
+                        new boolean[]{true, true, true, false, true},
+                        new boolean[]{true, true, true, true, true},
                         new boolean[]{true, true, true, true, true},
                         new boolean[]{true, true, true, false, true});
-                rbgpy = new boolean[]{false, false, true, false, true};
+                rbgpy = new boolean[]{true, false, true, false, true};
                 Fisher = new StatTests(3,0,0,3);
                 mLevel.logp = (int) Fisher.logp;
                 break;

@@ -233,51 +233,51 @@ public class Tutorial extends SurfaceView implements Runnable {
                 if(Level==1) {
                     h1.draw(canvas);
                     text = getContext().getString(R.string.Tut1);
-                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
                 }
                 else if(Level ==2){
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut21);
-                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
                 }
                 else{
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut31);
-                    canvas.drawText(text, width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
                 }
             }
             else if(mstage == 2) {
                 if(Level==1) {
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut2);
-                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text,  width / 20, 9 * height / 12, paint);
                 }
                 else if(Level ==2){
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut22);
-                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text,  width / 20, 9 * height / 12, paint);
                 }
                 else{
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut32);
-                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text,  width / 20, 9 * height / 12, paint);
                 }
             }
             else if(mstage ==3) {
                 if(Level==1) {
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut3);
-                    canvas.drawText(text, width/10, 9 * height / 12, paint);
+                    canvas.drawText(text, width/20, 9 * height / 12, paint);
                 }
                 else if(Level ==2){
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut23);
-                    canvas.drawText(text, width/10, 9 * height / 12, paint);
+                    canvas.drawText(text, width/20, 9 * height / 12, paint);
                 }
                 else{
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut33);
-                    canvas.drawText(text,  width / 10, 9 * height / 12, paint);
+                    canvas.drawText(text,  width / 20, 9 * height / 12, paint);
                 }
             }
 

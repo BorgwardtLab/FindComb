@@ -788,7 +788,7 @@ public class Level implements  GameObject{
         }
 
         if(point.x > 15*mwidth/20 && point.x < 19*mwidth/20){
-            if(point.y >3*mheight/10 && point.y < 12*mheight/20) {
+            if(point.y >3*mheight/20 && point.y < 3*mheight/5) {
                 clicked = true;
             }
         }
