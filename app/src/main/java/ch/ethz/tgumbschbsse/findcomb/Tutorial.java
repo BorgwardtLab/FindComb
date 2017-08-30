@@ -75,14 +75,14 @@ public class Tutorial extends SurfaceView implements Runnable {
 
         h1 = new Picture(R.drawable.leftside, mContext,0,0,3*height/7,2*height/3);
 
-        mLevel = new Level(mContext, width, height,
+        mLevel = new Level(mContext, width, height,false,
                 new boolean[]{false, true, false, false, false},
                 new boolean[]{false, true, false, false, false},
                 new boolean[]{false, true, false, false, false},
                 new boolean[]{true, false, false, false, false},
                 new boolean[]{true, true, false, false, false},
                 new boolean[]{true, false, false, false, false},
-                new boolean[]{true, true, false, false, false});
+                new boolean[]{true, true, false, false, false}, new boolean[]{true, true, false, false, false});
         mLevel.Tut = 1;
         Level = 1;
 
@@ -102,34 +102,37 @@ public class Tutorial extends SurfaceView implements Runnable {
                 mstage++;
                 if(mstage == 1) {
                     if(Level == 1) {
-                        mLevel = new Level(mContext, width, height,
+                        mLevel = new Level(mContext, width, height,false,
                                 new boolean[]{false, true, false, false, false},
                                 new boolean[]{false, true, false, false, false},
                                 new boolean[]{false, true, false, false, false},
                                 new boolean[]{true, false, false, false, false},
                                 new boolean[]{true, true, false, false, false},
                                 new boolean[]{true, false, false, false, false},
-                                new boolean[]{true, true, false, false, false});
+                                new boolean[]{true, true, false, false, false},
+                                new boolean[]{true, false, true, false, false});
                     }
                     else if(Level == 2){
-                        mLevel = new Level(mContext, width, height,
+                        mLevel = new Level(mContext, width, height,false,
                                 new boolean[]{false, true, true, false, false},
                                 new boolean[]{true, true, false, false, false},
                                 new boolean[]{false, true, true, false, false},
                                 new boolean[]{true, false, true, false, false},
                                 new boolean[]{true, true, true, false, false},
                                 new boolean[]{true, false, true, false, false},
-                                new boolean[]{true, true, true, false, false});
+                                new boolean[]{true, true, true, false, false},
+                                new boolean[]{true, false, true, false, false});
                     }
                     else{
-                        mLevel = new Level(mContext, width, height,
+                        mLevel = new Level(mContext, width, height,false,
                                 new boolean[]{false, false, true, false, true},
                                 new boolean[]{true, true, false, false, true},
                                 new boolean[]{false, true, false, true, false},
                                 new boolean[]{true, false, true, false, true},
                                 new boolean[]{true, true, false, true, false},
                                 new boolean[]{true, false, false, true, true},
-                                new boolean[]{true, true, true, true, true});
+                                new boolean[]{true, true, true, true, true},
+                                new boolean[]{true, false, true, false, false});
                     }
                     mLevel.Tut = 1;
                 }
@@ -160,14 +163,15 @@ public class Tutorial extends SurfaceView implements Runnable {
                         mLevel.cs31.clicked = true;
                     }
                     else if(Level==2){
-                        mLevel = new Level(mContext, width, height,
+                        mLevel = new Level(mContext, width, height,false,
                                     new boolean[]{false, true, false, false, false},
                                     new boolean[]{false, true, false, false, false},
                                     new boolean[]{false, true, false, false, false},
                                     new boolean[]{true, false, false, false, false},
                                     new boolean[]{false, true, true, false, false},
                                     new boolean[]{true, false, false, false, false},
-                                    new boolean[]{true, true, true, false, false});
+                                    new boolean[]{true, true, true, false, false},
+                                    new boolean[]{true, false, true, false, false});
                         mLevel.cs11.clicked = true;
                         mLevel.cs13.clicked = true;
                         mLevel.cs21.clicked = true;

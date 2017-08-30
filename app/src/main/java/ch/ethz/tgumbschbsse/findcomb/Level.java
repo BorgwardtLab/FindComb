@@ -27,6 +27,8 @@ public class Level implements  GameObject{
     private Picture h1;
     public int Tut;
     public int logp;
+    public boolean Continous;
+    private boolean[] mrbgpy;
 
     private Random mrand;
 
@@ -62,7 +64,7 @@ public class Level implements  GameObject{
 
 
 
-    public Level(Context context, int width, int height, boolean[] healthy1, boolean[] healthy2, boolean[] healthy3, boolean[] sick1, boolean[] sick2, boolean[] sick3, boolean[] colors){
+    public Level(Context context, int width, int height, boolean type,  boolean[] healthy1, boolean[] healthy2, boolean[] healthy3, boolean[] sick1, boolean[] sick2, boolean[] sick3, boolean[] colors,boolean[] rbgpy){
         mhealthy1 = healthy1;
         mhealthy2 = healthy2;
         mhealthy3 = healthy3;
@@ -73,7 +75,13 @@ public class Level implements  GameObject{
         mheight = height;
         mcolors = colors;
         clicked = false;
+        entered = new boolean[] {false,false,false,false,false};
         Tut = 0;
+        Continous = type;
+        if(Continous == false){
+            mrbgpy = rbgpy;
+        }
+
         h1 = new Picture(R.drawable.leftside, context,0,0,3*mheight/7,2*mheight/3);
 
 
@@ -396,26 +404,11 @@ public class Level implements  GameObject{
         cs34.clicked = false;
         cs35.clicked = false;
 
-
-        //mRed.clicked = false;
-        //mBlue.clicked = false;
-        //mGreen.clicked = false;
-        //mPurple.clicked = false;
-        //mYellow.clicked = false;
-
     }
 
     @Override
     public void draw(Canvas canvas) {
         h1.draw(canvas);
-
-        //if(Tut == 0) {
-        //    mRed.draw(canvas);
-        //    mBlue.draw(canvas);
-        //    mGreen.draw(canvas);
-        //    mPurple.draw(canvas);
-        //    mYellow.draw(canvas);
-        //}
 
         ch11.draw(canvas);
         ch12.draw(canvas);
@@ -449,173 +442,12 @@ public class Level implements  GameObject{
         cs35.draw(canvas);
 
 
-
-
         Paint paint = new Paint();
 
         canvas.drawRect(new Rect(3*mheight/7, mheight/10-1, 5*mwidth/7, mheight/10+1), paint);
         canvas.drawRect(new Rect(3*mheight/7, 2*mheight/10-1, 5*mwidth/7, 2*mheight/10+1), paint);
         canvas.drawRect(new Rect(3*mheight/7, 9*mheight/20-1, 5*mwidth/7, 9*mheight/20+1), paint);
         canvas.drawRect(new Rect(3*mheight/7, 11*mheight/20-1, 5*mwidth/7, 11*mheight/20+1), paint);
-        /*
-        //Red
-        if(mRed.clicked == true){
-            paint.setColor(red[1]);
-        }
-        else{
-            paint.setColor(red[0]);
-        }
-        if(mhealthy1[0] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy2[0] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy3[0] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
-        }
-        if(msick1[0] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
-        }
-        if(msick2[0] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
-        }
-        if(msick3[0] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
-        }
-        xh1 += 1;
-        xh2 += 1;
-        xh3 += 1;
-        xs1 += 1;
-        xs2 += 1;
-        xs3 += 1;
-
-        //blue
-        if(mBlue.clicked == true){
-            paint.setColor(blue[1]);
-        }
-        else{
-            paint.setColor(blue[0]);
-        }
-        if(mhealthy1[1] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy2[1] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy3[1] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
-        }
-        if(msick1[1] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
-        }
-        if(msick2[1] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
-        }
-        if(msick3[1] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
-        }
-        xh1 += 1;
-        xh2 += 1;
-        xh3 += 1;
-        xs1 += 1;
-        xs2 += 1;
-        xs3 += 1;
-
-        //green
-        if(mGreen.clicked == true){
-            paint.setColor(green[1]);
-        }
-        else{
-            paint.setColor(green[0]);
-        }
-        if(mhealthy1[2] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy2[2] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy3[2] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
-        }
-        if(msick1[2] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
-        }
-        if(msick2[2] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
-        }
-        if(msick3[2] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
-        }
-        xh1 += 1;
-        xh2 += 1;
-        xh3 += 1;
-        xs1 += 1;
-        xs2 += 1;
-        xs3 += 1;
-        //yellow
-        if(mYellow.clicked == true){
-            paint.setColor(yellow[1]);
-        }
-        else{
-            paint.setColor(yellow[0]);
-        }
-        if(mhealthy1[4] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy2[4] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy3[4] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
-        }
-        if(msick1[4] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
-        }
-        if(msick2[4] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
-        }
-        if(msick3[4] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
-        }
-
-
-        xh1 += 1;
-        xh2 += 1;
-        xh3 += 1;
-        xs1 += 1;
-        xs2 += 1;
-        xs3 += 1;
-
-
-
-        //purple
-        if(mPurple.clicked == true){
-            paint.setColor(purple[1]);
-        }
-        else{
-            paint.setColor(purple[0]);
-        }
-        if(mhealthy1[3] == true){
-            canvas.drawCircle((4+xh1)*mwidth/13,mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy2[3] == true){
-            canvas.drawCircle((4+xh2)*mwidth/13,3*mheight/20,mheight/radius,paint);
-        }
-        if(mhealthy3[3] == true){
-            canvas.drawCircle((4+xh3)*mwidth/13,5*mheight/20,mheight/radius,paint);
-        }
-        if(msick1[3] == true){
-            canvas.drawCircle((4+xs1)*mwidth/13,8*mheight/20,mheight/radius,paint);
-        }
-        if(msick2[3] == true){
-            canvas.drawCircle((4+xs2)*mwidth/13,10*mheight/20,mheight/radius,paint);
-        }
-        if(msick3[3] == true){
-            canvas.drawCircle((4+xs3)*mwidth/13,12*mheight/20,mheight/radius,paint);
-        }
-        */
-
 
     }
 
@@ -655,12 +487,6 @@ public class Level implements  GameObject{
     }
 
     public void checkClicked(Point point){
-
-        //mGreen.checkClicked(point);
-        //mRed.checkClicked(point);
-        //mBlue.checkClicked(point);
-        //mPurple.checkClicked(point);
-        //mYellow.checkClicked(point);
 
         ch11.checkClicked(point);
         if (ch11.processChanged() == true){
@@ -795,275 +621,112 @@ public class Level implements  GameObject{
 
     }
 
-    public boolean[] getClicked(){
-        boolean[] solution = entered; //{mRed.clicked, mBlue.clicked, mGreen.clicked, mPurple.clicked, mYellow.clicked};
-        //mBlue.processClicked();
-        //mRed.processClicked();
-        //mGreen.processClicked();
-        //mPurple.processClicked();
-        //mYellow.processClicked();
-
-        return solution;
-    }
 
 
 
 
+    public void compute_score(){
 
+        if(Continous == true) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public int[] AND(int[] checkeda, int[] checkedb){
-        int[] result = {0,0,0,0,0,0};
-        for(int i = 0; i < 6; i++){
-            result[i] = (int) ((checkeda[i] + checkedb[i])/2.);
-        }
-        return result;
-    }
-
-
-    public int[] NAND(int[] checkeda, int[] checkedb){
-        int[] result = {1,1,1,1,1,1};
-        for(int i = 0; i < 6; i++){
-            if(checkeda[i] == 0 || checkedb[i] == 0){
-                if(checkeda[i] != checkedb[i]) {
-                    result[i] = 0;
+            int length = 0;
+            for(boolean i : entered){
+                if(i==true){
+                    length++;
                 }
             }
-        }
-        return result;
-    }
-
-    public int[] OR(int[] checkeda, int[] checkedb){
-        int[] result = {0,0,0,0,0,0};
-        for(int i = 0; i < 6; i++){
-            if(checkeda[i] == 1 || checkedb[i] == 1){
-                result[i] = 1;
+            int[] checked = new int[length];
+            int j = 0;
+            int k =0;
+            while(j<entered.length){
+                if(entered[j] ==true){
+                    checked[k]=j;
+                    k++;
+                }
+                j++;
             }
-        }
-        return result;
-    }
 
-    public int[] XOR(int[] checkeda, int[] checkedb){
-        int[] result = {0,0,0,0,0,0};
-        for(int i = 0; i < 6; i++){
-            if(checkeda[i] == 1 || checkedb[i] == 1){
-                if(checkeda[i] != checkedb[i]) {
-                    result[i] = 1;
+            int ch1 = 0;
+            int ch2 = 0;
+            int ch3 = 0;
+            int cs1 = 0;
+            int cs2 = 0;
+            int cs3 = 0;
+            //Store reps in binary mode
+            int power = 10;
+            int base = 1;
+            for (int i : checked) {
+                if (mhealthy1[i] == true) {
+                    ch1 += base;
+                }
+                if (mhealthy2[i] == true) {
+                    ch2 += base;
+                }
+                if (mhealthy3[i] == true) {
+                    ch3 += base;
+                }
+                if (msick1[i] == true) {
+                    cs1 += base;
+                }
+                if (msick2[i] == true) {
+                    cs2 += base;
+                }
+                if (msick3[i] == true) {
+                    cs3 += base;
+                }
+
+                base = base * power;
+
+            }
+
+
+            int false_neg = 0;
+            int false_pos = 0;
+
+            if (ch1 == cs1 || ch1 == cs2 || ch1 == cs3) {
+                false_neg++;
+            }
+            if (ch2 == cs1 || ch2 == cs2 || ch2 == cs3) {
+                false_neg++;
+            }
+            if (ch3 == cs1 || ch3 == cs2 || ch3 == cs3) {
+                false_neg++;
+            }
+
+
+            if (ch1 == cs1 || ch2 == cs1 || ch3 == cs1) {
+                false_pos++;
+            }
+            if (ch1 == cs2 || ch2 == cs2 || ch3 == cs2) {
+                false_pos++;
+            }
+            if (ch1 == cs3 || ch2 == cs3 || ch3 == cs3) {
+                false_pos++;
+            }
+
+            int dimensionality_penalty = checked.length; //should be <=3
+            int false_classification_penalty = Math.min(false_neg, false_pos); //should be <= 3
+
+            StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
+            int base_score = (int) (Fisher.logp + 1.0);
+            logp = base_score - (dimensionality_penalty + false_classification_penalty);
+        }
+        else{
+            boolean check = true;
+            for(int i = 0; i<5; i++){
+                if(entered[i] != mrbgpy[i]){
+                    check=false;
                 }
             }
-        }
-        return result;
-    }
-
-
-
-    public int computecomb(int[] checked){
-        int n11 = checked[0]+checked[1]+checked[2];
-        int n12 = 3-n11;
-        int n21 = checked[3]+checked[4]+checked[5];
-        int n22 =  3- n21;
-
-
-        StatTests Fisher = new StatTests(n11, n12, n21, n22);
-        return (int) (10* Fisher.logp);
-    }
-
-    public void eval(boolean[] cchecked){
-        int[] checked = {0,0,0,0,0};
-        for(int i = 0; i < 5; i++){
-            if(cchecked[i] == true){
-                checked[i] = 1;
-            }
-        }
-        if(checked.length == 0){
-            logp = 1;
-        }
-        else if(checked.length == 1) {
-            logp = computecomb(CAND(checked));
-        }
-        else if(checked.length == 2){
-            int templogpa = computecomb(CAND(checked));
-            int templogpb = computecomb(COR(checked));
-            int templogpc = computecomb(XOR(CAND(new int[] {checked[0]}),CAND(new int[] {checked[1]})));
-            int templogpd = computecomb(NAND(CAND(new int[] {checked[0]}),CAND(new int[] {checked[1]})));
-
-            logp = Math.max(Math.max(Math.max(templogpa,templogpb),templogpc),templogpd);
-        }
-        else if(checked.length == 3){
-            logp = computecomb(CAND(checked));
-        }
-    }
-
-
-    public int[] COR(int[] checked){
-        //int n11 = 0;
-        //int n12 = 0;
-        //int n21 = 0;
-        //int n22 = 0;
-
-        int ch1 = 0;
-        int ch2 = 0;
-        int ch3 = 0;
-        int cs1 = 0;
-        int cs2 = 0;
-        int cs3 = 0;
-
-        for(int i:checked){
-            if(mhealthy1[i] == true){
-                ch1 = 1;
-            }
-            if(mhealthy2[i] == true){
-                ch2 = 1;
-            }
-            if(mhealthy3[i] == true){
-                ch3 = 1;
-            }
-            if(msick1[i] == true){
-                cs1 = 1;
-            }
-            if(msick2[i] == true){
-                cs2 = 1;
-            }
-            if(msick3[i] == true){
-                cs3 = 1;
-            }
-        }
-
-        //n11 = ch1+ch2+ch3;
-        //n12 = 3- n11;
-        //n22 = cs1 + cs2 + cs3;
-        //n21 = 3-n22;
-
-        return new int[] {ch1, ch2, ch3, cs1, cs2, cs3};
-
-        //StatTests Fisher = new StatTests(n11, n12, n21, n22);
-        //logp = (int) (10* Fisher.logp);
-
-
-    }
-
-    public int[] CAND(int[] checked){
-        //int n11 = 0;
-        //int n12 = 0;
-        //int n21 = 0;
-        //int n22 = 0;
-
-        int ch1 = 1;
-        int ch2 = 1;
-        int ch3 = 1;
-        int cs1 = 1;
-        int cs2 = 1;
-        int cs3 = 1;
-
-        for(int i:checked){
-            if(mhealthy1[i] != true){
-                ch1 = 0;
-            }
-            if(mhealthy2[i] != true){
-                ch2 = 0;
-            }
-            if(mhealthy3[i] != true){
-                ch3 = 0;
-            }
-            if(msick1[i] != true){
-                cs1 = 0;
-            }
-            if(msick2[i] != true){
-                cs2 = 0;
-            }
-            if(msick3[i] != true){
-                cs3 = 0;
-            }
-        }
-
-        return new int[] {ch1, ch2, ch3, cs1, cs2, cs3};
-
-        //n11 = ch1+ch2+ch3;
-        //n12 = 3- n11;
-        //n22 = cs1 + cs2 + cs3;
-        //n21 = 3-n22;
-
-        //StatTests Fisher = new StatTests(n11, n12, n21, n22);
-        //logp = (int) (10* Fisher.logp);
-
-
-    }
-
-
-
-    public void randomize(int num){
-        for(int i = 0; i < 5;i++){
-            if(i < num){
-                mcolors[i] = true;
-                mhealthy1[i] = mrand.nextBoolean();
-                mhealthy2[i] = mrand.nextBoolean();
-                mhealthy3[i] = mrand.nextBoolean();
-                msick1[i] = mrand.nextBoolean();
-                msick2[i] = mrand.nextBoolean();
-                msick3[i] = mrand.nextBoolean();
+            if(check){
+                logp = 30;
             }
             else{
-                mcolors[i] = false;
-                mhealthy1[i] = false;
-                mhealthy2[i] = false;
-                mhealthy3[i] = false;
-                msick1[i] = false;
-                msick2[i] = false;
-                msick3[i] = false;
+                logp = -10;
             }
         }
 
-    }
 
-    public void inject(int[] patient, int[] feature, boolean[] presence){
-        int i = 0;
-        while(i < patient.length){
-            if(patient[i] == 0){
-                mhealthy1[feature[i]] = presence[i];
-            }
-            else if(patient[i] == 1){
-                mhealthy2[feature[i]] = presence[i];
-            }
-            else if(patient[i] == 2){
-                mhealthy3[feature[i]] = presence[i];
-            }
-            else if(patient[i] == 3){
-                msick1[feature[i]] = presence[i];
-            }
-            else if(patient[i] == 4){
-                msick2[feature[i]] = presence[i];
-            }
-            else if(patient[i] == 5){
-                msick3[feature[i]] = presence[i];
-            }
-
-            i++;
-        }
     }
 
 }

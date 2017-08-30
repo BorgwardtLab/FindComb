@@ -31,7 +31,8 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnApiRequestCompleted {
 
     private EditText mNameEntry;
-    private Button mEasy;
+    private Button mEasy, mHard;
+    private int mHardClicks;
     private int mScore;
     private int scoreLevel;
 
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNameEntry = (EditText) findViewById(R.id.et_name);
         //mEmail = (EditText) findViewById(R.id.et_email);
         mEasy = (Button) findViewById(R.id.b_easy);
+        mHard = (Button) findViewById(R.id.b_hard);
+        mHardClicks = 0;
         mNameEntry.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -69,11 +72,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mEasy.setEnabled(false);
                     mEasy.setTextColor(Color.parseColor("#FF999A9A"));
                     mEasy.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
+                    mHard.setEnabled(false);
+                    mHard.setTextColor(Color.parseColor("#FF999A9A"));
+                    mHard.setBackgroundColor( getResources().getColor(R.color.colorPrimary));
 
                 } else {
                     mEasy.setEnabled(true);
                     mEasy.setTextColor(Color.parseColor("white"));
                     mEasy.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    mHard.setEnabled(true);
+                    mHard.setTextColor(Color.parseColor("white"));
+                    mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 }
             }
             @Override
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //adding a click listener
         mEasy.setOnClickListener(this);
-        //mHard.setOnClickListener(this);
+        mHard.setOnClickListener(this);
 
     }
 
@@ -105,13 +114,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == mEasy) {
             //starting game activity
+            mHardClicks = 0;
             intent = new Intent(this,TutorialActivity.class);
             intent.putExtra("Level", 1);
             startActivityForResult(intent, REQUEST_ONE);
         }
-        //if(v == mHard){
-        //    startActivity(new Intent(MainActivity.this, HighScore.class));
-        //}
+        if(v== mHard){
+            mHardClicks++;
+            if(mHardClicks == 2){
+                mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+            if (mHardClicks == 3){
+                mScore = 320;
+                intent = new Intent(this,TutorialActivity.class);
+                intent.putExtra("Level", 3);
+                startActivityForResult(intent,REQUEST_FIVE);
+            }
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -198,12 +217,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int temp_score_lvl2 = data.getExtras().getInt("score");
                 if (temp_score_lvl2 > 0){//Level2 successful
                     mScore = temp_score_lvl2;
-                    scoreLevel = 2;
-                    intent = new Intent(this,TutorialActivity.class);
-                    intent.putExtra("Level", 3);
-                    startActivityForResult(intent,REQUEST_FIVE);
+                //    scoreLevel = 2;
+                //    intent = new Intent(this,TutorialActivity.class);
+                //    intent.putExtra("Level", 3);
+                //    startActivityForResult(intent,REQUEST_FIVE);
                 }
-                else{
+                //else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
                     params.put("user", name);
@@ -227,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra("position", 15);
                         this.startActivity(intent);
                     }
-                }
+                //}
                 break;
             case REQUEST_FIVE://Level3
                 intent = new Intent(this,GameActivity.class);
