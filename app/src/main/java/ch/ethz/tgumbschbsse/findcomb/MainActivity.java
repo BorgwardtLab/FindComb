@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
-//                params.put("username", "admin");
-//                params.put("password", "mlcb2017");
                 params.put("user", name);
                 params.put("score", mScore);
                 params.put("level", scoreLevel);
@@ -167,8 +165,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
-//                    params.put("username", "admin");
-//                    params.put("password", "mlcb2017");
                     params.put("user", name);
                     params.put("score", mScore);
                     params.put("level", scoreLevel);
@@ -210,8 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
-//                    params.put("username", "admin");
-//                    params.put("password", "mlcb2017");
                     params.put("user", name);
                     params.put("score", mScore);
                     params.put("level", scoreLevel);
