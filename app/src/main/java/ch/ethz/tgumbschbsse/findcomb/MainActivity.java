@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(v== mHard){
             mHardClicks++;
+            if(mHardClicks == 1){
+                mHard.setVisibility(View.VISIBLE);
+            }
             if(mHardClicks == 2){
                 mHard.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             }
@@ -280,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case REQUEST_INFINITY_LEADERBOARD:
                 mScore = data.getExtras().getInt("inf_score");
-                
+
                 scoreLevel = 4;
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
