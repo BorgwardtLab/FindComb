@@ -956,7 +956,7 @@ public class Level implements  GameObject{
 
             // The scoring is in a way that the game mechanics are satisfying
             //StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
-            int base_score = 4;//(int) (Fisher.logp + 1.0);
+            int base_score = 3;//(int) (Fisher.logp + 1.0);
             logp = 5*(base_score - (dimensionality_penalty + 2*false_classification_penalty));
         }
         else{

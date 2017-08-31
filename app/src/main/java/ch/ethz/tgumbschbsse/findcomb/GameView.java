@@ -262,9 +262,15 @@ public class GameView extends SurfaceView implements Runnable {
 
             } else {
                 paint.setTextSize(width/20);
-                if (mScore < 0) {
-                    canvas.drawText("Game Over", width / 3, height / 3, paint);
-                    soundwrong.start();
+                if (mScore <= 0) {
+                    if(mLevel.Continous==false) {
+                        canvas.drawText("Game Over", width / 3, height / 3, paint);
+                        soundwrong.start();
+                    }
+                    else{
+                        canvas.drawText("Score: " + String.valueOf(-mLevelIndicator), width / 3, height / 3, paint);
+                        soundfinal.start();
+                    }
                 } else {
                     canvas.drawText("Score: " + String.valueOf(mScore), width / 3, height / 3, paint);
                 }
@@ -326,7 +332,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         if (mLevelIndicator <= 0) {
             mLevelIndicator--;
-            mProgressBar.set(10, 10, (mScore)*(100/(width/12)));
+            //mProgressBar.set(10, 10, (mScore)*(100/(width/12)));
             mLevel.random_new();
         }
         else {

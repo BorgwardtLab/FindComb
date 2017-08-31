@@ -78,13 +78,13 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         if(level == 3){
             leaderboardText = "EXTREME";
         } else if(level == 4){
-            leaderboardText = "INFINITY";
+            leaderboardText = "FINDCOMB";
         }else {
             leaderboardText = String.valueOf(level);
         }
 
 
-        header.setText("Leaderboard level "+ leaderboardText + ":");
+        header.setText("Leaderboard "+ leaderboardText + ":");
 
         if(global == 1) {
             if(position > 10){
@@ -105,7 +105,8 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         }
         else{
             //Local leaderboard
-            sharedPreferences = getSharedPreferences("SavedGame", MODE_PRIVATE);
+            int levell = intent.getExtras().getInt("level");
+            sharedPreferences = getSharedPreferences("SavedGame"+String.valueOf(levell), MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             boolean posted = false;
             int i = 0;

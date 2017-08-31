@@ -250,13 +250,16 @@ public class Tutorial extends SurfaceView implements Runnable {
 
             if(mstage==0){
                 if(Level==1) {
-                    text = "Level 1";
+                    text = "Stage 1";
                 }
                 else if(Level ==2){
-                    text = "Level 2";
+                    text = "Stage 2";
+                }
+                else if(Level ==3){
+                    text = "FindComb EXTREME";
                 }
                 else{
-                    text = "Level 3";
+                    text="FindComb";
                 }
                 paint.setTextSize(width/20);
                 canvas.drawText(text, width / 3, height / 3, paint);

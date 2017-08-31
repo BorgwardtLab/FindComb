@@ -20,6 +20,7 @@ public class Progress implements GameObject {
 
 
     private int[] topblue = {Color.parseColor("#303F9F"),Color.parseColor("#303F9F")};
+    private int[] red = {Color.RED, Color.RED};
 
     private Rectangle R01, R02, R03, R04, R05, R06, R07, R08, R09, R10, R11; //Vertical lines
     private Circle CBegin, CEnd; //Circles on both sides
@@ -111,9 +112,17 @@ public class Progress implements GameObject {
             RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, mState * mspacing, mhorizontal + msize), topblue);
         }
         else{
-            CBegin = new Circle(mspacing,mhorizontal,msize,topblue,true);
-            CEnd = new Circle(Math.min(mspacing+Continous,mspacing*mLevels),mhorizontal,msize,topblue,true);
-            RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, Math.min(mspacing+Continous,mspacing*mLevels), mhorizontal + msize), topblue);
+            if(Continous > mwidth/12) {
+                CBegin = new Circle(mspacing, mhorizontal, msize, topblue, true);
+                CEnd = new Circle(Math.min(mspacing + Continous, mspacing * mLevels), mhorizontal, msize, topblue, true);
+                RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, Math.min(mspacing + Continous, mspacing * mLevels), mhorizontal + msize), topblue);
+            }
+            else{
+                CBegin = new Circle(mspacing, mhorizontal, msize, red, true);
+                CEnd = new Circle(Math.min(mspacing + Continous, mspacing * mLevels), mhorizontal, msize, red, true);
+                RBar = new Rectangle(new Rect(mspacing, mhorizontal - msize, Math.min(mspacing + Continous, mspacing * mLevels), mhorizontal + msize), red);
+
+            }
         }
     }
 
