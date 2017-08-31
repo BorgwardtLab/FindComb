@@ -256,7 +256,7 @@ public class Tutorial extends SurfaceView implements Runnable {
                     text = "Stage 2";
                 }
                 else if(Level ==3){
-                    text = "Level 3";
+                    text = "Stage 3";
                 }
                 else{
                     text="FindComb";
