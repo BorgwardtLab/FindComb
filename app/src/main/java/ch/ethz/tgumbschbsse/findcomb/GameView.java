@@ -253,7 +253,7 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.drawRect(new Rect(19*width/20,3*height/20,15*width/20, 3*height/5),paintb);
 
                 paintb.setColor(Color.BLACK);
-                paintb.setTextSize(100);
+                paintb.setTextSize(width/15);
                 canvas.drawText("Go!",16*width/20, 8*height/20,paintb);
 
                 if(mLevel.Continous == false) {
