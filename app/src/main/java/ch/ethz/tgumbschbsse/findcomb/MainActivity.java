@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_INFINITY_LEADERBOARD = 1001;
 
     private Intent intent;
-    private static int LGLOBAL = 0;
+    private static int LGLOBAL = 1;
     String name;
     RequestParams params;
 
