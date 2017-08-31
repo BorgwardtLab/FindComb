@@ -13,4 +13,6 @@
     <string name="Tut31">Regole più complesse sono possibili.</string>
     <string name="Tut32">Verde e giallo hanno lo stesso effetto ...</string>
     <string name="Tut33">... e, se combinate con il rosso, sono associate alla malattia.</string>
+    <string name="Tut324">È presente una penalità per il numero di caratteristiche selezionate.</string>
+    <string name="Tut325">È presente una penalità se la combinazione non discrimina tutti gli individui.</string>
 </resources>
