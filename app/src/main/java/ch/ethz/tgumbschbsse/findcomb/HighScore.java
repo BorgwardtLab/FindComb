@@ -75,9 +75,7 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
         int global = intent.getExtras().getInt("global");
         int level = intent.getExtras().getInt("level");
         String leaderboardText = "";
-        if(level == 3){
-            leaderboardText = "EXTREME";
-        } else if(level == 4){
+        if(level == 4){
             leaderboardText = "FINDCOMB";
         }else {
             leaderboardText = String.valueOf(level);
@@ -114,7 +112,7 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
             int temp_score;
             String temp_name_ = "XXX";
             int temp_score_ = 0;
-            while(i < 11){
+            while(i < 4){
                 String lbString = String.valueOf(i+1) + ". ";
 
                 temp_name = sharedPreferences.getString("name" + String.valueOf(i), "XXX");
@@ -159,8 +157,8 @@ public class HighScore extends AppCompatActivity implements OnApiRequestComplete
                 i++;
             }
             if(posted == false){
-                textView11.setText(". " + name + " : \t" + score);
-                textView11.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
+                textView4.setText(". " + name + " : \t" + score);
+                textView4.setTextColor(Color.parseColor("#2F36A9")); // Change color here, available: magenta, aqua, etc...
             }
 
         }

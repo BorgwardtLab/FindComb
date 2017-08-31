@@ -215,7 +215,7 @@ public class Tutorial extends SurfaceView implements Runnable {
 
                     }
                 }
-                else if (mstage > 3 && Level <3) {
+                else if (mstage > 3 && Level <4) {
                     playing = false;
                 }
                 else if(mstage>5){
@@ -256,7 +256,7 @@ public class Tutorial extends SurfaceView implements Runnable {
                     text = "Stage 2";
                 }
                 else if(Level ==3){
-                    text = "FindComb EXTREME";
+                    text = "Level 3";
                 }
                 else{
                     text="FindComb";
@@ -317,30 +317,15 @@ public class Tutorial extends SurfaceView implements Runnable {
                 }
             }
             else if(mstage == 4){
-                if(Level==3) {
-                    mLevel.draw(canvas);
-                    text = getContext().getString(R.string.Tut314);
-                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
-                }
-                else{
-                    text = getContext().getString(R.string.Tut324);
-                    canvas.drawText(text, width / 20, 4 * height / 12, paint);
-
-                }
+                text = getContext().getString(R.string.Tut324);
+                canvas.drawText(text, width / 20, 4 * height / 12, paint);
             }
             else if(mstage == 5){
-                if(Level==3) {
-                    text = getContext().getString(R.string.Tut315);
-                    canvas.drawText(text, width / 20, 9 * height / 12, paint);
-                }
-                else{
+                text = getContext().getString(R.string.Tut324);
+                canvas.drawText(text, width / 20, 4 * height / 12, paint);
 
-                    text = getContext().getString(R.string.Tut324);
-                    canvas.drawText(text, width / 20, 4 * height / 12, paint);
-
-                    text = getContext().getString(R.string.Tut325);
-                    canvas.drawText(text, width / 20, 6 * height / 12, paint);
-                }
+                text = getContext().getString(R.string.Tut325);
+                canvas.drawText(text, width / 20, 6 * height / 12, paint);
             }
 
 

@@ -20,8 +20,6 @@
     <string name="Tut33">...and, in combination with red, are associated with the disease.</string>
 
 
-    <string name="Tut314">Of all discriminative rules, only one gives a reward.</string>
-    <string name="Tut315">Good luck.</string>
     <string name="Tut324">There is a penalty for the number of features you use.</string>
     <string name="Tut325">There is a penalty if your rule does not govern all individuals.</string>
 </resources>

@@ -73,6 +73,8 @@ public class GameView extends SurfaceView implements Runnable {
     private final MediaPlayer soundfinal;
     private final MediaPlayer soundright;
     private final MediaPlayer soundwrong;
+    private final MediaPlayer soundtick;
+    private boolean below_thres;
 
 
     public GameView(Context context, Activity act) {
@@ -88,6 +90,8 @@ public class GameView extends SurfaceView implements Runnable {
         soundright = MediaPlayer.create(context,R.raw.stapler);
         soundwrong = MediaPlayer.create(context,R.raw.buzz);
         soundfinal = MediaPlayer.create(context,R.raw.fanfare);
+        soundtick = MediaPlayer.create(context,R.raw.tick);
+        below_thres=false;
 
         //init mechanics
         mScore = 120; //The player has two minutes
@@ -164,8 +168,19 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         mLevel.update();
         if(mLevel.Continous==true) {
-            mProgressBar.set(10, 10, (mScore) * (1000 / (width / 12)));
+            mProgressBar.set(10, 10, (mScore) * (1000/(width / 12)));
+
+
+            if(mScore * (1000/(width / 12)) < width/12 && below_thres==false){
+                below_thres=true;
+                soundtick.start();
+            }
+            else if(mScore * (1000/(width / 12)) > width/12 && below_thres==true){
+                below_thres=false;
+                soundtick.stop();
+            }
         }
+
 
         if (mScore < 0) {
             playing = false;
@@ -430,7 +445,7 @@ public class GameView extends SurfaceView implements Runnable {
                     break;
                 case 8:
                     mLevel = new Level(mContext, width, height, false,
-                            new boolean[]{true, true, true, false, true},
+                            new boolean[]{true, true, false, false, true},
                             new boolean[]{true, true, false, false, true},
                             new boolean[]{false, true, true, false, true},
                             new boolean[]{true, true, true, false, true},

@@ -239,11 +239,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (temp_score_lvl2 > 0){//Level2 successful
                     mScore = temp_score_lvl2;
                     scoreLevel = 2;
-                //    intent = new Intent(this,TutorialActivity.class);
-                //    intent.putExtra("Level", 3);
-                //    startActivityForResult(intent,REQUEST_FIVE);
+                    intent = new Intent(this,TutorialActivity.class);
+                    intent.putExtra("Level", 3);
+                    startActivityForResult(intent,REQUEST_FIVE);
                 }
-                //else{
+                else{
                     name = mNameEntry.getText().toString();
                     params = new RequestParams();
                     params.put("user", name);
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra("position", 15);
                         this.startActivity(intent);
                     }
-                //}
+                }
                 break;
             case REQUEST_FIVE://Level3
                 intent = new Intent(this,GameActivity.class);
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case REQUEST_INFINITY_LEADERBOARD:
                 mScore = data.getExtras().getInt("inf_score");
-
+                System.out.println(String.valueOf(mScore));
                 scoreLevel = 4;
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();

@@ -874,104 +874,97 @@ public class Level implements  GameObject{
 
     public void compute_score(){
 
-        if(Continous == true) {
-
-            int length = 0;
-            for(boolean i : entered){
-                if(i==true){
-                    length++;
-                }
+        int length = 0;
+        for(boolean i : entered){
+            if(i==true){
+                length++;
             }
-            int[] checked = new int[length];
-            int j = 0;
-            int k =0;
-            while(j<entered.length){
-                if(entered[j] ==true){
-                    checked[k]=j;
-                    k++;
-                }
-                j++;
-            }
-
-            int ch1 = 0;
-            int ch2 = 0;
-            int ch3 = 0;
-            int cs1 = 0;
-            int cs2 = 0;
-            int cs3 = 0;
-            //Store reps in binary mode
-            int power = 10;
-            int base = 1;
-            for (int i : checked) {
-                if (mhealthy1[i] == true) {
-                    ch1 += base;
-                }
-                if (mhealthy2[i] == true) {
-                    ch2 += base;
-                }
-                if (mhealthy3[i] == true) {
-                    ch3 += base;
-                }
-                if (msick1[i] == true) {
-                    cs1 += base;
-                }
-                if (msick2[i] == true) {
-                    cs2 += base;
-                }
-                if (msick3[i] == true) {
-                    cs3 += base;
-                }
-
-                base = base * power;
-
-            }
-
-
-            int false_neg = 0;
-            int false_pos = 0;
-
-            if (ch1 == cs1 || ch1 == cs2 || ch1 == cs3) {
-                false_neg++;
-            }
-            if (ch2 == cs1 || ch2 == cs2 || ch2 == cs3) {
-                false_neg++;
-            }
-            if (ch3 == cs1 || ch3 == cs2 || ch3 == cs3) {
-                false_neg++;
-            }
-
-
-            if (ch1 == cs1 || ch2 == cs1 || ch3 == cs1) {
-                false_pos++;
-            }
-            if (ch1 == cs2 || ch2 == cs2 || ch3 == cs2) {
-                false_pos++;
-            }
-            if (ch1 == cs3 || ch2 == cs3 || ch3 == cs3) {
-                false_pos++;
-            }
-
-            int dimensionality_penalty = checked.length; //should be <=3
-            int false_classification_penalty = (Math.min(false_neg, false_pos))-1; //should be <= 3
-
-            // The scoring is in a way that the game mechanics are satisfying
-            //StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
-            int base_score = 3;//(int) (Fisher.logp + 1.0);
-            logp = 5*(base_score - (dimensionality_penalty + 2*false_classification_penalty));
         }
-        else{
+        int[] checked = new int[length];
+        int j = 0;
+        int k =0;
+        while(j<entered.length){
+            if(entered[j] ==true){
+                checked[k]=j;
+                k++;
+            }
+            j++;
+        }
+        int ch1 = 0;
+        int ch2 = 0;
+        int ch3 = 0;
+        int cs1 = 0;
+        int cs2 = 0;
+        int cs3 = 0;
+        //Store reps in binary mode
+        int power = 10;
+        int base = 1;
+        for (int i : checked) {
+            if (mhealthy1[i] == true) {
+                ch1 += base;
+            }
+            if (mhealthy2[i] == true) {
+                ch2 += base;
+            }
+            if (mhealthy3[i] == true) {
+                ch3 += base;
+            }
+            if (msick1[i] == true) {
+                cs1 += base;
+            }
+            if (msick2[i] == true) {
+                cs2 += base;
+            }
+            if (msick3[i] == true) {
+                cs3 += base;
+            }
+            base = base * power;
+        }
+
+
+        int false_neg = 0;
+        int false_pos = 0;
+        if (ch1 == cs1 || ch1 == cs2 || ch1 == cs3) {
+            false_neg++;
+        }
+        if (ch2 == cs1 || ch2 == cs2 || ch2 == cs3) {
+            false_neg++;
+        }
+        if (ch3 == cs1 || ch3 == cs2 || ch3 == cs3) {
+            false_neg++;
+        }
+        if (ch1 == cs1 || ch2 == cs1 || ch3 == cs1) {
+            false_pos++;
+        }
+        if (ch1 == cs2 || ch2 == cs2 || ch3 == cs2) {
+            false_pos++;
+        }
+        if (ch1 == cs3 || ch2 == cs3 || ch3 == cs3) {
+            false_pos++;
+        }
+        int dimensionality_penalty = checked.length; //should be <=3
+        int false_classification_penalty = (Math.min(false_neg, false_pos))-1; //should be <= 3
+
+        // The scoring is in a way that the game mechanics are satisfying
+        //StatTests Fisher = new StatTests(3, 0, false_classification_penalty, 3 - false_classification_penalty);
+        if(Continous==true) {
+            int base_score = 3;//(int) (Fisher.logp + 1.0);
+            logp = 5 * (base_score - (dimensionality_penalty + 2 * false_classification_penalty));
+        }
+        else {
             boolean check = true;
-            for(int i = 0; i<5; i++){
-                if(entered[i] != mrbgpy[i]){
+            for(int i=0;i<5;i++){
+                if(entered[i]!=mrbgpy[i]){
                     check=false;
                 }
             }
-            if(check){
-                logp = 5;
+            if(check==true || false_classification_penalty==-1){
+                logp=5;
             }
             else{
-                logp = -5;
+                logp=-5;
             }
+
         }
 
 
