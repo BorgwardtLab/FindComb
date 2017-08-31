@@ -316,10 +316,15 @@ public class GameView extends SurfaceView implements Runnable {
         //System.out.println(String.valueOf(playing));
 
         if(playing==false){
-            System.out.println(String.valueOf(mLevelIndicator));
+            System.out.println(String.valueOf(-1*mLevelIndicator));
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("score", mScore);
-            resultIntent.putExtra("inf_score", mLevelIndicator);
+            if(mLevel.Continous==false) {
+                resultIntent.putExtra("score", mScore);
+            }
+            else {
+                int result = mLevelIndicator * -1;
+                resultIntent.putExtra("score", result);
+            }
             ((Activity) mContext).setResult(Activity.RESULT_OK, resultIntent);
             ((Activity) mContext).finish();
         }

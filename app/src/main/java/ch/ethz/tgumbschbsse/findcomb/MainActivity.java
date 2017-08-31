@@ -282,11 +282,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
                 break;
             case REQUEST_INFINITY_LEADERBOARD:
-                int result = data.getExtras().getInt("inf_score");
-                mScore = -1*result; //we count negative levels
-                //System.out.println(String.valueOf(mScore));
-                //System.out.println(String.valueOf(result));
-                //System.out.println(String.valueOf(score));
+                int result = data.getExtras().getInt("score");
+                mScore = result; //we count negative levels
+                System.out.println(String.valueOf(mScore));
+                System.out.println(String.valueOf(result));
                 scoreLevel = 4;
                 name = mNameEntry.getText().toString();
                 params = new RequestParams();
