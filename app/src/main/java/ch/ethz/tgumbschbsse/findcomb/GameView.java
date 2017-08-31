@@ -316,6 +316,7 @@ public class GameView extends SurfaceView implements Runnable {
         //System.out.println(String.valueOf(playing));
 
         if(playing==false){
+            soundtick.stop();
             System.out.println(String.valueOf(-1*mLevelIndicator));
             Intent resultIntent = new Intent();
             if(mLevel.Continous==false) {
