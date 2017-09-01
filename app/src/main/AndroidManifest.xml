@@ -3,7 +3,13 @@
     package="ch.ethz.tgumbschbsse.findcomb">
 
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +28,6 @@
         </activity>
         <activity
             android:name=".TutorialActivity"
-            android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".TutorialCombActivity"
-            android:screenOrientation="landscape"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".TutorialMasterActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity

@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 params.put("user", name);
                 params.put("score", mScore);
                 params.put("level", scoreLevel);
+                params.put("username", "admin");
+                params.put("password", "mlcb2017");
                 intent =  new Intent(this, HighScore.class);
                 intent.putExtra("name", name);
                 intent.putExtra("score", mScore);
@@ -208,6 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     params.put("user", name);
                     params.put("score", mScore);
                     params.put("level", scoreLevel);
+                    params.put("username", "admin");
+                    params.put("password", "mlcb2017");
                     intent =  new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", mScore);
@@ -249,6 +253,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     params.put("user", name);
                     params.put("score", mScore);
                     params.put("level", scoreLevel);
+                    params.put("username", "admin");
+                    params.put("password", "mlcb2017");
                     intent =  new Intent(this, HighScore.class);
                     intent.putExtra("name", name);
                     intent.putExtra("score", mScore);
@@ -292,6 +298,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 params.put("user", name);
                 params.put("score", mScore);
                 params.put("level", scoreLevel);
+                params.put("username", "admin");
+                params.put("password", "mlcb2017");
                 intent =  new Intent(this, HighScore.class);
                 intent.putExtra("name", name);
                 intent.putExtra("score", mScore);
