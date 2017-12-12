@@ -42,6 +42,7 @@ public class Tutorial extends SurfaceView implements Runnable {
     public Level mLevel;
     public int Level;
     private Picture h1;
+    private Arrow marrow1, marrow2, marrow3;
 
     // In case moving is an option
     private Point mPlayer;
@@ -71,16 +72,17 @@ public class Tutorial extends SurfaceView implements Runnable {
         //initializing drawing objects
         surfaceHolder = getHolder();
         mContext = context;
-        mstage = 0;
+        mstage = 1;
+        marrow1 = new Arrow(width/2, height/2, height/10, 0, Color.RED, true );
 
         h1 = new Picture(R.drawable.leftside, mContext,0,0,3*height/7,2*height/3);
 
         mLevel = new Level(mContext, width, height,false,
+                new boolean[]{false, true, false, true, false},
                 new boolean[]{false, true, false, false, false},
-                new boolean[]{false, true, false, false, false},
-                new boolean[]{false, true, false, false, false},
+                new boolean[]{false, true, false, false, true},
                 new boolean[]{true, false, false, false, false},
-                new boolean[]{true, true, false, false, false},
+                new boolean[]{true, true, true, false, false},
                 new boolean[]{true, false, false, false, false},
                 new boolean[]{true, true, false, false, false}, new boolean[]{true, true, false, false, false});
         mLevel.Tut = 1;
@@ -215,9 +217,6 @@ public class Tutorial extends SurfaceView implements Runnable {
 
                     }
                 }
-                else if (mstage > 3 && Level <4) {
-                    playing = false;
-                }
                 else if(mstage>5){
                     System.out.println(String.valueOf(playing));
                     playing = false;
@@ -241,16 +240,15 @@ public class Tutorial extends SurfaceView implements Runnable {
             paint.setTextSize(width/30);
             //paint.setColor(Color.WHITE);
             paint.setColor(Color.BLACK);
+            paint.setAntiAlias(true);
             //drawing a background color for canvas
             //canvas.drawColor(Color.parseColor("#0099cc"));
             canvas.drawColor(Color.WHITE);
 
-
             String text;
-
             if(mstage==0){
                 if(Level==1) {
-                    text = "Stage 1";
+                    text="FindComb";
                 }
                 else if(Level ==2){
                     text = "Stage 2";
@@ -277,6 +275,16 @@ public class Tutorial extends SurfaceView implements Runnable {
                     canvas.drawText(text, width / 20, 9 * height / 12, paint);
                 }
                 else{
+
+                    mLevel = new Level(mContext, width, height,false,
+                            new boolean[]{false, false, true, false, true},
+                            new boolean[]{true, true, false, false, true},
+                            new boolean[]{false, true, false, true, false},
+                            new boolean[]{true, false, true, false, true},
+                            new boolean[]{true, true, false, true, false},
+                            new boolean[]{true, false, false, true, true},
+                            new boolean[]{true, true, true, true, true},
+                            new boolean[]{true, false, true, false, false});
                     mLevel.draw(canvas);
                     text = getContext().getString(R.string.Tut31);
                     canvas.drawText(text, width / 20, 9 * height / 12, paint);
@@ -320,13 +328,15 @@ public class Tutorial extends SurfaceView implements Runnable {
                 text = getContext().getString(R.string.Tut324);
                 canvas.drawText(text, width / 20, 4 * height / 12, paint);
             }
-            else if(mstage == 5){
+            else if(mstage == 5) {
                 text = getContext().getString(R.string.Tut324);
                 canvas.drawText(text, width / 20, 4 * height / 12, paint);
 
                 text = getContext().getString(R.string.Tut325);
                 canvas.drawText(text, width / 20, 6 * height / 12, paint);
             }
+
+            marrow1.draw(canvas);
 
 
             surfaceHolder.unlockCanvasAndPost(canvas);

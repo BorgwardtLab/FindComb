@@ -36,6 +36,7 @@ public class Circle implements GameObject {
 
                 paint.setColor(mcolor[0]);
             }
+            //paint.setAntiAlias(true);
 
             //System.out.println(mr);
             canvas.drawCircle(mx, my, mr, paint);
