@@ -42,7 +42,7 @@ public class Tutorial extends SurfaceView implements Runnable {
     public Level mLevel;
     public int Level; //For different tutorials
     private Picture h1;
-    private Arrow marrow, m2arrow;
+    private Arrow marrow, m2arrow, m3arrow;
 
     // In case moving is an option
     private Point mPlayer;
@@ -75,7 +75,22 @@ public class Tutorial extends SurfaceView implements Runnable {
         mstage = 1;
         marrow = new Arrow(new int[]{2*width/13,width*2,2*width/13,width*2}, new int[]{3*height/20,width*2, height/2, width*2}, 3, 0.8, 15, context, true);
 
-        m2arrow = new Arrow(new int[]{2*width/13,width*2,2*width/13,width*2}, new int[]{3*height/20,width*2, height/2, width*2}, 3, 0.8, 15, context, false);
+        int [] x_spacing = new int[] {2*width/13, 2*width/13,5*width/13, 8*width/13,
+                2*width/13, 2*width/13,5*width/13,
+                2*width/13, 2*width/13,5*width/13, 7*width/13,
+                2*width/13, 2*width/13,4*width/13,
+                2*width/13, 2*width/13,4*width/13,5*width/13, 6*width/13,
+                2*width/13, 2*width/13,4*width/13};
+        int[] y_spacing = new int[] {height/20,height/20,height/20,height/20,
+                3*height/20,3*height/20,3*height/20,
+                5*height/20,5*height/20,5*height/20,5*height/20,
+                8*height/20,8*height/20,8*height/20,
+                10*height/20,10*height/20,10*height/20,10*height/20,10*height/20,
+                12*height/20,12*height/20,12*height/20,};
+        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,30, mContext,false);
+
+        x_spacing = new int[] {4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13};
+        y_spacing = new int[] {32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80};
 
         h1 = new Picture(R.drawable.leftside, mContext,0,0,3*height/7,2*height/3);
 
@@ -104,18 +119,10 @@ public class Tutorial extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
                 mstage++;
                 if(mstage == 1) {
-                    mLevel = new Level(mContext, width, height,false,
-                                new boolean[]{false, true, false, false, false},
-                                new boolean[]{false, true, false, false, false},
-                                new boolean[]{false, true, false, false, false},
-                                new boolean[]{true, false, false, false, false},
-                                new boolean[]{true, true, false, false, false},
-                                new boolean[]{true, false, false, false, false},
-                                new boolean[]{true, true, false, false, false},
-                                new boolean[]{true, false, true, false, false});
-                    mLevel.Tut = 1;
                 }
                 else if (mstage == 2){
+                    marrow.change_visibility();
+                    m2arrow.change_visibility();
                 }
                 else if (mstage == 3) {
                     mLevel.cs11.clicked = true;
@@ -135,6 +142,7 @@ public class Tutorial extends SurfaceView implements Runnable {
 
     private void update() {
         marrow.update();
+        m2arrow.update();
     }
 
     private void draw() {

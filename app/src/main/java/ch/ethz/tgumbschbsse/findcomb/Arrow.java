@@ -24,8 +24,8 @@ public class Arrow implements GameObject {
     //private int mcolor;
     private boolean mvisible;
     private Bitmap mbpm;
-    int[] mx, my;
-    int mcount, mspeed, mindex, mtype;
+    private int[] mx, my;
+    private int mspeed, mindex, mtype,mcount;
 
     public Arrow(int[] x, int[] y, int dir, double scale, int speed, Context context, boolean visible){    //int x, int y, int length, double rotation,  int color, boolean visible){
         /*
@@ -139,6 +139,17 @@ public class Arrow implements GameObject {
     }
 
     public void checkClicked(Point point){
+    }
+    public void change_visibility(){
+        if (mvisible == true){
+            mvisible = false;
+        }
+        else{
+            mvisible = true;
+            mindex = 0;
+            mcount = 0;
+            //update();
+        }
     }
 
 
