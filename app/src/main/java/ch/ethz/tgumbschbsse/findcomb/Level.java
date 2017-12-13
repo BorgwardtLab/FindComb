@@ -88,11 +88,7 @@ public class Level implements  GameObject{
 
         Continous = type;
         mrand = new Random();
-        mrand.setSeed(42);
-
-
-        mrand = new Random();
-        mrand.setSeed(42);
+        mrand.setSeed(System.currentTimeMillis());
 
 
 

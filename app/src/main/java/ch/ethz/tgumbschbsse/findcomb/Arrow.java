@@ -1,6 +1,11 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -15,11 +20,15 @@ import java.util.List;
 
 
 public class Arrow implements GameObject {
-    private List<Point> mpoints ;
-    private int mcolor;
+    //private List<Point> mpoints ;
+    //private int mcolor;
     private boolean mvisible;
+    private Bitmap mbpm;
+    int[] mx, my;
+    int mcount, mspeed, mindex, mtype;
 
-    public Arrow(int x, int y, int length, double rotation,  int color, boolean visible){
+    public Arrow(int[] x, int[] y, int dir, double scale, int speed, Context context, boolean visible){    //int x, int y, int length, double rotation,  int color, boolean visible){
+        /*
         int width = 2*length/5; //proportion of arrow
         Point translation = new Point(x,y);
         //rotation matrix
@@ -43,45 +52,89 @@ public class Arrow implements GameObject {
         mpoints.add(p6);
         Point p7 = new Point(-width/4,width);
         mpoints.add(p7);
-        System.out.println(mpoints.size());
 
         for (int index=0; index < mpoints.size(); index++) {
-            int new_x = (int) (translation.x + r11*mpoints.get(index).x + r12 * mpoints.get(index).y);
-            int new_y =  (int) (translation.y+ r21*mpoints.get(index).x +  r22 * mpoints.get(index).y);
+            //int new_x = (int) (translation.x + r11*mpoints.get(index).x + r12 * mpoints.get(index).y);
+            //int new_y =  (int) (translation.y+ r21*mpoints.get(index).x +  r22 * mpoints.get(index).y);
+            int new_x = (int) (translation.x + mpoints.get(index).x);
+            int new_y =  (int) (translation.y+ mpoints.get(index).y);
+
             mpoints.set(index, new Point(new_x, new_y));
         }
 
         mcolor = color;
+        */
+        mbpm = BitmapFactory.decodeResource(context.getResources()  ,R.drawable.arrow);
+        mbpm = scaleflip(mbpm,dir,scale);
+        mx = x;
+        my = y;
+        mindex = 0;
+        mcount = 0;
+        mspeed = speed;
         mvisible = visible;
-
+        mtype= dir;
     }
 
     @Override
     public void draw(Canvas canvas) {
         if(mvisible == true) {
-            Paint paint = new Paint();
-            paint.setColor(mcolor);
-
-
-            Path path = new Path();
-            path.setFillType(Path.FillType.EVEN_ODD);
-            //paint.setStyle(Paint.Style.FILL);
-
-            System.out.print(mpoints.size());
-            for (int index=0; index < mpoints.size(); index++) {
-                System.out.print(index);
-                path.moveTo(mpoints.get(index).x, mpoints.get(index).y);
+            int x,y;
+            if(mtype==1){
+                x = mx[mindex];
+                y = my[mindex] - mbpm.getHeight();
             }
-            path.close();
-
-            canvas.drawPath(path, paint);
+            else if (mtype ==2){
+                x = mx[mindex] - mbpm.getWidth();
+                y = my[mindex];
+            }
+            else if (mtype == 3){
+                x = mx[mindex];
+                y = my[mindex];
+            }
+            else{
+                x = mx[mindex] - mbpm.getWidth();
+                y = my[mindex] - mbpm.getHeight();
+            }
+            canvas.drawBitmap(mbpm,x,y,null);
+            //Paint paint = new Paint();
+            //paint.setColor(mcolor);
+            //Path path = new Path();
+            //path.setFillType(Path.FillType.EVEN_ODD);
+            //for (int index=0; index < mpoints.size(); index++) {
+            //    System.out.print(index);
+            //    path.moveTo(mpoints.get(index).x, mpoints.get(index).y);
+            //}
+            //path.close();
+            //canvas.drawPath(path, paint);
         }
 
     }
 
+    public static Bitmap scaleflip(Bitmap bitmap, int type, double scale){
+        Matrix matrix =new Matrix();
+        if(type==1){
+            matrix.preScale(-1.0f, 1.0f);
+        }else if(type==2){
+            matrix.preScale(1.0f, -1.0f);
+        }
+        else if(type==3){
+            matrix.preScale(-1.0f, -1.0f);
+            //matrix.preScale(-1.0f, 1.0f);
+        }
+        bitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth()*scale), (int) (bitmap.getHeight()*scale), false);
+    }
 
     @Override
     public void update() {
+        mcount = mcount + 1;
+        if(mcount > mspeed){
+            mcount = 0;
+            mindex = mindex + 1;
+            if (mindex >= my.length){
+                mindex = 0;
+            }
+        }
 
     }
 
