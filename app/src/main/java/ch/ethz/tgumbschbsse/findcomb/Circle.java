@@ -14,7 +14,7 @@ public class Circle implements GameObject {
     private float mr;
     private int[] mcolor;
     public boolean clicked;
-    private boolean mvisible;
+    public boolean mvisible;
     private boolean mchanged;
 
     public Circle(int x, int y, int r,  int[] color, boolean visible){

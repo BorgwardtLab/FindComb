@@ -42,6 +42,10 @@ public class Tutorial extends SurfaceView implements Runnable {
     public Level mLevel;
     public int Level; //For different tutorials
     private Picture h1;
+
+    private Progress mProgress;
+    private int mcounter;
+
     private Arrow marrow, m2arrow, m3arrow;
 
     // In case moving is an option
@@ -87,10 +91,16 @@ public class Tutorial extends SurfaceView implements Runnable {
                 8*height/20,8*height/20,8*height/20,
                 10*height/20,10*height/20,10*height/20,10*height/20,10*height/20,
                 12*height/20,12*height/20,12*height/20,};
-        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,30, mContext,false);
+        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,25, mContext,false);
 
         x_spacing = new int[] {4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13};
-        y_spacing = new int[] {32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80,32*height/80};
+        y_spacing = new int[] {32*height/80,33*height/80,34*height/80,35*height/80,36*height/80,37*height/80,38*height/80,39*height/80,40*height/80,41*height/80,42*height/80,43*height/80,44*height/80,45*height/80,46*height/80,47*height/80};
+
+        m3arrow = new Arrow(x_spacing,y_spacing,3,0.8,2, mContext,false);
+
+
+        mProgress = new Progress(10, width,height,mContext);
+        mcounter = 150;
 
         h1 = new Picture(R.drawable.leftside, mContext,0,0,3*height/7,2*height/3);
 
@@ -125,11 +135,34 @@ public class Tutorial extends SurfaceView implements Runnable {
                     m2arrow.change_visibility();
                 }
                 else if (mstage == 3) {
+                    m3arrow.change_visibility();
+                    m2arrow.change_visibility();
                     mLevel.cs11.clicked = true;
                     mLevel.cs21.clicked = true;
                     mLevel.cs31.clicked = true;
+
+                    marrow = new Arrow(new int[]{width/5}, new int[]{15* height/20},1,0.8,100,mContext,false);
                 }
-                else if(mstage>5){
+                else if(mstage==4){
+                    m3arrow.change_visibility();
+                    marrow.change_visibility();
+                    m2arrow = new Arrow(new int[]{24 * width / 30}, new int[] {height / 10},2,0.8,80,mContext,false);
+                    m3arrow = new Arrow(new int[]{10 * width / 30}, new int[] {8*height / 10},0,0.8,80,mContext,false);
+                }
+                else if (mstage==5){
+                    m2arrow.change_visibility();
+                    marrow.change_visibility();
+                    mcounter =100;
+                    mProgress.set(10, 10, (mcounter) * (500 / (width / 12)));
+                }
+                else if (mstage==6){
+                    m2arrow = new Arrow(new int[]{4*width/13,24 * width / 30}, new int[]{8*height/20,height / 10},2,0.8,60,mContext,true);
+                    m3arrow.change_visibility();
+                    mLevel.cs11.mvisible = false;
+                    mcounter =100;
+                    mProgress.set(10, 10, (mcounter) * (500 / (width / 12)));
+                }
+                else if(mstage>8){
                     System.out.println(String.valueOf(playing));
                     playing = false;
                 }
@@ -143,6 +176,55 @@ public class Tutorial extends SurfaceView implements Runnable {
     private void update() {
         marrow.update();
         m2arrow.update();
+        m3arrow.update();
+
+        if(mstage==4) {
+            mcounter--;
+            if (mcounter>0) {
+                mProgress.set(10, 10, (mcounter) * (500 / (width / 12)));
+            }
+
+
+            if(mcounter == 0){
+                mProgress.upper();
+
+                mstage++;
+
+                m2arrow.change_visibility();
+                marrow.change_visibility();
+                mcounter =100;
+                mProgress.set(10, 10, (mcounter) * (500 / (width / 12)));
+            }
+            else if(mcounter * (500/(width / 12)) < width/12){
+                mProgress.lower();
+            }
+        }
+        if(mstage==5){
+            mProgress.soundwrong.stop();
+            if(mcounter >0) {
+                mcounter--;
+                if (mcounter == 0) {
+                    mProgress.set(10, 10, (150) * (500 / (width / 12)));
+                    mProgress.soundright.start();
+                    m2arrow.change_visibility();
+                    m3arrow.change_visibility();
+                }
+            }
+        }
+        if(mstage==6){
+            mProgress.soundwrong.stop();
+            if(mcounter >0) {
+                mcounter--;
+                if (mcounter == 0) {
+                    m2arrow.change_visibility();
+                    m3arrow.change_visibility();
+                    mProgress.set(10, 10, (130) * (500 / (width / 12)));
+                    mProgress.soundright.start();
+                }
+            }
+        }
+
+
     }
 
     private void draw() {
@@ -164,11 +246,20 @@ public class Tutorial extends SurfaceView implements Runnable {
                 h1.draw(canvas);
                 text = getContext().getString(R.string.Tut1);
                 canvas.drawText(text, width / 20, 9 * height / 12, paint);
+
+                marrow.draw(canvas);
             }
             else if(mstage == 2) {
                 mLevel.draw(canvas);
                 text = getContext().getString(R.string.Tut2);
                 canvas.drawText(text,  width / 20, 9 * height / 12, paint);
+                m2arrow.draw(canvas);
+            }
+            else if(mstage ==3) {
+                mLevel.draw(canvas);
+                text = getContext().getString(R.string.Tut3);
+                canvas.drawText(text, width/20, 9 * height / 12, paint);
+                m3arrow.draw(canvas);
             }
             else if(mstage ==3) {
                 mLevel.draw(canvas);
@@ -176,19 +267,56 @@ public class Tutorial extends SurfaceView implements Runnable {
                 canvas.drawText(text, width/20, 9 * height / 12, paint);
             }
             else if(mstage == 4){
+                text = getContext().getString(R.string.Tut4);
+                canvas.drawText(text, width/20, 4 * height / 12, paint);
+                mProgress.draw(canvas);
+                marrow.draw(canvas);
+            }
+            else if (mstage == 5){
+                mLevel.draw(canvas);
+                mProgress.draw(canvas);
+                text = getContext().getString(R.string.Tut5);
+                canvas.drawText(text, width/20, 17 * height / 24, paint);
+                if(mcounter > 0 ) {
+                    Paint gpaint = new Paint();
+                    gpaint.setTextSize(width/30);
+                    gpaint.setColor(Color.GREEN);
+                    canvas.drawText("20", 24 * width / 30, height / 10, gpaint);
+                    m2arrow.draw(canvas);
+                }
+                else{
+                    m3arrow.draw(canvas);
+                }
+                //There are points for configruations
+            }
+            else if(mstage == 6){
+                mLevel.draw(canvas);
+                mProgress.draw(canvas);
+                text = getContext().getString(R.string.Tut6);
+                canvas.drawText(text, width/20, 17 * height / 24, paint);
+                if(mcounter > 0 ) {
+                    Paint gpaint = new Paint();
+                    gpaint.setTextSize(width/30);
+                    gpaint.setColor(Color.GREEN);
+                    canvas.drawText("10", 24 * width / 30, height / 10, gpaint);
+                    m2arrow.draw(canvas);
+                }
+                else{
+                    m3arrow.draw(canvas);
+                }
+                // There are fewer points for imperfect configurations
+            }
+            else if(mstage == 7){
                 text = getContext().getString(R.string.Tut324);
                 canvas.drawText(text, width / 20, 4 * height / 12, paint);
             }
-            else if(mstage == 5) {
+            else if(mstage == 8) {
                 text = getContext().getString(R.string.Tut324);
                 canvas.drawText(text, width / 20, 4 * height / 12, paint);
 
                 text = getContext().getString(R.string.Tut325);
                 canvas.drawText(text, width / 20, 6 * height / 12, paint);
             }
-
-            marrow.draw(canvas);
-            m2arrow.draw(canvas);
 
 
             surfaceHolder.unlockCanvasAndPost(canvas);

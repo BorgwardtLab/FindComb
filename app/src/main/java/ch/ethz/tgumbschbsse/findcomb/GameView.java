@@ -71,10 +71,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     //Sounds
     private final MediaPlayer soundfinal;
-    private final MediaPlayer soundright;
-    private final MediaPlayer soundwrong;
-    private final MediaPlayer soundtick;
-    private boolean below_thres;
 
 
     public GameView(Context context, Activity act) {
@@ -87,11 +83,7 @@ public class GameView extends SurfaceView implements Runnable {
         height = metrics.heightPixels;
 
 
-        soundright = MediaPlayer.create(context,R.raw.stapler);
-        soundwrong = MediaPlayer.create(context,R.raw.buzz);
         soundfinal = MediaPlayer.create(context,R.raw.fanfare);
-        soundtick = MediaPlayer.create(context,R.raw.tick);
-        below_thres=false;
 
         //init mechanics
         mScore = 120; //The player has two minutes
@@ -100,7 +92,7 @@ public class GameView extends SurfaceView implements Runnable {
         mLevelsNumber = 2;
         mStartLevel = mLevelIndicator;
 
-        mProgressBar = new Progress(mLevelsNumber, width,height);
+        mProgressBar = new Progress(mLevelsNumber, width,height,context);
 
 
         //initializing drawing objects
@@ -171,13 +163,11 @@ public class GameView extends SurfaceView implements Runnable {
             mProgressBar.set(10, 10, (mScore) * (1000/(width / 12)));
 
 
-            if(mScore * (1000/(width / 12)) < width/12 && below_thres==false){
-                below_thres=true;
-                soundtick.start();
+            if(mScore * (1000/(width / 12)) < width/12){
+                mProgressBar.lower();
             }
-            else if(mScore * (1000/(width / 12)) > width/12 && below_thres==true){
-                below_thres=false;
-                soundtick.stop();
+            else if(mScore * (1000/(width / 12)) > width/12){
+                mProgressBar.upper();
             }
         }
 
@@ -208,11 +198,11 @@ public class GameView extends SurfaceView implements Runnable {
                         soundfinal.start();
                     }
                     else {
-                        soundright.start();
+                        mProgressBar.soundright.start();
                     }
                 }
                 else{
-                    soundwrong.start();
+                    mProgressBar.soundwrong.start();
                 }
                 if(mLevel.Continous == true){
                     LevelInit();
@@ -280,7 +270,7 @@ public class GameView extends SurfaceView implements Runnable {
                 if (mScore <= 0) {
                     if(mLevel.Continous==false) {
                         canvas.drawText("Game Over", width / 3, height / 3, paint);
-                        soundwrong.start();
+                        mProgressBar.soundwrong.start();
                     }
                     else{
                         canvas.drawText("Score: " + String.valueOf(-mLevelIndicator), width / 3, height / 3, paint);
@@ -316,7 +306,7 @@ public class GameView extends SurfaceView implements Runnable {
         //System.out.println(String.valueOf(playing));
 
         if(playing==false){
-            soundtick.stop();
+            mProgressBar.upper();
             System.out.println(String.valueOf(-1*mLevelIndicator));
             Intent resultIntent = new Intent();
             if(mLevel.Continous==false) {

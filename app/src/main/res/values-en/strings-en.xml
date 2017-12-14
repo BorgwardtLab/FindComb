@@ -22,4 +22,10 @@
 
     <string name="Tut324">There is a penalty for the number of features you use.</string>
     <string name="Tut325">There is a penalty if your rule does not govern all individuals.</string>
+
+
+    <string name="Tut4">Your time budget runs out quickly.</string>
+    <string name="Tut5">Correct configurations will add time to your budget.</string>
+    <string name="Tut6">Suboptimal configurations will add less time.</string>
+    <string name="Tut7">There is a penalty for bad configurations.</string>
 </resources>

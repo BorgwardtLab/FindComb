@@ -1,8 +1,10 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 
 /**
  * Created by tgumbsch on 8/29/17.
@@ -18,6 +20,10 @@ public class Progress implements GameObject {
     private int mwidth;
     private int mheight;
 
+    private boolean below_thres;
+    public final MediaPlayer soundwrong;
+    private final MediaPlayer soundtick;
+    public final MediaPlayer soundright;
 
     private int[] topblue = {Color.parseColor("#303F9F"),Color.parseColor("#303F9F")};
     private int[] red = {Color.RED, Color.RED};
@@ -26,7 +32,7 @@ public class Progress implements GameObject {
     private Circle CBegin, CEnd; //Circles on both sides
     private Rectangle RBar; //The actual bar
 
-    public Progress(int Levels, int width, int height){
+    public Progress(int Levels, int width, int height, Context context){
         mState = 2;
         mLevels = Levels;
         mwidth = width;
@@ -53,6 +59,11 @@ public class Progress implements GameObject {
         CBegin = new Circle(mspacing,mhorizontal,msize,topblue,true);
         CEnd = new Circle(mState*mspacing,mhorizontal,msize,topblue,true);
         RBar = new Rectangle(new Rect(mspacing,mhorizontal-msize,mState*mspacing,mhorizontal+msize),topblue);
+
+        below_thres = false;
+        soundwrong = MediaPlayer.create(context,R.raw.buzz);
+        soundtick = MediaPlayer.create(context,R.raw.tick);
+        soundright = MediaPlayer.create(context,R.raw.stapler);
     }
 
 
@@ -77,6 +88,21 @@ public class Progress implements GameObject {
 
     @Override
     public void update() {
+    }
+
+    public void lower(){
+        if (below_thres == false){
+            below_thres = true;
+            soundtick.start();
+        }
+    }
+
+
+    public void upper(){
+        if (below_thres == true){
+            below_thres = false;
+            soundtick.stop();
+        }
     }
 
     public void next(){
