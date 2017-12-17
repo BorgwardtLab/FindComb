@@ -91,7 +91,7 @@ public class Tutorial extends SurfaceView implements Runnable {
                 8*height/20,8*height/20,8*height/20,
                 10*height/20,10*height/20,10*height/20,10*height/20,10*height/20,
                 12*height/20,12*height/20,12*height/20,};
-        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,25, mContext,false);
+        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,15, mContext,false);
 
         x_spacing = new int[] {4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13};
         y_spacing = new int[] {32*height/80,33*height/80,34*height/80,35*height/80,36*height/80,37*height/80,38*height/80,39*height/80,40*height/80,41*height/80,42*height/80,43*height/80,44*height/80,45*height/80,46*height/80,47*height/80};

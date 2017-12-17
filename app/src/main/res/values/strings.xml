@@ -23,8 +23,8 @@
     <string name="Tut325">Es gibt Punktabzug, wenn nicht alle von der Regel erfasst sind.</string>
 
 
-    <string name="Tut4">Your time budget runs out quickly.</string>
-    <string name="Tut5">Correct configurations will add time to your budget.</string>
-    <string name="Tut6">Suboptimal configurations will add less time.</string>
+    <string name="Tut4">Das Zeitbudget läuft schnell ab.</string>
+    <string name="Tut5">Richtige Kombinationen geben viel zusätzliche Zeit.</string>
+    <string name="Tut6">Suboptimale Konfigurationen geben weniger zusätzliche Zeit.</string>
     <string name="Tut7">There is a penalty for bad configurations.</string>
 </resources>

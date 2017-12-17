@@ -86,7 +86,7 @@ public class GameView extends SurfaceView implements Runnable {
         soundfinal = MediaPlayer.create(context,R.raw.fanfare);
 
         //init mechanics
-        mScore = 120; //The player has two minutes
+        mScore = 180; //The player has three minutes
         mLevelIndicator = 1;
         mTimestamp = System.currentTimeMillis();
         mLevelsNumber = 2;

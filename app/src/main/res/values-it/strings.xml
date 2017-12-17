@@ -15,4 +15,10 @@
     <string name="Tut33">... e, se combinate con il rosso, sono associate alla malattia.</string>
     <string name="Tut324">È presente una penalità per il numero di caratteristiche selezionate.</string>
     <string name="Tut325">È presente una penalità se la combinazione non discrimina tutti gli individui.</string>
+
+
+    <string name="Tut4">Your time budget runs out quickly.</string>
+    <string name="Tut5">Correct configurations will add time to your budget.</string>
+    <string name="Tut6">Suboptimal configurations will add less time.</string>
+    <string name="Tut7">There is a penalty for bad configurations.</string>
 </resources>
