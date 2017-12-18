@@ -29,7 +29,8 @@
         android:padding="20dp"
         android:paddingRight="100dp"
         android:text="SHOPPING BASKET"
-        android:textSize="40sp" />
+        android:textSize="8sp"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/b_cont"
@@ -39,7 +40,7 @@
         android:enabled="false"
         android:padding="20dp"
         android:paddingRight="100dp"
-        android:text="GENETIC ASSOCIATIONS"
+        android:text="FIND COMB"
         android:textSize="40sp" />
 
     <LinearLayout
