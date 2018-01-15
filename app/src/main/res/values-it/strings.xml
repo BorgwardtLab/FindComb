@@ -17,8 +17,8 @@
     <string name="Tut325">È presente una penalità se la combinazione non discrimina tutti gli individui.</string>
 
 
-    <string name="Tut4">Your time budget runs out quickly.</string>
-    <string name="Tut5">Correct configurations will add time to your budget.</string>
-    <string name="Tut6">Suboptimal configurations will add less time.</string>
-    <string name="Tut7">There is a penalty for bad configurations.</string>
+    <string name="Tut4">Il tempo a disposizione scorre velocemente.</string>
+    <string name="Tut5">Le buone combinazioni aumenteranno il tempo a disposizione.</string>
+    <string name="Tut6">Le combinazioni che non sono le migliori aumeteranno anche il tempo, ma meno delle altre.</string>
+    <string name="Tut7">Le combinazioni sbagliate diminuiranno ancora il tempo.</string>
 </resources>
