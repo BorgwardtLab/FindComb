@@ -291,6 +291,17 @@ public class Tutorial extends SurfaceView implements Runnable {
 
             String text;
             if(mstage==0) {
+                // Draw icon
+                Bitmap mbpm;
+                mbpm = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.brain_icon);
+                float scale = Math.min((float)((0.3*height)/mbpm.getHeight()),(float) ((0.3*width)/mbpm.getWidth()));
+//                Rect originalRect = new Rect(0,0,mbpm.getWidth(),mbpm.getHeight());
+//                Rect canvasRect = new Rect(2*width/5, 20, 2*width/3, height/3-20);
+                mbpm = Bitmap.createScaledBitmap(mbpm, (int) (mbpm.getWidth()*scale), (int) (mbpm.getHeight()*scale), false);
+                int x = width/2 - mbpm.getWidth()/2;
+                int y = 20;
+                canvas.drawBitmap(mbpm, x, y,null);
+                // Text
                 TextPaint mTextPaint=new TextPaint();
                 mTextPaint.setTextSize(width/30);
                 mTextPaint.setColor(Color.BLACK);
@@ -303,6 +314,7 @@ public class Tutorial extends SurfaceView implements Runnable {
                 canvas.translate(0,height/3);
                 mTextLayout = new StaticLayout(text, mTextPaint, canvas.getWidth()-50, Layout.Alignment.ALIGN_CENTER, 1.0f, 10.0f, true);
                 mTextLayout.draw(canvas);
+
 
             }
             if(mstage==1) {

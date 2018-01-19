@@ -4,6 +4,11 @@
     <string name="Toast_One">Choisis la caractéristique discriminante.</string>
     <string name="Toast_Three">Plusieurs caractéristiques ont peut-être le même effet.</string>
     <string name="Toast_Two">Peut-être que les interactions de caractéristiques sont elles aussi discriminantes.</string>
+    <string name="Tut0">Tu vas affronter une tâche très difficile.
+        Il faut savoir que les humains ne sont pas très doués pour résoudre ce type de problème.
+        Les machines, quant à elles, le font très bien.</string>
+    <string name="Tut01">Arriveras-tu à les battre?</string>
+
     <string name="Tut1">Il y a des personnes en bonne santé et des malades.</string>
     <string name="Tut2">Chaque individu a des caractéristique de différentes couleurs.</string>
     <string name="Tut3">Choisis la caractéristique qui est associée à la maladie.</string>
