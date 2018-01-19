@@ -18,11 +18,14 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+import android.text.TextPaint;
+import android.text.StaticLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +48,7 @@ public class Tutorial extends SurfaceView implements Runnable {
 
     private Progress mProgress;
     private int mcounter;
+    private int[] x_spacing2, y_spacing2, x_spacing3, y_spacing3;
 
     private Arrow marrow, m2arrow, m3arrow;
 
@@ -76,27 +80,27 @@ public class Tutorial extends SurfaceView implements Runnable {
         //initializing drawing objects
         surfaceHolder = getHolder();
         mContext = context;
-        mstage = 1;
+        mstage = 0;
         marrow = new Arrow(new int[]{2*width/13,width*2,2*width/13,width*2}, new int[]{3*height/20,width*2, height/2, width*2}, 3, 0.8, 15, context, true);
 
-        int [] x_spacing = new int[] {2*width/13, 2*width/13,5*width/13, 8*width/13,
+        x_spacing2 = new int[] {2*width/13, 2*width/13,5*width/13, 8*width/13,
                 2*width/13, 2*width/13,5*width/13,
                 2*width/13, 2*width/13,5*width/13, 7*width/13,
                 2*width/13, 2*width/13,4*width/13,
                 2*width/13, 2*width/13,4*width/13,5*width/13, 6*width/13,
                 2*width/13, 2*width/13,4*width/13};
-        int[] y_spacing = new int[] {height/20,height/20,height/20,height/20,
+        y_spacing2 = new int[] {height/20,height/20,height/20,height/20,
                 3*height/20,3*height/20,3*height/20,
                 5*height/20,5*height/20,5*height/20,5*height/20,
                 8*height/20,8*height/20,8*height/20,
                 10*height/20,10*height/20,10*height/20,10*height/20,10*height/20,
                 12*height/20,12*height/20,12*height/20,};
-        m2arrow = new Arrow(x_spacing,y_spacing,3,0.8,15, mContext,false);
+        m2arrow = new Arrow(x_spacing2,y_spacing2,3,0.8,15, mContext,false);
 
-        x_spacing = new int[] {4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13};
-        y_spacing = new int[] {32*height/80,33*height/80,34*height/80,35*height/80,36*height/80,37*height/80,38*height/80,39*height/80,40*height/80,41*height/80,42*height/80,43*height/80,44*height/80,45*height/80,46*height/80,47*height/80};
+        x_spacing3 = new int[] {4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13,4*width/13};
+        y_spacing3 = new int[] {32*height/80,33*height/80,34*height/80,35*height/80,36*height/80,37*height/80,38*height/80,39*height/80,40*height/80,41*height/80,42*height/80,43*height/80,44*height/80,45*height/80,46*height/80,47*height/80};
 
-        m3arrow = new Arrow(x_spacing,y_spacing,3,0.8,2, mContext,false);
+        m3arrow = new Arrow(x_spacing3,y_spacing3,3,0.8,2, mContext,false);
 
 
         mProgress = new Progress(10, width,height,mContext);
@@ -116,7 +120,7 @@ public class Tutorial extends SurfaceView implements Runnable {
 
         //Stuff that we might need later
         mPlayer = new Point(1500, 300);
-        playing = true;
+        playing = false;
 
 
     }
@@ -124,36 +128,80 @@ public class Tutorial extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mstage++;
+                boolean back=false;
+                if(event.getX() < 0.2* width && mstage > 0) {
+                    mstage--;
+                    back=true;
+                } else {
+                    mstage++;
+                }
+//                if(mstage == 0){
+//                    playing = false;
+//                }
                 if(mstage == 1) {
+                    playing = true;
+                    if(back){
+                        marrow.change_visibility();
+                        m2arrow.change_visibility();
+                    }
                 }
                 else if (mstage == 2){
-                    marrow.change_visibility();
-                    m2arrow.change_visibility();
+                    if(back){
+                        m3arrow.change_visibility();
+                        m2arrow.change_visibility();
+                        mLevel.cs11.clicked = false;
+                        mLevel.cs21.clicked = false;
+                        mLevel.cs31.clicked = false;
+                        marrow = new Arrow(new int[]{2*width/13,width*2,2*width/13,width*2}, new int[]{3*height/20,width*2, height/2, width*2}, 3, 0.8, 15, mContext, false);
+                    } else {
+                        marrow.change_visibility();
+                        m2arrow.change_visibility();
+                    }
                 }
                 else if (mstage == 3) {
-                    m3arrow.change_visibility();
-                    m2arrow.change_visibility();
-                    mLevel.cs11.clicked = true;
-                    mLevel.cs21.clicked = true;
-                    mLevel.cs31.clicked = true;
+                    if(back) {
+                        m2arrow = new Arrow(x_spacing2,y_spacing2,3,0.8,15, mContext,false);
+                        m3arrow = new Arrow(x_spacing3,y_spacing3,3,0.8,2, mContext,false);
+                        m3arrow.change_visibility();
+                        marrow.change_visibility();
+                    } else {
+                        m3arrow.change_visibility();
+                        m2arrow.change_visibility();
+                        mLevel.cs11.clicked = true;
+                        mLevel.cs21.clicked = true;
+                        mLevel.cs31.clicked = true;
 
-                    marrow = new Arrow(new int[]{width/5}, new int[]{15* height/20},1,0.8,100,mContext,false);
+                        marrow = new Arrow(new int[]{width/5}, new int[]{15* height/20},1,0.8,100,mContext,false);
+                    }
                 }
                 else if(mstage==4){
-                    m3arrow.change_visibility();
-                    marrow.change_visibility();
-                    m2arrow = new Arrow(new int[]{24 * width / 30}, new int[] {height / 10},2,0.8,80,mContext,false);
-                    m3arrow = new Arrow(new int[]{10 * width / 30}, new int[] {8*height / 10},0,0.8,80,mContext,false);
+                    if (back) {
+                        m2arrow.change_visibility();
+                        marrow.change_visibility();
+                        mProgress =  new Progress(10, width,height,mContext);
+                        mcounter = 150;
+                    } else {
+                        m3arrow.change_visibility();
+                        marrow.change_visibility();
+                        m2arrow = new Arrow(new int[]{24 * width / 30}, new int[] {height / 10},2,0.8,80,mContext,false);
+                        m3arrow = new Arrow(new int[]{10 * width / 30}, new int[] {8*height / 10},0,0.8,80,mContext,false);
+                    }
+
                 }
                 else if (mstage==5){
-                    m2arrow.change_visibility();
-                    marrow.change_visibility();
+                    if (back) {
+                        m2arrow = new Arrow(new int[]{24 * width / 30}, new int[] {height / 10},2,0.8,80,mContext,true);
+                        m3arrow.change_visibility();
+                        mLevel.cs11.mvisible = true;
+                    } else {
+                        m2arrow.change_visibility();
+                        marrow.change_visibility();
+                    }
                     mcounter =100;
                     mProgress.set(10, 10, (mcounter) * (500 / (width / 12)));
+
                 }
                 else if (mstage==6){
                     m2arrow = new Arrow(new int[]{4*width/13,24 * width / 30}, new int[]{8*height/20,height / 10},2,0.8,60,mContext,true);
@@ -242,6 +290,21 @@ public class Tutorial extends SurfaceView implements Runnable {
             canvas.drawColor(Color.WHITE);
 
             String text;
+            if(mstage==0) {
+                TextPaint mTextPaint=new TextPaint();
+                mTextPaint.setTextSize(width/30);
+                mTextPaint.setColor(Color.BLACK);
+                mTextPaint.setAntiAlias(true);
+                text = getContext().getString(R.string.Tut0);
+                StaticLayout mTextLayout = new StaticLayout(text, mTextPaint, canvas.getWidth()-50, Layout.Alignment.ALIGN_CENTER, 1.0f, 10.0f, true);
+                canvas.translate(0,height/3);
+                mTextLayout.draw(canvas);
+                text = getContext().getString(R.string.Tut01);
+                canvas.translate(0,height/3);
+                mTextLayout = new StaticLayout(text, mTextPaint, canvas.getWidth()-50, Layout.Alignment.ALIGN_CENTER, 1.0f, 10.0f, true);
+                mTextLayout.draw(canvas);
+
+            }
             if(mstage==1) {
                 h1.draw(canvas);
                 text = getContext().getString(R.string.Tut1);
