@@ -22,6 +22,7 @@
     <string name="Tut325">Il y a une pénalité si la combination ne discrimine pas tous les individus.</string>
 
 
+    <string name="Tut40">Tu peux également choisir des combinations de caractéristiques.</string>
     <string name="Tut4">Ton temps à disposition s'écoule rapidement.</string>
     <string name="Tut5">Les bonnes combinations augmenteront le temps à disposition.</string>
     <string name="Tut6">Les combinations qui ne sont pas les meilleures augmenteront quand même le temps, mais moins que les meilleures.</string>
