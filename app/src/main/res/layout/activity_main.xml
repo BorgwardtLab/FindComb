@@ -30,7 +30,7 @@
         android:paddingRight="100dp"
         android:text="SHOPPING BASKET"
         android:textSize="8sp"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/b_cont"

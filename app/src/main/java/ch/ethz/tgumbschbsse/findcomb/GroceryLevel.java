@@ -38,12 +38,12 @@ public class GroceryLevel implements  GameObject{
             R.drawable.waterbottle}; // 11 items
 
     // Pictures of bought items, to be filled according to mcustomer lists
-    public Picture mc11, mc12, mc13, mc14, mc15;
-    public Picture mc21, mc22, mc23, mc24, mc25;
-    public Picture mc31, mc32, mc33, mc34, mc35;
-    public Picture mc41, mc42, mc43, mc44, mc45;
-    public Picture mc51, mc52, mc53, mc54, mc55;
-    public Picture mc61, mc62, mc63, mc64, mc65;
+    public GroceryItem mc11,mc12, mc13, mc14, mc15;
+    public GroceryItem mc21, mc22, mc23, mc24, mc25;
+    public GroceryItem mc31, mc32, mc33, mc34, mc35;
+    public GroceryItem mc41, mc42, mc43, mc44, mc45;
+    public GroceryItem mc51, mc52, mc53, mc54, mc55;
+    public GroceryItem mc61, mc62, mc63, mc64, mc65;
 
 
     private Random mrand;
@@ -54,16 +54,13 @@ public class GroceryLevel implements  GameObject{
     private int mwidth;
     private int mheight;
 
-    // Circle selected objects?!? in red?!?
-    private int mred =Color.rgb(255,0,0);
-
     public boolean clicked;
     public boolean[] entered;
-    public double mtf_idf;
+    public int mscore;
 
 
 
-    public GroceryLevel(Context context, int width, int height, boolean type, int[] c1, int[] c2, int[] c3, int[] c4, int[] c5, int[] c6){
+    public GroceryLevel(Context context, int width, int height, int[] c1, int[] c2, int[] c3, int[] c4, int[] c5, int[] c6){
         mcustomer1 = c1;
         mcustomer2 = c2;
         mcustomer3 = c3;
@@ -96,246 +93,246 @@ public class GroceryLevel implements  GameObject{
         int x = 0;
 
         if(mcustomer1.length > x){
-            mc11 = new Picture(mitems[mcustomer1[x]], mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc11 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, mitems[mcustomer1[x]]);
         }
         else{
-            mc11 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc11 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, 0);
         }
+
 
         if(mcustomer2.length > x){
-            mc21 = new Picture(mitems[mcustomer2[x]], mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc21 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, mitems[mcustomer2[x]]);
         }
         else{
-            mc21 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc21 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, 0);
         }
-
 
         if(mcustomer3.length > x){
-            mc31 = new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc31 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, mitems[mcustomer3[x]]); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc31 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc31 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer4.length > x){
-            mc41 = new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc41 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, mitems[mcustomer4[x]]);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc41 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc41 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer5.length > x){
-            mc51 = new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc51 = new GroceryItem((2+x)*mwidth/13, 11*mheight/20, 0.1, mcontext, mitems[mcustomer5[x]]);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc51 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc51 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer6.length > x){
-            mc61 = new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc61 = new GroceryItem((2+x)*mwidth/13, 13*mheight/20, 0.1, mcontext, mitems[mcustomer6[x]]);  //new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc61 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc61 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         x += 1;
 
-
         if(mcustomer1.length > x){
-            mc12 = new Picture(mitems[mcustomer1[x]], mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc12 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, mitems[mcustomer1[x]]);
         }
         else{
-            mc12 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc12 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, 0);
         }
+
 
         if(mcustomer2.length > x){
-            mc22 = new Picture(mitems[mcustomer2[x]], mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc22 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, mitems[mcustomer2[x]]);
         }
         else{
-            mc22 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc22 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, 0);
         }
-
 
         if(mcustomer3.length > x){
-            mc32 = new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc32 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, mitems[mcustomer3[x]]); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc32 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc32 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer4.length > x){
-            mc42 = new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc42 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, mitems[mcustomer4[x]]);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc42 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc42 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer5.length > x){
-            mc52 = new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc52 = new GroceryItem((2+x)*mwidth/13, 11*mheight/20, 0.1, mcontext, mitems[mcustomer5[x]]);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc52 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc52 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer6.length > x){
-            mc62 = new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc62 = new GroceryItem((2+x)*mwidth/13, 13*mheight/20, 0.1, mcontext, mitems[mcustomer6[x]]);  //new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc62 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc62 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
+
+
 
         x += 1;
 
-
         if(mcustomer1.length > x){
-            mc13 = new Picture(mitems[mcustomer1[x]], mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc13 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, mitems[mcustomer1[x]]);
         }
         else{
-            mc13 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc13 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, 0);
         }
+
 
         if(mcustomer2.length > x){
-            mc23 = new Picture(mitems[mcustomer2[x]], mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc23 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, mitems[mcustomer2[x]]);
         }
         else{
-            mc23 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc23 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, 0);
         }
-
 
         if(mcustomer3.length > x){
-            mc33 = new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc33 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, mitems[mcustomer3[x]]); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc33 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc33 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer4.length > x){
-            mc43 = new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc43 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, mitems[mcustomer4[x]]);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc43 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc43 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer5.length > x){
-            mc53 = new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc53 = new GroceryItem((2+x)*mwidth/13, 11*mheight/20, 0.1, mcontext, mitems[mcustomer5[x]]);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc53 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc53 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer6.length > x){
-            mc63 = new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc63 = new GroceryItem((2+x)*mwidth/13, 13*mheight/20, 0.1, mcontext, mitems[mcustomer6[x]]);  //new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc63 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc63 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
+
 
         x += 1;
 
-
         if(mcustomer1.length > x){
-            mc14 = new Picture(mitems[mcustomer1[x]], mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc14 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, mitems[mcustomer1[x]]);
         }
         else{
-            mc14 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc14 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, 0);
         }
+
 
         if(mcustomer2.length > x){
-            mc24 = new Picture(mitems[mcustomer2[x]], mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc24 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, mitems[mcustomer2[x]]);
         }
         else{
-            mc24 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc24 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, 0);
         }
-
 
         if(mcustomer3.length > x){
-            mc34 = new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc34 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, mitems[mcustomer3[x]]); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc34 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc34 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer4.length > x){
-            mc44 = new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc44 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, mitems[mcustomer4[x]]);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc44 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc44 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer5.length > x){
-            mc54 = new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc54 = new GroceryItem((2+x)*mwidth/13, 11*mheight/20, 0.1, mcontext, mitems[mcustomer5[x]]);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc54 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc54 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer6.length > x){
-            mc64 = new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc64 = new GroceryItem((2+x)*mwidth/13, 13*mheight/20, 0.1, mcontext, mitems[mcustomer6[x]]);  //new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc64 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc64 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
+
 
         x += 1;
 
-
         if(mcustomer1.length > x){
-            mc15 = new Picture(mitems[mcustomer1[x]], mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc15 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, mitems[mcustomer1[x]]);
         }
         else{
-            mc15 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,mheight/20,mheight/radius,mheight/radius);
+            mc15 = new GroceryItem((2+x)*mwidth/13, 3*mheight/20, 0.1, mcontext, 0);
         }
+
 
         if(mcustomer2.length > x){
-            mc25 = new Picture(mitems[mcustomer2[x]], mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc25 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, mitems[mcustomer2[x]]);
         }
         else{
-            mc25 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,3*mheight/20,mheight/radius,mheight/radius);
+            mc25 = new GroceryItem((2+x)*mwidth/13, 5*mheight/20, 0.1, mcontext, 0);
         }
-
 
         if(mcustomer3.length > x){
-            mc35 = new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc35 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, mitems[mcustomer3[x]]); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc35 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc35 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer4.length > x){
-            mc45 = new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc45 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, mitems[mcustomer4[x]]);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc45 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc45 =  new GroceryItem((2+x)*mwidth/13, 9*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer5.length > x){
-            mc55 = new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc55 = new GroceryItem((2+x)*mwidth/13, 11*mheight/20, 0.1, mcontext, mitems[mcustomer5[x]]);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc55 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc55 = new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0);  //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
         }
 
 
         if(mcustomer6.length > x){
-            mc65 = new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc65 = new GroceryItem((2+x)*mwidth/13, 13*mheight/20, 0.1, mcontext, mitems[mcustomer6[x]]);  //new Picture(mitems[mcustomer6[x]], mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
         else{
-            mc65 = new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
+            mc65 =  new GroceryItem((2+x)*mwidth/13, 7*mheight/20, 0.1, mcontext, 0); //new Picture(R.drawable.none, mcontext, (4+x)*mwidth/13,11*mheight/20,mheight/radius,mheight/radius);
         }
 
 
@@ -396,172 +393,83 @@ public class GroceryLevel implements  GameObject{
 
     @Override
     public void update() {
-        /*
-        ch11.clicked = entered[0];
-        ch12.clicked = entered[1];
-        ch13.clicked = entered[2];
-        ch14.clicked = entered[3];
-        ch15.clicked = entered[4];
-        ch21.clicked = entered[0];
-        ch22.clicked = entered[1];
-        ch23.clicked = entered[2];
-        ch24.clicked = entered[3];
-        ch25.clicked = entered[4];
-        ch31.clicked = entered[0];
-        ch32.clicked = entered[1];
-        ch33.clicked = entered[2];
-        ch34.clicked = entered[3];
-        ch35.clicked = entered[4];
-        cs11.clicked = entered[0];
-        cs12.clicked = entered[1];
-        cs13.clicked = entered[2];
-        cs14.clicked = entered[3];
-        cs15.clicked = entered[4];
-        cs21.clicked = entered[0];
-        cs22.clicked = entered[1];
-        cs23.clicked = entered[2];
-        cs24.clicked = entered[3];
-        cs25.clicked = entered[4];
-        cs31.clicked = entered[0];
-        cs32.clicked = entered[1];
-        cs33.clicked = entered[2];
-        cs34.clicked = entered[3];
-        cs35.clicked = entered[4];
-        */
+        mc11.update();
+        mc12.update();
+        mc13.update();
+        mc14.update();
+        mc15.update();
+        mc21.update();
+        mc22.update();
+        mc23.update();
+        mc24.update();
+        mc25.update();
+        mc31.update();
+        mc32.update();
+        mc33.update();
+        mc34.update();
+        mc35.update();
+        mc41.update();
+        mc42.update();
+        mc43.update();
+        mc44.update();
+        mc45.update();
+        mc51.update();
+        mc52.update();
+        mc53.update();
+        mc54.update();
+        mc55.update();
+        mc61.update();
+        mc62.update();
+        mc63.update();
+        mc64.update();
+        mc65.update();
+
+        //Check now for other clicked similar items
+
 
     }
 
     public void checkClicked(Point point){
-        /* REWRITE MECHANICS OF CLICKING PNG IMAGE!!!
 
-        ch11.checkClicked(point);
-        if (ch11.processChanged() == true){
-            entered[0] ^= true;
-        }
-        ch21.checkClicked(point);
-        if (ch21.processChanged() == true){
-            entered[0] ^= true;
-        }
-        ch31.checkClicked(point);
-        if (ch31.processChanged() == true){
-            entered[0] ^= true;
-        }
-        cs11.checkClicked(point);
-        if (cs11.processChanged() == true){
-            entered[0] ^= true;
-        }
-        cs21.checkClicked(point);
-        if (cs21.processChanged() == true){
-            entered[0] ^= true;
-        }
-        cs31.checkClicked(point);
-        if (cs31.processChanged() == true){
-            entered[0] ^= true;
-        }
+        int px = point.x;
+        int py = point.y;
 
-        ch12.checkClicked(point);
-        if (ch12.processChanged() == true){
-            entered[1] ^= true;
-        }
-        ch22.checkClicked(point);
-        if (ch22.processChanged() == true){
-            entered[1] ^= true;
-        }
-        ch32.checkClicked(point);
-        if (ch32.processChanged() == true){
-            entered[1] ^= true;
-        }
-        cs12.checkClicked(point);
-        if (cs12.processChanged() == true){
-            entered[1] ^= true;
-        }
-        cs22.checkClicked(point);
-        if (cs22.processChanged() == true){
-            entered[1] ^= true;
-        }
-        cs32.checkClicked(point);
-        if (cs32.processChanged() == true){
-            entered[1] ^= true;
-        }
+        mc11.checkClicked(point);
+        mc12.checkClicked(point);
+        mc13.checkClicked(point);
+        mc14.checkClicked(point);
+        mc15.checkClicked(point);
+        mc21.checkClicked(point);
+        mc22.checkClicked(point);
+        mc23.checkClicked(point);
+        mc24.checkClicked(point);
+        mc25.checkClicked(point);
+        mc31.checkClicked(point);
+        mc32.checkClicked(point);
+        mc33.checkClicked(point);
+        mc34.checkClicked(point);
+        mc35.checkClicked(point);
+        mc41.checkClicked(point);
+        mc42.checkClicked(point);
+        mc43.checkClicked(point);
+        mc44.checkClicked(point);
+        mc45.checkClicked(point);
+        mc51.checkClicked(point);
+        mc52.checkClicked(point);
+        mc53.checkClicked(point);
+        mc54.checkClicked(point);
+        mc55.checkClicked(point);
+        mc61.checkClicked(point);
+        mc62.checkClicked(point);
+        mc63.checkClicked(point);
+        mc64.checkClicked(point);
+        mc65.checkClicked(point);
 
-        ch13.checkClicked(point);
-        if (ch13.processChanged() == true){
-            entered[2] ^= true;
-        }
-        ch23.checkClicked(point);
-        if (ch23.processChanged() == true){
-            entered[2] ^= true;
-        }
-        ch33.checkClicked(point);
-        if (ch33.processChanged() == true){
-            entered[2] ^= true;
-        }
-        cs13.checkClicked(point);
-        if (cs13.processChanged() == true){
-            entered[2] ^= true;
-        }
-        cs23.checkClicked(point);
-        if (cs23.processChanged() == true){
-            entered[2] ^= true;
-        }
-        cs33.checkClicked(point);
-        if (cs33.processChanged() == true){
-            entered[2] ^= true;
-        }
 
-        ch14.checkClicked(point);
-        if (ch14.processChanged() == true){
-            entered[3] ^= true;
-        }
-        ch24.checkClicked(point);
-        if (ch24.processChanged() == true){
-            entered[3] ^= true;
-        }
-        ch34.checkClicked(point);
-        if (ch34.processChanged() == true){
-            entered[3] ^= true;
-        }
-        cs14.checkClicked(point);
-        if (cs14.processChanged() == true){
-            entered[3] ^= true;
-        }
-        cs24.checkClicked(point);
-        if (cs24.processChanged() == true){
-            entered[3] ^= true;
-        }
-        cs34.checkClicked(point);
-        if (cs34.processChanged() == true){
-            entered[3] ^= true;
-        }
-
-        ch15.checkClicked(point);
-        if (ch15.processChanged() == true){
-            entered[4] ^= true;
-        }
-        ch25.checkClicked(point);
-        if (ch25.processChanged() == true){
-            entered[4] ^= true;
-        }
-        ch35.checkClicked(point);
-        if (ch35.processChanged() == true){
-            entered[4] ^= true;
-        }
-        cs15.checkClicked(point);
-        if (cs15.processChanged() == true){
-            entered[4] ^= true;
-        }
-        cs25.checkClicked(point);
-        if (cs25.processChanged() == true){
-            entered[4] ^= true;
-        }
-        cs35.checkClicked(point);
-        if (cs35.processChanged() == true){
-            entered[4] ^= true;
-        }
-        */
 
         if(point.x > 15*mwidth/20 && point.x < 19*mwidth/20){
             if(point.y >3*mheight/20 && point.y < 3*mheight/5) {
+                System.out.print("Clicked finish");
                 clicked = true;
             }
         }
@@ -570,13 +478,34 @@ public class GroceryLevel implements  GameObject{
 
 
     public void random_new(){
+        mcustomer1 = new int[mrand.nextInt(5)];
+        mcustomer2 = new int[mrand.nextInt(5)];
+        mcustomer3 = new int[mrand.nextInt(5)];
+        mcustomer4 = new int[mrand.nextInt(5)];
+        mcustomer5 = new int[mrand.nextInt(5)];
+        mcustomer6 = new int[mrand.nextInt(5)];
         for(int i = 0; i<5; i++){
-            mcustomer1[i] = mrand.nextInt(mitems.length);
-            mcustomer2[i] = mrand.nextInt(mitems.length);
-            mcustomer3[i] = mrand.nextInt(mitems.length);
-            mcustomer4[i] = mrand.nextInt(mitems.length);
-            mcustomer5[i] = mrand.nextInt(mitems.length);
-            mcustomer6[i] = mrand.nextInt(mitems.length);
+            if(i<mcustomer1.length) {
+                mcustomer1[i] = mrand.nextInt(mitems.length);
+                System.out.println("Fill array");
+
+                System.out.println(mcustomer1[i]);
+            }
+            if(i<mcustomer2.length) {
+                mcustomer2[i] = mrand.nextInt(mitems.length);
+            }
+            if(i<mcustomer3.length) {
+                mcustomer3[i] = mrand.nextInt(mitems.length);
+            }
+            if(i<mcustomer4.length) {
+                mcustomer4[i] = mrand.nextInt(mitems.length);
+            }
+            if(i<mcustomer5.length) {
+                mcustomer5[i] = mrand.nextInt(mitems.length);
+            }
+            if(i<mcustomer6.length) {
+                mcustomer6[i] = mrand.nextInt(mitems.length);
+            }
         }
 
         init_new_images();
@@ -602,7 +531,47 @@ public class GroceryLevel implements  GameObject{
         double tf = 0.; //tf = #(t,D0) / max#(t',D)
         double idf = 0.; //idf = log(N / sum_t in D   1 )
 
-        mtf_idf = tf * idf;
+        //mscore = tf * idf; //Not good
+
+        int score = 0;
+        k = 0;
+        while(k < 7){
+            if (entered[k]==true){
+                for(int i: mcustomer1){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+                for(int i: mcustomer2){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+                for(int i: mcustomer3){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+                for(int i: mcustomer4){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+                for(int i: mcustomer5){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+                for(int i: mcustomer6){
+                    if(i==k){
+                        score += 1;
+                    }
+                }
+            }
+            k++;
+        }
+
+        mscore = score;
 
 
     }

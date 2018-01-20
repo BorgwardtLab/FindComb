@@ -113,7 +113,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mEasy) {
-            //starting game activity
+            System.out.println("Move to gropcery store");
+            intent = new Intent(this,GroceryGameActivity.class);
+            intent.putExtra("Level", 100);
+            startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
         }
         else if(v==mCont){
             intent = new Intent(this,TutorialActivity.class);
