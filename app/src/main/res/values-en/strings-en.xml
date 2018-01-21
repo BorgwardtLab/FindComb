@@ -39,4 +39,13 @@
     <string name="C3">Customer 3</string>
     <string name="C4">Customer 4</string>
     <string name="C5">Customer 5</string>
+
+
+    <string name="GTut1">The are customers</string>
+    <string name="GTut2">It is known what their purchases have been.</string>
+    <string name="GTut3">Chose the items which are often bought together.</string>
+
+
+    <string name="GTut324">The more items in a combination, the more points.</string>
+    <string name="GTut325">The more customers are affected by the rule, the more points.</string>
 </resources>

@@ -39,4 +39,12 @@
     <string name="C3">Kunde 3</string>
     <string name="C4">Kunde 4</string>
     <string name="C5">Kunde 5</string>
+
+    <string name="GTut1">Es gibt Kunden </string>
+    <string name="GTut2">Bekannt ist welche Gegenstaende diese Kunden gekauft haben.</string>
+    <string name="GTut3">Waehle Gegenstaende aus, die oft gemeinsam gekauft werden.</string>
+
+
+    <string name="GTut324">Je mehr Gegenstaende in der Kombination, desto mehr Punkte.</string>
+    <string name="GTut325">Je mehr Individuen von der Regel erfasst sind, desto mehr Punkte.</string>
 </resources>

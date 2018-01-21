@@ -228,7 +228,7 @@ public class GroceryGameView extends SurfaceView implements Runnable {
             } else {
                 paint.setTextSize(width/20);
                 if (mScore <= 0) {
-                    canvas.drawText("Score: " + String.valueOf(-mLevelIndicator), width / 3, height / 3, paint);
+                    canvas.drawText("Score: " + String.valueOf(mLevelIndicator), width / 3, height / 3, paint);
                     soundfinal.start();
                 } else {
                     canvas.drawText("Score: " + String.valueOf(mScore), width / 3, height / 3, paint);

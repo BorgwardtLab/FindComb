@@ -30,6 +30,10 @@
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".GroceryTutorialActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape"
             android:parentActivityName=".MainActivity" />

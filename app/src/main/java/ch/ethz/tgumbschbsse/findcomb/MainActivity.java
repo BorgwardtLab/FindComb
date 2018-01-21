@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final static int REQUEST_FOUR = 8;
     public final static int REQUEST_FIVE = 9;
     public final static int REQUEST_INFINITY = 1000;
+    public final static int REQUEST_INFINITY_TWO = 2000;
     public final static int REQUEST_INFINITY_LEADERBOARD = 1001;
 
     private Intent intent;
@@ -113,10 +114,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mEasy) {
-            System.out.println("Move to gropcery store");
-            intent = new Intent(this,GroceryGameActivity.class);
-            intent.putExtra("Level", 100);
-            startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
+            intent = new Intent(this,GroceryTutorialActivity.class);
+            intent.putExtra("Level", 1);
+            startActivityForResult(intent, REQUEST_INFINITY_TWO);
+
+
+
         }
         else if(v==mCont){
             intent = new Intent(this,TutorialActivity.class);
@@ -255,6 +258,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case REQUEST_INFINITY:
                 System.out.println("Move to infinity");
                 intent = new Intent(this,GameActivity.class);
+                intent.putExtra("Level", 100);
+                startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
+                break;
+            case REQUEST_INFINITY_TWO:
+                System.out.println("Move to gropcery store");
+                intent = new Intent(this,GroceryGameActivity.class);
                 intent.putExtra("Level", 100);
                 startActivityForResult(intent,REQUEST_INFINITY_LEADERBOARD);
                 break;
