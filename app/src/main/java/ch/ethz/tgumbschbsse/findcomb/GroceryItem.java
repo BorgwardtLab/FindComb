@@ -22,11 +22,12 @@ import java.util.List;
 public class GroceryItem implements GameObject {
     //private List<Point> mpoints ;
     //private int mcolor;
-    public boolean mclicked;
+    public boolean mclicked,toggled;
     private boolean mvisible;
     private Bitmap mbpm;
     private int[] mx, my;
     private int mspeed, mindex,mcount;
+    public int mgiindex;
 
     public GroceryItem(int x, int y, double scale, Context context, int rindex){    //int x, int y, int length, double rotation,  int color, boolean visible){
         if(rindex != 0) {
@@ -43,6 +44,8 @@ public class GroceryItem implements GameObject {
         mcount = 0;
         mspeed = 10;
         mclicked = false;
+        toggled=false;
+        mgiindex = rindex;
     }
 
     @Override
@@ -84,31 +87,43 @@ public class GroceryItem implements GameObject {
 
     }
 
+    public void toggle(){
+        if(mclicked == true){
+            mclicked = false;
+            mx = new int[] {mx[0]};
+            my = new int[] {my[0]};
+            mindex= 0;
+        }
+        else{
+            mclicked = true;
+            mx = new int[] {mx[0],mx[0],100000};
+            my = new int[] {my[0],my[0],100000};
+        }
+    }
+
     public void checkClicked(Point point){
     if(mvisible==true){
         int x = mx[0];
         int y = my[0];
         int dx = mbpm.getWidth();
         int dy = mbpm.getHeight();
-        System.out.print(x);
-        System.out.print(dx);
-        System.out.print(point.x);
-        if(point.x < x+dx && x > point.x && point.y > y-dy && y > point.y){
+        if(point.x < x+dx-100 && point.x > x-100 && point.y > y-dy && y > point.y){ //-100 IS A HACK OF SOME KIND WHICH I DO NOT UNDSERSTAND WHY I NEED IT
             if(mclicked == true){
                 mclicked = false;
                 mx = new int[] {mx[0]};
                 my = new int[] {my[0]};
+                mindex= 0;
+                toggled=true;
             }
             else{
-                System.out.print("changed");
+                System.out.print(point.x);
                 mclicked = true;
                 mx = new int[] {mx[0],mx[0],100000};
                 my = new int[] {my[0],my[0],100000};
+                toggled=true;
             }
         }
     }
-        //Locate clicked
-        //extend mx and my by coordinates off screen to enable blinking
     }
 
 
