@@ -33,4 +33,10 @@
     <string name="Tut5">Richtige Kombinationen geben viel zusätzliche Zeit.</string>
     <string name="Tut6">Suboptimale Konfigurationen geben weniger zusätzliche Zeit.</string>
     <string name="Tut7">There is a penalty for bad configurations.</string>
+
+    <string name="C1">Kunde 1</string>
+    <string name="C2">Kunde 2</string>
+    <string name="C3">Kunde 3</string>
+    <string name="C4">Kunde 4</string>
+    <string name="C5">Kunde 5</string>
 </resources>

@@ -322,6 +322,14 @@ public class GroceryLevel implements  GameObject{
 
         Paint paint = new Paint();
 
+        paint.setTextSize(mheight/23);
+        canvas.drawText(mcontext.getString(R.string.C1),2*mwidth/40, 2*mheight/23,paint);
+        canvas.drawText(mcontext.getString(R.string.C2),2*mwidth/40, 5*mheight/23,paint);
+        canvas.drawText(mcontext.getString(R.string.C3),2*mwidth/40, 8*mheight/23,paint);
+        canvas.drawText(mcontext.getString(R.string.C4),2*mwidth/40, 11*mheight/23,paint);
+        canvas.drawText(mcontext.getString(R.string.C5),2*mwidth/40, 14*mheight/23,paint);
+        
+        
         canvas.drawRect(new Rect(mwidth/40, 3*mheight/23, 5*mwidth/7, 3*mheight/23+2), paint);
         canvas.drawRect(new Rect(mwidth/40, 6*mheight/23, 5*mwidth/7, 6*mheight/23+2), paint);
         canvas.drawRect(new Rect(mwidth/40, 9*mheight/23, 5*mwidth/7, 9*mheight/23+2), paint);

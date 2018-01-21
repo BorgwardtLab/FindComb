@@ -32,4 +32,11 @@
     <string name="Tut5">Correct configurations will add time to your budget.</string>
     <string name="Tut6">Suboptimal configurations will add less time.</string>
     <string name="Tut7">There is a penalty for bad configurations.</string>
+
+
+    <string name="C1">Customer 1</string>
+    <string name="C2">Customer 2</string>
+    <string name="C3">Customer 3</string>
+    <string name="C4">Customer 4</string>
+    <string name="C5">Customer 5</string>
 </resources>
