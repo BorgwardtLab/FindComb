@@ -26,6 +26,7 @@ public class GroceryItem implements GameObject {
     private boolean mvisible;
     private Bitmap mbpm;
     private int[] mx, my;
+    private int minitialx, minitialy;
     private int mspeed, mindex,mcount;
     public int mgiindex;
 
@@ -40,6 +41,8 @@ public class GroceryItem implements GameObject {
         }
         mx = new int[]{x};
         my = new int[]{y};
+        minitialx = x;
+        minitialy = y;
         mindex = 0;
         mcount = 0;
         mspeed = 10;
@@ -90,36 +93,36 @@ public class GroceryItem implements GameObject {
     public void toggle(){
         if(mclicked == true){
             mclicked = false;
-            mx = new int[] {mx[0]};
-            my = new int[] {my[0]};
+            mx = new int[] {minitialx};
+            my = new int[] {minitialy};
             mindex= 0;
         }
         else{
             mclicked = true;
-            mx = new int[] {mx[0],mx[0],100000};
-            my = new int[] {my[0],my[0],100000};
+            mx = new int[] {100000,minitialx,minitialx};
+            my = new int[] {100000,minitialy,minitialy};
         }
     }
 
     public void checkClicked(Point point){
     if(mvisible==true){
-        int x = mx[0];
-        int y = my[0];
+        int x = minitialx;
+        int y = minitialy;
         int dx = mbpm.getWidth();
         int dy = mbpm.getHeight();
         if(point.x < x+dx-100 && point.x > x-100 && point.y > y-dy && y > point.y){ //-100 IS A HACK OF SOME KIND WHICH I DO NOT UNDSERSTAND WHY I NEED IT
             if(mclicked == true){
                 mclicked = false;
-                mx = new int[] {mx[0]};
-                my = new int[] {my[0]};
+                mx = new int[] {minitialx};
+                my = new int[] {minitialy};
                 mindex= 0;
                 toggled=true;
             }
             else{
                 System.out.print(point.x);
                 mclicked = true;
-                mx = new int[] {mx[0],mx[0],100000};
-                my = new int[] {my[0],my[0],100000};
+                mx = new int[] {100000,minitialx,minitialx};
+                my = new int[] {100000,minitialy,minitialy};
                 toggled=true;
             }
         }
