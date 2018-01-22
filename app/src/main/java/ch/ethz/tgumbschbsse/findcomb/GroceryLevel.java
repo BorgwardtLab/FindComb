@@ -389,22 +389,101 @@ public class GroceryLevel implements  GameObject{
         mcustomer3 = new int[mrand.nextInt(5)+2];
         mcustomer4 = new int[mrand.nextInt(5)+2];
         mcustomer5 = new int[mrand.nextInt(5)+2];
+        int next = 0;
+        int j = 0;
+        boolean no_duplicate = false;
+        boolean all = false;
 
         for(int i = 0; i<5; i++){
             if(i<mcustomer1.length) {
-                mcustomer1[i] = mrand.nextInt(mitems.length);
+                no_duplicate = false;
+                while(no_duplicate == false) {
+                    next = mrand.nextInt(mitems.length);
+                    j = 0;
+                    all = true;
+                    while (j < i) {
+                        if(next==mcustomer1[j]){
+                            all = false;
+                        }
+                        j++;
+                    }
+                    if(all == true){
+                        no_duplicate = true;
+                    }
+                }
+                mcustomer1[i] = next;
             }
             if(i<mcustomer2.length) {
-                mcustomer2[i] = mrand.nextInt(mitems.length);
+                no_duplicate = false;
+                while(no_duplicate == false) {
+                    next = mrand.nextInt(mitems.length);
+                    j = 0;
+                    all = true;
+                    while (j < i) {
+                        if(next==mcustomer2[j]){
+                            all = false;
+                        }
+                        j++;
+                    }
+                    if(all == true){
+                        no_duplicate = true;
+                    }
+                }
+                mcustomer2[i] = next;
             }
             if(i<mcustomer3.length) {
-                mcustomer3[i] = mrand.nextInt(mitems.length);
+                no_duplicate = false;
+                while(no_duplicate == false) {
+                    next = mrand.nextInt(mitems.length);
+                    j = 0;
+                    all = true;
+                    while (j < i) {
+                        if(next==mcustomer3[j]){
+                            all = false;
+                        }
+                        j++;
+                    }
+                    if(all == true){
+                        no_duplicate = true;
+                    }
+                }
+                mcustomer3[i] = next;
             }
             if(i<mcustomer4.length) {
-                mcustomer4[i] = mrand.nextInt(mitems.length);
+                no_duplicate = false;
+                while(no_duplicate == false) {
+                    next = mrand.nextInt(mitems.length);
+                    j = 0;
+                    all = true;
+                    while (j < i) {
+                        if(next==mcustomer4[j]){
+                            all = false;
+                        }
+                        j++;
+                    }
+                    if(all == true){
+                        no_duplicate = true;
+                    }
+                }
+                mcustomer4[i] = next;
             }
             if(i<mcustomer5.length) {
-                mcustomer5[i] = mrand.nextInt(mitems.length);
+                no_duplicate = false;
+                while(no_duplicate == false) {
+                    next = mrand.nextInt(mitems.length);
+                    j = 0;
+                    all = true;
+                    while (j < i) {
+                        if(next==mcustomer5[j]){
+                            all = false;
+                        }
+                        j++;
+                    }
+                    if(all == true){
+                        no_duplicate = true;
+                    }
+                }
+                mcustomer5[i] = next;
             }
         }
 

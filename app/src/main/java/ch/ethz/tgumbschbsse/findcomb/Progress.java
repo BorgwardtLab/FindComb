@@ -22,7 +22,7 @@ public class Progress implements GameObject {
 
     private boolean below_thres;
     public final MediaPlayer soundwrong;
-    private final MediaPlayer soundtick;
+    public final MediaPlayer soundtick;
     public final MediaPlayer soundright;
 
     private int[] topblue = {Color.parseColor("#303F9F"),Color.parseColor("#303F9F")};

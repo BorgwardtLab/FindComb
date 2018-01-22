@@ -489,6 +489,7 @@ public class GroceryTutorial extends SurfaceView implements Runnable {
                     m2arrow.draw(canvas);
                 }
                 else{
+                    mProgress.soundright.start();
                     m3arrow.draw(canvas);
                 }
             }

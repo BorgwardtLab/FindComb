@@ -70,7 +70,7 @@ public class GroceryGameView extends SurfaceView implements Runnable {
 
     //Sounds
     private final MediaPlayer soundfinal;
-
+    boolean sound_plyaed;
 
     public GroceryGameView(Context context, Activity act) {
         super(context);
@@ -83,6 +83,7 @@ public class GroceryGameView extends SurfaceView implements Runnable {
 
 
         soundfinal = MediaPlayer.create(context,R.raw.fanfare);
+        sound_plyaed = false;
 
         //init mechanics
         mScore = 60; //The player has three minutes
@@ -175,6 +176,12 @@ public class GroceryGameView extends SurfaceView implements Runnable {
                 mLevel.clicked = false;
                 mLevel.compute_score();
                 deviation = mLevel.mscore;
+                if(deviation>=0){
+                    mProgressBar.soundright.start();
+                }
+                else{
+                    mProgressBar.soundwrong.start();
+                }
                 mpm = System.currentTimeMillis();
                 mScore += deviation;
                 LevelInit();
@@ -229,7 +236,11 @@ public class GroceryGameView extends SurfaceView implements Runnable {
                 paint.setTextSize(width/20);
                 if (mScore <= 0) {
                     canvas.drawText("Score: " + String.valueOf(mLevelIndicator), width / 3, height / 3, paint);
-                    soundfinal.start();
+                    if(sound_plyaed == false) {
+                        soundfinal.start();
+                        mProgressBar.soundtick.stop();
+                        sound_plyaed = true;
+                    }
                 } else {
                     canvas.drawText("Score: " + String.valueOf(mScore), width / 3, height / 3, paint);
                 }
