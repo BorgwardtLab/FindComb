@@ -367,6 +367,11 @@ public class GroceryLevel implements  GameObject{
                     if(gi_.mgiindex == gi.mgiindex && gi_.toggled != true){
                         gi_.toggle();
                     }
+                    if(gi_.mgiindex != gi.mgiindex && gi_.mclicked == true){
+                        // Sync blinking
+                        gi_.toggle();
+                        gi_.toggle();
+                    }
                 }
                 gi.toggled = false;
             }
