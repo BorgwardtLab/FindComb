@@ -219,7 +219,7 @@ public class GroceryGameView extends SurfaceView implements Runnable {
 
 
 
-                if(System.currentTimeMillis() - mpm < 1000){
+                if(System.currentTimeMillis() - mpm < 4000){
                     if(deviation>0){
                         paint.setColor(Color.GREEN);
                     }
