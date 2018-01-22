@@ -26,4 +26,20 @@
     <string name="Tut5">Le buone combinazioni aumenteranno il tempo a disposizione.</string>
     <string name="Tut6">Le combinazioni che non sono le migliori aumeteranno anche il tempo, ma meno delle altre.</string>
     <string name="Tut7">Le combinazioni sbagliate diminuiranno ancora il tempo.</string>
+
+
+    <string name="C1">Customer 1</string>
+    <string name="C2">Customer 2</string>
+    <string name="C3">Customer 3</string>
+    <string name="C4">Customer 4</string>
+    <string name="C5">Customer 5</string>
+
+
+    <string name="GTut1">The are customers</string>
+    <string name="GTut2">It is known what their purchases have been.</string>
+    <string name="GTut3">Chose the items which are often bought together.</string>
+
+
+    <string name="GTut324">The more items in a combination, the more points.</string>
+    <string name="GTut325">The more customers are affected by the rule, the more points.</string>
 </resources>
