@@ -20,9 +20,11 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.text.Layout;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 import android.widget.Toast;
 import android.text.TextPaint;
 import android.text.StaticLayout;
@@ -30,6 +32,8 @@ import android.text.StaticLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+
+import static java.lang.Double.min;
 
 /**
  * Created by tgumbsch on 8/10/17.
@@ -123,35 +127,46 @@ public class GroceryTutorial extends SurfaceView implements Runnable {
         playing = false;
 
 
+        double scale = 0.05;
+        DisplayMetrics mmetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) mcontext.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(mmetrics);
+
+        float yInches= mmetrics.heightPixels/mmetrics.ydpi;
+        float xInches= mmetrics.widthPixels/mmetrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=6.5){
+            scale = scale*2;
+        }
 
         int x = 0;
 
-            mc11 = new GroceryItem((x+3)*width/10, 3*height/23, 0.1, mcontext,R.drawable.cake);
+            mc11 = new GroceryItem((x+3)*width/10, 3*height/23, scale, mcontext,R.drawable.cake);
 
-            mc21 = new GroceryItem((x+3)*width/10, 6*height/23, 0.1, mcontext,R.drawable.bananas_multiple);
+            mc21 = new GroceryItem((x+3)*width/10, 6*height/23, scale, mcontext,R.drawable.bananas_multiple);
 
-            mc31 = new GroceryItem((x+3)*width/10, 9*height/23, 0.1, mcontext, R.drawable.bananas_multiple); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
+            mc31 = new GroceryItem((x+3)*width/10, 9*height/23, scale, mcontext, R.drawable.bananas_multiple); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
 
-            mc41 =  new GroceryItem((x+3)*width/10, 12*height/23, 0.1, mcontext, R.drawable.onions);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc41 =  new GroceryItem((x+3)*width/10, 12*height/23, scale, mcontext, R.drawable.onions);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
 
-            mc51 = new GroceryItem((x+3)*width/10, 15*height/23, 0.1, mcontext, R.drawable.bananas_multiple);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc51 = new GroceryItem((x+3)*width/10, 15*height/23, scale, mcontext, R.drawable.bananas_multiple);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
 
-
-        x += 1;
-            mc12 = new GroceryItem((x+3)*width/10, 3*height/23, 0.1, mcontext,R.drawable.fish_final);
-
-            mc32 = new GroceryItem((x+3)*width/10, 9*height/23, 0.1, mcontext, R.drawable.waterbottle); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
-
-            mc42 =  new GroceryItem((x+3)*width/10, 12*height/23, 0.1, mcontext, R.drawable.bananas_multiple);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
-
-            mc52 = new GroceryItem((x+3)*width/10, 15*height/23, 0.1, mcontext, R.drawable.fish_final);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
 
         x += 1;
-            mc13 = new GroceryItem((x+3)*width/10, 3*height/23, 0.1, mcontext, R.drawable.bananas_multiple);
+            mc12 = new GroceryItem((x+3)*width/10, 3*height/23, scale, mcontext,R.drawable.fish_final);
 
-            mc43 =  new GroceryItem((x+3)*width/10, 12*height/23, 0.1, mcontext, R.drawable.fish_final);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+            mc32 = new GroceryItem((x+3)*width/10, 9*height/23, scale, mcontext, R.drawable.waterbottle); //new Picture(mitems[mcustomer3[x]], mcontext, (4+x)*mwidth/13,5*mheight/20,mheight/radius,mheight/radius);
 
-            mc53 = new GroceryItem((x+3)*width/10, 15*height/23, 0.1, mcontext, R.drawable.pear);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+            mc42 =  new GroceryItem((x+3)*width/10, 12*height/23, scale, mcontext, R.drawable.bananas_multiple);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+
+            mc52 = new GroceryItem((x+3)*width/10, 15*height/23, scale, mcontext, R.drawable.fish_final);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
+
+        x += 1;
+            mc13 = new GroceryItem((x+3)*width/10, 3*height/23, scale, mcontext, R.drawable.bananas_multiple);
+
+            mc43 =  new GroceryItem((x+3)*width/10, 12*height/23, scale, mcontext, R.drawable.fish_final);  //new Picture(mitems[mcustomer4[x]], mcontext, (4+x)*mwidth/13,7*mheight/20,mheight/radius,mheight/radius);
+
+            mc53 = new GroceryItem((x+3)*width/10, 15*height/23, scale, mcontext, R.drawable.pear);  // new Picture(mitems[mcustomer5[x]], mcontext, (4+x)*mwidth/13,9*mheight/20,mheight/radius,mheight/radius);
 
         items = new GroceryItem[] {mc11,mc21,mc31,mc41,mc51,mc12,mc32,mc42,mc52,mc13,mc43,mc53};
 

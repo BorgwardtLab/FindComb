@@ -1,5 +1,6 @@
 package ch.ethz.tgumbschbsse.findcomb;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,9 +11,15 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.view.Display;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Double.min;
 
 /**
  * Created by tgumbsch on 8/11/17.
@@ -63,6 +70,7 @@ public class GroceryItem implements GameObject {
     }
 
     public static Bitmap scaleflip(Bitmap bitmap, int type, double scale){
+
         Matrix matrix =new Matrix();
         if(type==1){
             matrix.preScale(-1.0f, 1.0f);
@@ -74,7 +82,8 @@ public class GroceryItem implements GameObject {
             //matrix.preScale(-1.0f, 1.0f);
         }
         bitmap =  Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth()*scale), (int) (bitmap.getHeight()*scale), false);
+        bitmap =  Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth()*scale), (int) (bitmap.getHeight()*scale), false);
+        return bitmap;
     }
 
     @Override
