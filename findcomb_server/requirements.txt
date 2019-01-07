@@ -1,4 +1,4 @@
-Django==1.11.3
+Django==1.11.11
 djangorestframework==3.6.2
 djangorestframework-csv==2.0.0
 h5py==2.6.0
